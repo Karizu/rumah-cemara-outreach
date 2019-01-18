@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1053958769669",
+    "firebase_url": "https://rumah-cemara-41f77.firebaseio.com",
+    "project_id": "rumah-cemara-41f77",
+    "storage_bucket": "rumah-cemara-41f77.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1053958769669:android:2156f29dbeb83c98",
+        "android_client_info": {
+          "package_name": "com.example.pro.rumahcemara"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1053958769669-lt3cl7332l380bh1ho2cjmfiv1bcukqr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pro.rumahcemara",
+            "certificate_hash": "b8bf3afa6bd3e14dbe7dbdd650cfd46736754fb3"
+          }
+        },
+        {
+          "client_id": "1053958769669-j31rib9rord0ps26g34ifo5egbdpelpo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtHoFxR72lHRN78LGc_h8Vjbj1_FZ6HpE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1053958769669-j31rib9rord0ps26g34ifo5egbdpelpo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

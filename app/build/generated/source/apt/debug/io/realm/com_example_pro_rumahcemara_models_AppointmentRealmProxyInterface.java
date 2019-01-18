@@ -1,0 +1,51 @@
+package io.realm;
+
+
+public interface com_example_pro_rumahcemara_models_AppointmentRealmProxyInterface {
+    public String realmGet$id();
+    public void realmSet$id(String value);
+    public String realmGet$group_id();
+    public void realmSet$group_id(String value);
+    public String realmGet$user_id();
+    public void realmSet$user_id(String value);
+    public String realmGet$provider_id();
+    public void realmSet$provider_id(String value);
+    public String realmGet$service_type_id();
+    public void realmSet$service_type_id(String value);
+    public String realmGet$worker_id();
+    public void realmSet$worker_id(String value);
+    public String realmGet$start_date();
+    public void realmSet$start_date(String value);
+    public String realmGet$end_date();
+    public void realmSet$end_date(String value);
+    public String realmGet$description();
+    public void realmSet$description(String value);
+    public String realmGet$attachment();
+    public void realmSet$attachment(String value);
+    public String realmGet$type_provider();
+    public void realmSet$type_provider(String value);
+    public int realmGet$status();
+    public void realmSet$status(int value);
+    public int realmGet$status_report();
+    public void realmSet$status_report(int value);
+    public com.example.pro.rumahcemara.models.Group realmGet$group();
+    public void realmSet$group(com.example.pro.rumahcemara.models.Group value);
+    public com.example.pro.rumahcemara.models.User realmGet$user();
+    public void realmSet$user(com.example.pro.rumahcemara.models.User value);
+    public com.example.pro.rumahcemara.models.ServiceType realmGet$serviceType();
+    public void realmSet$serviceType(com.example.pro.rumahcemara.models.ServiceType value);
+    public com.example.pro.rumahcemara.models.Worker realmGet$worker();
+    public void realmSet$worker(com.example.pro.rumahcemara.models.Worker value);
+    public com.example.pro.rumahcemara.models.ProviderWorker realmGet$providerWorker();
+    public void realmSet$providerWorker(com.example.pro.rumahcemara.models.ProviderWorker value);
+    public com.example.pro.rumahcemara.models.Rating realmGet$rating();
+    public void realmSet$rating(com.example.pro.rumahcemara.models.Rating value);
+    public String realmGet$created_at();
+    public void realmSet$created_at(String value);
+    public String realmGet$updated_at();
+    public void realmSet$updated_at(String value);
+    public String realmGet$deleted_at();
+    public void realmSet$deleted_at(String value);
+    public String realmGet$type();
+    public void realmSet$type(String value);
+}

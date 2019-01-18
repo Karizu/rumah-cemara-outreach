@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.pro.rumahcemara.ActionBarTabs">
+    <item
+        android:id="@+id/action_histori"
+        android:title="Histori"
+        android:icon="@drawable/icon_history"
+        app:showAsAction="always"/>
+</menu>

@@ -1,0 +1,113 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/muhtar/Downloads/RumahCemara/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-zh-rTW/values-zh-rTW.xml",
+            "map": [
+                {
+                    "source": "/Users/muhtar/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/66a1943846141e04d41273387b652e21/res/values-zh-rTW/values-zh-rTW.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,200,293,393,475,572,680,756,832,910,1006,1102,1197,1294,1389,1489,1639,1733",
+                        "endColumns": "94,92,99,81,96,107,75,75,77,95,95,94,96,94,99,149,93,77",
+                        "endOffsets": "195,288,388,470,567,675,751,827,905,1001,1097,1192,1289,1384,1484,1634,1728,1806"
+                    },
+                    "to": {
+                        "startLines": "136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,176",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "3650,3745,3838,3938,4020,4117,4225,4301,4377,4455,4551,4647,4742,4839,4934,5034,5184,7842",
+                        "endColumns": "94,92,99,81,96,107,75,75,77,95,95,94,96,94,99,149,93,77",
+                        "endOffsets": "3740,3833,3933,4015,4112,4220,4296,4372,4450,4546,4642,4737,4834,4929,5029,5179,5273,7915"
+                    }
+                },
+                {
+                    "source": "/Users/muhtar/.gradle/caches/transforms-1/files-1.1/play-services-basement-16.0.1.aar/09619b6bed7e69097ceb0dab62dfc982/res/values-zh-rTW/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "251",
+                        "endColumns": "161",
+                        "endOffsets": "412"
+                    },
+                    "to": {
+                        "startLines": "161",
+                        "startColumns": "4",
+                        "startOffsets": "6300",
+                        "endColumns": "161",
+                        "endOffsets": "6457"
+                    }
+                },
+                {
+                    "source": "/Users/muhtar/.gradle/caches/transforms-1/files-1.1/play-services-base-16.0.1.aar/c192ebf48a46a468165a8749e2854fa0/res/values-zh-rTW/values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+                        "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
+                        "startOffsets": "249,348,508,621,721,887,1001,1127,1247,1416,1515,1675,1788,1949,2083,2165,2248",
+                        "endColumns": "98,159,112,99,165,113,125,119,168,98,159,112,160,133,81,82,98",
+                        "endOffsets": "347,507,620,720,886,1000,1126,1246,1415,1514,1674,1787,1948,2082,2164,2247,2346"
+                    },
+                    "to": {
+                        "startLines": "153,154,155,156,157,158,159,160,162,163,164,165,166,167,168,169,170",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "5278,5381,5541,5658,5762,5928,6046,6176,6462,6631,6734,6894,7011,7172,7310,7396,7483",
+                        "endColumns": "102,159,116,103,165,117,129,123,168,102,159,116,160,137,85,86,102",
+                        "endOffsets": "5376,5536,5653,5757,5923,6041,6171,6295,6626,6729,6889,7006,7167,7305,7391,7478,7581"
+                    }
+                },
+                {
+                    "source": "/Users/muhtar/.gradle/caches/transforms-1/files-1.1/calendarview-3.4.8.aar/0572f86dd5b3639e0d7e4adbe86d1758/res/values-zh-rTW/values-zh-rTW.xml",
+                    "from": {
+                        "startLines": "2,16,48,62,87,113,118,127,136,137,138,139,140,141,142,143",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "100,455,1231,1587,2346,2979,3118,3375,3600,3653,3687,3721,3755,3789,3823,3857",
+                        "endLines": "15,47,61,86,112,117,126,135,136,137,138,139,140,141,142,143",
+                        "endColumns": "19,19,19,19,19,19,19,19,52,33,33,33,33,33,33,33",
+                        "endOffsets": "450,1226,1582,2341,2974,3113,3370,3595,3648,3682,3716,3750,3784,3818,3852,3886"
+                    },
+                    "to": {
+                        "startLines": "2,16,48,62,87,113,118,127,171,173,174,175,178,179,180,181",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "150,505,1281,1637,2396,3029,3168,3425,7586,7740,7774,7808,8021,8055,8089,8123",
+                        "endLines": "15,47,61,86,112,117,126,135,171,173,174,175,178,179,180,181",
+                        "endColumns": "19,19,19,19,19,19,19,19,52,33,33,33,33,33,33,33",
+                        "endOffsets": "500,1276,1632,2391,3024,3163,3420,3645,7634,7769,7803,7837,8050,8084,8118,8152"
+                    }
+                },
+                {
+                    "source": "/Users/muhtar/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/ea20407479e60447480b70dd746538a6/res/values-zh-rTW/values-zh-rTW.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "177",
+                        "startColumns": "4",
+                        "startOffsets": "7920",
+                        "endColumns": "100",
+                        "endOffsets": "8016"
+                    }
+                },
+                {
+                    "source": "/Users/muhtar/.gradle/caches/transforms-1/files-1.1/firebase-messaging-17.3.4.aar/38b2aba0390885f55cbddbe3da7a6994/res/values-zh-rTW/values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "209",
+                        "endColumns": "96",
+                        "endOffsets": "305"
+                    },
+                    "to": {
+                        "startLines": "172",
+                        "startColumns": "4",
+                        "startOffsets": "7639",
+                        "endColumns": "100",
+                        "endOffsets": "7735"
+                    }
+                }
+            ]
+        }
+    ]
+}
