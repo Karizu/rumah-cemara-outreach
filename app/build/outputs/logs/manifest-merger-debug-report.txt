@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:2:1-57:12
-INJECTED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:2:1-57:12
-INJECTED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:2:1-57:12
-INJECTED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:2:1-57:12
+ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:2:1-57:12
+INJECTED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:2:1-57:12
+INJECTED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:2:1-57:12
+INJECTED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:2:1-57:12
 MERGED from [io.realm:realm-android-library:5.5.0] /Users/muhtar/.gradle/caches/transforms-1/files-1.1/realm-android-library-5.5.0.aar/4bbfb9498461846f34f2b0112e2ef36b/AndroidManifest.xml:2:1-10:12
 MERGED from [com.android.support:multidex:1.0.3] /Users/muhtar/.gradle/caches/transforms-1/files-1.1/multidex-1.0.3.aar/5d24f99711bf7da2dd9bf6532297053a/AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:design:27.1.1] /Users/muhtar/.gradle/caches/transforms-1/files-1.1/design-27.1.1.aar/a8eb4b6717583cf110f811813676d0d9/AndroidManifest.xml:17:1-22:12
@@ -80,25 +80,25 @@ MERGED from [com.facebook.fresco:imagepipeline:1.11.0] /Users/muhtar/.gradle/cac
 MERGED from [com.facebook.fresco:imagepipeline-base:1.11.0] /Users/muhtar/.gradle/caches/transforms-1/files-1.1/imagepipeline-base-1.11.0.aar/d22141af320ad6c7cc3ed2bf0e4fb688/AndroidManifest.xml:2:1-9:12
 MERGED from [com.facebook.fresco:fbcore:1.11.0] /Users/muhtar/.gradle/caches/transforms-1/files-1.1/fbcore-1.11.0.aar/a07f2de822bb023bc8a7d4c3563db8da/AndroidManifest.xml:2:1-9:12
 MERGED from [com.facebook.soloader:soloader:0.5.1] /Users/muhtar/.gradle/caches/transforms-1/files-1.1/soloader-0.5.1.aar/6a521e90c0d639b508e672385af2a1e8/AndroidManifest.xml:2:1-13:12
-INJECTED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:2:1-57:12
-INJECTED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:2:1-57:12
-INJECTED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:2:1-57:12
+INJECTED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:2:1-57:12
+INJECTED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:2:1-57:12
+INJECTED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:2:1-57:12
 	package
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:3:5-42
-		INJECTED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml
-		INJECTED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:3:5-52
+		INJECTED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml
 	android:versionName
-		INJECTED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:2:1-57:12
-		INJECTED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:2:1-57:12
+		INJECTED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml
 	android:versionCode
-		INJECTED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:2:1-57:12
-		INJECTED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:2:1-57:12
+		INJECTED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml
 	xmlns:android
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:2:11-69
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:2:11-69
 uses-permission#android.permission.INTERNET
-ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:5:5-67
+ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:5:5-67
 MERGED from [com.google.firebase:firebase-measurement-connector-impl:17.0.4] /Users/muhtar/.gradle/caches/transforms-1/files-1.1/firebase-measurement-connector-impl-17.0.4.aar/9f0cf92d8b4467fa151709bda6322e9c/AndroidManifest.xml:22:5-67
 MERGED from [com.google.firebase:firebase-measurement-connector-impl:17.0.4] /Users/muhtar/.gradle/caches/transforms-1/files-1.1/firebase-measurement-connector-impl-17.0.4.aar/9f0cf92d8b4467fa151709bda6322e9c/AndroidManifest.xml:22:5-67
 MERGED from [com.google.firebase:firebase-analytics:16.0.6] /Users/muhtar/.gradle/caches/transforms-1/files-1.1/firebase-analytics-16.0.6.aar/cf49f930672a909f777746e713772a1f/AndroidManifest.xml:23:5-67
@@ -110,37 +110,37 @@ MERGED from [com.google.firebase:firebase-iid:17.0.4] /Users/muhtar/.gradle/cach
 MERGED from [com.github.piasy.BigImageViewer:BigImageViewer:1.5.6] /Users/muhtar/.gradle/caches/transforms-1/files-1.1/BigImageViewer-1.5.6.aar/2a1a8f3bd091f47ea90939b4145af890/AndroidManifest.xml:34:5-67
 MERGED from [com.github.piasy.BigImageViewer:BigImageViewer:1.5.6] /Users/muhtar/.gradle/caches/transforms-1/files-1.1/BigImageViewer-1.5.6.aar/2a1a8f3bd091f47ea90939b4145af890/AndroidManifest.xml:34:5-67
 	android:name
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:5:22-64
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:5:22-64
 uses-permission#android.permission.GET_ACCOUNTS
-ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:6:5-71
+ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:6:5-71
 	android:name
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:6:22-68
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:6:22-68
 uses-permission#android.permission.READ_PROFILE
-ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:7:5-71
+ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:7:5-71
 	android:name
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:7:22-68
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:7:22-68
 uses-permission#android.permission.READ_CONTACTS
-ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:8:5-72
+ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:8:5-72
 	android:name
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:8:22-69
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:8:22-69
 uses-permission#android.permission.CAMERA
-ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:9:5-65
+ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:9:5-65
 	android:name
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:9:22-62
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:9:22-62
 uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:10:5-81
+ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:10:5-81
 	android:name
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:10:22-78
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:10:22-78
 uses-feature#android.hardware.camera
-ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:12:5-60
+ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:12:5-60
 	android:name
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:12:19-57
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:12:19-57
 uses-feature#android.hardware.camera.autofocus
-ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:13:5-70
+ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:13:5-70
 	android:name
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:13:19-67
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:13:19-67
 application
-ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:15:5-55:19
+ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:15:5-55:19
 MERGED from [com.github.jkwiecien:EasyImage:1.3.1] /Users/muhtar/.gradle/caches/transforms-1/files-1.1/EasyImage-1.3.1.aar/4a5bfac66ad39d4b1d79de42548e2955/AndroidManifest.xml:11:5-21:19
 MERGED from [com.github.jkwiecien:EasyImage:1.3.1] /Users/muhtar/.gradle/caches/transforms-1/files-1.1/EasyImage-1.3.1.aar/4a5bfac66ad39d4b1d79de42548e2955/AndroidManifest.xml:11:5-21:19
 MERGED from [com.android.support.constraint:constraint-layout:1.1.3] /Users/muhtar/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/1dc684660804720568708de2ac842258/AndroidManifest.xml:9:5-20
@@ -198,95 +198,95 @@ MERGED from [com.github.bumptech.glide:gifdecoder:4.8.0] /Users/muhtar/.gradle/c
 MERGED from [com.facebook.soloader:soloader:0.5.1] /Users/muhtar/.gradle/caches/transforms-1/files-1.1/soloader-0.5.1.aar/6a521e90c0d639b508e672385af2a1e8/AndroidManifest.xml:11:5-20
 MERGED from [com.facebook.soloader:soloader:0.5.1] /Users/muhtar/.gradle/caches/transforms-1/files-1.1/soloader-0.5.1.aar/6a521e90c0d639b508e672385af2a1e8/AndroidManifest.xml:11:5-20
 	android:supportsRtl
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:20:9-35
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:20:9-35
 	android:label
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:18:9-41
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:18:9-41
 	android:roundIcon
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:19:9-54
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:19:9-54
 	android:icon
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:17:9-43
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:17:9-43
 	android:allowBackup
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:16:9-35
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:16:9-35
 	android:theme
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:21:9-40
-activity#com.example.pro.rumahcemara.MainActivity
-ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:22:9-24:57
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:21:9-40
+activity#com.boardinglabs.rumahcemara.outreach.MainActivity
+ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:22:9-24:48
 	android:label
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:24:13-45
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:24:13-45
 	android:name
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:23:13-41
-activity#com.example.pro.rumahcemara.LoginActivity
-ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:25:9-32:20
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:23:13-41
+activity#com.boardinglabs.rumahcemara.outreach.LoginActivity
+ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:25:9-32:20
 	android:name
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:25:19-48
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:25:19-48
 intent-filter#action:name:android.intent.action.MAIN+action:name:android.intent.action.VIEW+category:name:android.intent.category.LAUNCHER
-ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:26:13-31:29
+ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:26:13-31:29
 action#android.intent.action.MAIN
-ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:27:17-69
+ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:27:17-69
 	android:name
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:27:25-66
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:27:25-66
 action#android.intent.action.VIEW
-ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:28:17-69
+ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:28:17-69
 	android:name
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:28:25-66
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:28:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:30:17-77
+ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:30:17-77
 	android:name
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:30:27-74
-activity#com.example.pro.rumahcemara.RegisterActivity
-ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:33:9-35:46
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:30:27-74
+activity#com.boardinglabs.rumahcemara.outreach.RegisterActivity
+ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:33:9-35:46
 	android:label
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:35:13-43
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:35:13-43
 	android:name
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:34:13-45
-activity#com.example.pro.rumahcemara.EditAccountActivity
-ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:36:9-57
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:34:13-45
+activity#com.boardinglabs.rumahcemara.outreach.EditAccountActivity
+ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:36:9-57
 	android:name
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:36:19-54
-activity#com.example.pro.rumahcemara.ForgotPasswordActivity
-ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:37:9-60
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:36:19-54
+activity#com.boardinglabs.rumahcemara.outreach.ForgotPasswordActivity
+ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:37:9-60
 	android:name
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:37:19-57
-service#com.example.pro.rumahcemara.config.FirebaseToken
-ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:39:9-43:19
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:37:19-57
+service#com.boardinglabs.rumahcemara.outreach.config.FirebaseToken
+ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:39:9-43:19
 	android:name
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:39:18-54
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:39:18-54
 intent-filter#action:name:com.google.firebase.INSTANCE_ID_EVENT
-ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:40:13-42:29
+ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:40:13-42:29
 action#com.google.firebase.INSTANCE_ID_EVENT
-ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:41:17-80
+ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:41:17-80
 	android:name
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:41:25-77
-activity#com.example.pro.rumahcemara.RequestDetailActivity
-ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:45:9-47:71
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:41:25-77
+activity#com.boardinglabs.rumahcemara.outreach.RequestDetailActivity
+ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:45:9-47:71
 	android:theme
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:47:13-68
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:47:13-68
 	android:name
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:46:13-50
-activity#com.example.pro.rumahcemara.DetailAppointmentActivity
-ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:48:9-50:71
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:46:13-50
+activity#com.boardinglabs.rumahcemara.outreach.DetailAppointmentActivity
+ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:48:9-50:71
 	android:theme
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:50:13-68
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:50:13-68
 	android:name
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:49:13-54
-activity#com.example.pro.rumahcemara.HistoryAppointmentActivity
-ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:51:9-64
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:49:13-54
+activity#com.boardinglabs.rumahcemara.outreach.HistoryAppointmentActivity
+ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:51:9-64
 	android:name
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:51:19-61
-activity#com.example.pro.rumahcemara.DetailListClientActivity
-ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:52:9-62
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:51:19-61
+activity#com.boardinglabs.rumahcemara.outreach.DetailListClientActivity
+ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:52:9-62
 	android:name
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:52:19-59
-activity#com.example.pro.rumahcemara.DetailHistoryAppointmentActivity
-ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:53:9-54:70
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:52:19-59
+activity#com.boardinglabs.rumahcemara.outreach.DetailHistoryAppointmentActivity
+ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:53:9-54:70
 	android:theme
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:54:13-68
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:54:13-68
 	android:name
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml:53:19-67
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml:53:19-67
 uses-sdk
-INJECTED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml
-INJECTED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml
+INJECTED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml
+INJECTED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml
 MERGED from [io.realm:realm-android-library:5.5.0] /Users/muhtar/.gradle/caches/transforms-1/files-1.1/realm-android-library-5.5.0.aar/4bbfb9498461846f34f2b0112e2ef36b/AndroidManifest.xml:6:5-8:41
 MERGED from [io.realm:realm-android-library:5.5.0] /Users/muhtar/.gradle/caches/transforms-1/files-1.1/realm-android-library-5.5.0.aar/4bbfb9498461846f34f2b0112e2ef36b/AndroidManifest.xml:6:5-8:41
 MERGED from [com.android.support:multidex:1.0.3] /Users/muhtar/.gradle/caches/transforms-1/files-1.1/multidex-1.0.3.aar/5d24f99711bf7da2dd9bf6532297053a/AndroidManifest.xml:20:5-43
@@ -439,16 +439,16 @@ MERGED from [com.facebook.fresco:fbcore:1.11.0] /Users/muhtar/.gradle/caches/tra
 MERGED from [com.facebook.fresco:fbcore:1.11.0] /Users/muhtar/.gradle/caches/transforms-1/files-1.1/fbcore-1.11.0.aar/a07f2de822bb023bc8a7d4c3563db8da/AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.soloader:soloader:0.5.1] /Users/muhtar/.gradle/caches/transforms-1/files-1.1/soloader-0.5.1.aar/6a521e90c0d639b508e672385af2a1e8/AndroidManifest.xml:7:5-9:41
 MERGED from [com.facebook.soloader:soloader:0.5.1] /Users/muhtar/.gradle/caches/transforms-1/files-1.1/soloader-0.5.1.aar/6a521e90c0d639b508e672385af2a1e8/AndroidManifest.xml:7:5-9:41
-INJECTED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml
-INJECTED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml
+INJECTED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml
+INJECTED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml
-		INJECTED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml
-		ADDED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml
-		INJECTED from /Users/muhtar/Downloads/RumahCemara/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml
+		ADDED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/src/main/AndroidManifest.xml
 provider#android.support.v4.content.FileProvider
 ADDED from [com.github.jkwiecien:EasyImage:1.3.1] /Users/muhtar/.gradle/caches/transforms-1/files-1.1/EasyImage-1.3.1.aar/4a5bfac66ad39d4b1d79de42548e2955/AndroidManifest.xml:12:9-20:20
 	android:grantUriPermissions

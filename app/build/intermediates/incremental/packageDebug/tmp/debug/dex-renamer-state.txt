@@ -1,10 +1,10 @@
-#Fri Jan 18 17:21:55 WIB 2019
+#Mon Jan 21 08:06:21 WIB 2019
 path.2=classes2.dex
 path.1=classes.dex
 path.0=classes.dex
 renamed.2=classes3.dex
 renamed.1=classes2.dex
 renamed.0=classes.dex
-base.2=/Users/muhtar/Downloads/RumahCemara/app/build/intermediates/transforms/dexMerger/debug/1
-base.1=/Users/muhtar/Downloads/RumahCemara/app/build/intermediates/transforms/dexMerger/debug/0
-base.0=/Users/muhtar/Downloads/RumahCemara/app/build/intermediates/transforms/dexMerger/debug/1
+base.2=/Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/build/intermediates/transforms/dexMerger/debug/1
+base.1=/Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/build/intermediates/transforms/dexMerger/debug/0
+base.0=/Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/build/intermediates/transforms/dexMerger/debug/1

@@ -49,9 +49,9 @@ public final class R {
         public static final int auto_center = 0x7f090028;
         public static final int bottom = 0x7f090032;
         public static final int center = 0x7f09003b;
-        public static final int linear = 0x7f0900a9;
-        public static final int smart = 0x7f0900f4;
-        public static final int top = 0x7f09011b;
+        public static final int linear = 0x7f0900ab;
+        public static final int smart = 0x7f0900f6;
+        public static final int top = 0x7f09011d;
     }
     public static final class styleable {
         private styleable() {}

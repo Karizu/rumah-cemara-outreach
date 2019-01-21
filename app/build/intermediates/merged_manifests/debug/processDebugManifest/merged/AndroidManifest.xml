@@ -34,9 +34,9 @@
         android:testOnly="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.pro.rumahcemara.MainActivity"
+            android:name="com.boardinglabs.rumahcemara.outreach.MainActivity"
             android:label="@string/app_name" />
-        <activity android:name="com.example.pro.rumahcemara.LoginActivity" >
+        <activity android:name="com.boardinglabs.rumahcemara.outreach.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -45,27 +45,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.pro.rumahcemara.RegisterActivity"
+            android:name="com.boardinglabs.rumahcemara.outreach.RegisterActivity"
             android:label="Create Account" />
-        <activity android:name="com.example.pro.rumahcemara.EditAccountActivity" />
-        <activity android:name="com.example.pro.rumahcemara.ForgotPasswordActivity" />
+        <activity android:name="com.boardinglabs.rumahcemara.outreach.EditAccountActivity" />
+        <activity android:name="com.boardinglabs.rumahcemara.outreach.ForgotPasswordActivity" />
 
-        <service android:name="com.example.pro.rumahcemara.config.FirebaseToken" >
+        <service android:name="com.boardinglabs.rumahcemara.outreach.config.FirebaseToken" >
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
         <activity
-            android:name="com.example.pro.rumahcemara.RequestDetailActivity"
+            android:name="com.boardinglabs.rumahcemara.outreach.RequestDetailActivity"
             android:theme="@style/Base.Theme.AppCompat.Transculent" />
         <activity
-            android:name="com.example.pro.rumahcemara.DetailAppointmentActivity"
+            android:name="com.boardinglabs.rumahcemara.outreach.DetailAppointmentActivity"
             android:theme="@style/Base.Theme.AppCompat.Transculent" />
-        <activity android:name="com.example.pro.rumahcemara.HistoryAppointmentActivity" />
-        <activity android:name="com.example.pro.rumahcemara.DetailListClientActivity" />
+        <activity android:name="com.boardinglabs.rumahcemara.outreach.HistoryAppointmentActivity" />
+        <activity android:name="com.boardinglabs.rumahcemara.outreach.DetailListClientActivity" />
         <activity
-            android:name="com.example.pro.rumahcemara.DetailHistoryAppointmentActivity"
+            android:name="com.boardinglabs.rumahcemara.outreach.DetailHistoryAppointmentActivity"
             android:theme="@style/Base.Theme.AppCompat.Transculent" />
 
         <provider

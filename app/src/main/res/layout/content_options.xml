@@ -113,6 +113,57 @@
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
+            android:id="@+id/cvEnglish"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#faf8f7"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvEnglish"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="16dp"
+                    android:text="English(Default)"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cvIndo"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_marginTop="4dp"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#faf8f7"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvIndonesia"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="16dp"
+                    android:text="Indonesia"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:layout_marginTop="8dp"

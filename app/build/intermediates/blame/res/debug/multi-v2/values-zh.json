@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/muhtar/Downloads/RumahCemara/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-zh/values-zh.xml",
+            "outputFile": "/Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-zh/values-zh.xml",
             "map": [
                 {
                     "source": "/Users/muhtar/.gradle/caches/transforms-1/files-1.1/calendarview-3.4.8.aar/0572f86dd5b3639e0d7e4adbe86d1758/res/values-zh/values-zh.xml",

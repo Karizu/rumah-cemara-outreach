@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/muhtar/Downloads/RumahCemara/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v21/values-v21.xml",
+            "outputFile": "/Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v21/values-v21.xml",
             "map": [
                 {
                     "source": "/Users/muhtar/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.1.1.aar/43773a59ce3fa9a39e35b912ddd712ad/res/values-v21/values-v21.xml",

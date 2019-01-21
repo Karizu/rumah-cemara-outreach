@@ -1219,6 +1219,8 @@ id coordinator
 id custom
 id customPanel
 id cvEditAcc
+id cvEnglish
+id cvIndo
 id dark
 id decor_content_parent
 id default_activity_button
@@ -1441,7 +1443,9 @@ id tvDateNow
 id tvDescription
 id tvEdit
 id tvEndDate
+id tvEnglish
 id tvForgotPassword
+id tvIndonesia
 id tvLanguage
 id tvLocation
 id tvMonth
@@ -1520,6 +1524,7 @@ layout activity_forgot_password
 layout activity_history_appointment
 layout activity_login
 layout activity_main
+layout activity_main_id
 layout activity_request_detail
 layout activity_sign_in
 layout activity_sign_up
@@ -1588,6 +1593,7 @@ layout ui_progress_pie_indicator
 menu menu_action_bar_tabs
 menu menu_mylist
 menu navigation
+menu navigation_id
 mipmap ic_launcher
 mipmap ic_launcher_round
 string abc_action_bar_home_description

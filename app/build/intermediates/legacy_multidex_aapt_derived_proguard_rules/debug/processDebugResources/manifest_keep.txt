@@ -1,2 +1,2 @@
-# Referenced at /Users/muhtar/Downloads/RumahCemara/app/build/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:26
+# Referenced at /Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/build/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:26
 -keep class android.support.multidex.MultiDexApplication { <init>(...); }
