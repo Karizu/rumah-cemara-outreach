@@ -106,6 +106,7 @@ public interface ApiInterface {
     Call<ApiResponse<GeneralDataProfile>> getProfile();
 
     @POST("userDevice")
+
     Call<ApiResponse> registerUserDevice(@Body UserDevice userDevice);
 
     @POST("user/{userId}/changePassword")

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.pro.rumahcemara"
+    package="com.boardinglabs.rumahcemara.outreach"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -33,6 +33,10 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/logo_header" />
+
         <activity
             android:name="com.boardinglabs.rumahcemara.outreach.MainActivity"
             android:label="@string/app_name" />
@@ -55,6 +59,11 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+        <service android:name="com.boardinglabs.rumahcemara.outreach.config.MyFirebaseMessagingService" >
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
         <activity
             android:name="com.boardinglabs.rumahcemara.outreach.RequestDetailActivity"
@@ -70,7 +79,7 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.example.pro.rumahcemara.easyphotopicker.fileprovider"
+            android:authorities="com.boardinglabs.rumahcemara.outreach.easyphotopicker.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true" >
             <meta-data
@@ -146,7 +155,7 @@
 
         <provider
             android:name="com.google.firebase.provider.FirebaseInitProvider"
-            android:authorities="com.example.pro.rumahcemara.firebaseinitprovider"
+            android:authorities="com.boardinglabs.rumahcemara.outreach.firebaseinitprovider"
             android:exported="false"
             android:initOrder="100" />
 

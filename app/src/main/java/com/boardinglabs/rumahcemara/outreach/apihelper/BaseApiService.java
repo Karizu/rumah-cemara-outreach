@@ -3,10 +3,7 @@ package com.boardinglabs.rumahcemara.outreach.apihelper;
 import com.boardinglabs.rumahcemara.outreach.models.Appointment;
 import com.boardinglabs.rumahcemara.outreach.models.Dashboard;
 import com.boardinglabs.rumahcemara.outreach.models.GeneralDataProfile;
-import com.boardinglabs.rumahcemara.outreach.models.Profile;
 import com.boardinglabs.rumahcemara.outreach.models.Total7Day;
-import com.boardinglabs.rumahcemara.outreach.models.User;
-import com.boardinglabs.rumahcemara.outreach.models.mymodels.UserProfile;
 import com.boardinglabs.rumahcemara.outreach.models.response.AppointmentDataResponse;
 import com.boardinglabs.rumahcemara.outreach.models.response.MemberDataResponse;
 
@@ -22,7 +19,6 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -50,6 +46,16 @@ public interface BaseApiService {
     Call<ResponseBody> updateWorker(@Field("fullname") String fullname,
                                     @Field("phone_number") String phone_number,
                                     @Header("Authorization") String token);
+
+    @FormUrlEncoded
+    @POST("userDevice")
+    Call<ResponseBody> getUserDevice(@Field("user_id") String userId,
+                                     @Field("type") String type,
+                                     @Field("vendor") String vendor,
+                                     @Field("version") String version,
+                                     @Field("os") String os,
+                                     @Field("token") String token,
+                                     @Header("Authorization") String authorization);
 
     @GET("user/{user_id}")
     Call<ApiResponse<GeneralDataProfile>> getProfileDetail(@Path("user_id") String user_id, @Header("Authorization") String token);

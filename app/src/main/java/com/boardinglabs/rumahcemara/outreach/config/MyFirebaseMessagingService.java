@@ -2,6 +2,7 @@ package com.boardinglabs.rumahcemara.outreach.config;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -20,9 +21,6 @@ import com.boardinglabs.rumahcemara.outreach.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.Map;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
@@ -33,12 +31,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onNewToken(String s) {
         super.onNewToken(s);
         getSharedPreferences("_", MODE_PRIVATE).edit().putString("firebase-token", s).apply();
-
     }
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        Log.d(TAG, "From: " + remoteMessage.getFrom());
+        /*Log.d(TAG, "From: " + remoteMessage.getFrom());
         Log.d(TAG, "From: " + remoteMessage.getData().size()); // for the data size
 
         final Map<String, String> data = remoteMessage.getData();
@@ -48,8 +45,35 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         if(!title.equals("") && !body.equals("")){
             sendMyNotification(title, body, data); //send notification to user
-        }
+        }*/
+
+        String title = remoteMessage.getData().get("title");
+        String body = remoteMessage.getData().get("body");
+        showNotification(title, body);
     }
+
+    private void showNotification(String title, String body) {
+        Intent i = new Intent(this, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, i,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Uri soundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                .setAutoCancel(true)
+                .setContentTitle(title)
+                .setContentText(body)
+                .setSmallIcon(R.drawable.logo_header)
+                .setContentIntent(pendingIntent)
+                .setSound(soundUri);
+
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        manager.notify(0, builder.build());
+    }
+
+
 
     public static String getToken(Context context) {
         return context.getSharedPreferences("_", MODE_PRIVATE).getString("firebase-token", "empty");

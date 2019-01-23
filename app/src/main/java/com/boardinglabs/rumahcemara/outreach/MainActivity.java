@@ -9,16 +9,27 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.boardinglabs.rumahcemara.outreach.apihelper.BaseApiService;
+import com.boardinglabs.rumahcemara.outreach.apihelper.UtilsApi;
 import com.boardinglabs.rumahcemara.outreach.config.SessionManagement;
 import com.boardinglabs.rumahcemara.outreach.fragment.HomeFragment;
 import com.boardinglabs.rumahcemara.outreach.fragment.MyListFragment;
 import com.boardinglabs.rumahcemara.outreach.fragment.OptionsFragment;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private TextView mTextMessage;
@@ -81,6 +92,42 @@ public class MainActivity extends AppCompatActivity {
         String name = user.get(SessionManagement.KEY_NAME);
         mTextMessage.setText(("Username: " + name));
 
+        FirebaseMessaging.getInstance().subscribeToTopic("appointment");
+
+        String tokenIntent = intent.getStringExtra("tokenId");
+
+        if (tokenIntent != null) {
+            registerToken(tokenIntent);
+        }
+
+    }
+
+    private void registerToken(String token) {
+        SessionManagement session = new SessionManagement(getApplicationContext());
+        HashMap<String, String> user = session.getUserDetails();
+        String userId = user.get(SessionManagement.KEY_ID);
+        String tokenId = user.get(SessionManagement.KEY_IMG_TOKEN);
+        String bearerToken = "Bearer " + tokenId;
+        BaseApiService mApiService = UtilsApi.getAPIService();
+        String manufacturer = Build.MANUFACTURER;
+        String model = Build.MODEL;
+        String type = manufacturer + " " + model;
+        Field[] fields = Build.VERSION_CODES.class.getFields();
+        String os = fields[Build.VERSION.SDK_INT + 1].getName();
+        String version = Build.VERSION.RELEASE;
+        mApiService.getUserDevice(userId, type, "Android", version, os,
+                token, bearerToken)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        Log.d("muhtar", response.message());
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.d("muhtar", t.getLocalizedMessage());
+                    }
+                });
     }
 
     private void loadFragment(Fragment fragment) {

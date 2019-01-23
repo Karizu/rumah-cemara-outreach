@@ -31,6 +31,7 @@ import com.boardinglabs.rumahcemara.outreach.config.SessionManagement;
 import com.boardinglabs.rumahcemara.outreach.models.User;
 import com.boardinglabs.rumahcemara.outreach.models.UserDevice;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.rezkyatinnov.kyandroid.localdata.LocalData;
 import com.rezkyatinnov.kyandroid.reztrofit.ErrorResponse;
 import com.rezkyatinnov.kyandroid.reztrofit.RestCallback;
@@ -43,6 +44,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -139,6 +142,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Intent intent = new Intent(mContext, MainActivity.class);
                                     intent.putExtra("result_nama", nama);
                                     intent.putExtra("tokenId", user_token);
+                                    intent.putExtra("token", "token");
                                     startActivity(intent);
                                 } else {
                                     String error_message = jsonRESULTS.getString("error");
