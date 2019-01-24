@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.boardinglabs.rumahcemara.outreach.ChatActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.boardinglabs.rumahcemara.outreach.DetailAppointmentActivity;
@@ -71,24 +73,30 @@ public class AdapterAppointment extends RecyclerView.Adapter<AdapterAppointment.
             in.putExtra("myData", bundle);
             context.startActivity(in);
         });
+        holder.ivChat.setOnClickListener(v -> {
+            Intent chat = new Intent(context, ChatActivity.class);
+            context.startActivity(chat);
+        });
     }
 
     @Override
     public int getItemCount(){ return articleModels.size();}
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        public CircularImageView imageView;
-        public TextView textViewFullname;
-        public TextView textViewPhoneNumber;
-        public FrameLayout linearLayout;
+    class ViewHolder extends RecyclerView.ViewHolder {
+        CircularImageView imageView;
+        TextView textViewFullname;
+        TextView textViewPhoneNumber;
+        FrameLayout linearLayout;
+        ImageView ivChat;
 
-        public ViewHolder(View v){
+        ViewHolder(View v){
             super(v);
 
-            imageView = (CircularImageView) v.findViewById(R.id.imgListProfile);
-            textViewFullname = (TextView) v.findViewById(R.id.tvName);
-            textViewPhoneNumber = (TextView) v.findViewById(R.id.tvPhoneNumber);
-            linearLayout = (FrameLayout) v.findViewById(R.id.layout_article);
+            imageView = v.findViewById(R.id.imgListProfile);
+            textViewFullname = v.findViewById(R.id.tvName);
+            textViewPhoneNumber = v.findViewById(R.id.tvPhoneNumber);
+            linearLayout = v.findViewById(R.id.layout_article);
+            ivChat = v.findViewById(R.id.ivChat);
         }
     }
 }

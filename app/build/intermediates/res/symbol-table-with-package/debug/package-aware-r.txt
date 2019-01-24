@@ -1516,6 +1516,7 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_action_bar_tabs
+layout activity_chat
 layout activity_detail_biomedical_appointment
 layout activity_detail_history_appointment
 layout activity_detail_list_client
@@ -1596,6 +1597,7 @@ menu navigation
 menu navigation_id
 mipmap ic_launcher
 mipmap ic_launcher_round
+mipmap ic_rumah_cemara
 string abc_action_bar_home_description
 string abc_action_bar_up_description
 string abc_action_menu_overflow_description

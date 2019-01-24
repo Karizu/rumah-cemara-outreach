@@ -23,6 +23,8 @@ allprojects {
         jcenter()
         maven { url 'https://jitpack.io' }
         maven { url  "http://dl.bintray.com/piasy/maven" }
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
     }
 }
 
