@@ -3,7 +3,6 @@ package com.boardinglabs.rumahcemara.outreach;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -26,6 +25,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 
+import io.reactivex.annotations.NonNull;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -75,15 +75,8 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-        //session = new SessionManagement(getApplicationContext());
-//        session.checkLogin();
-
         mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        if (savedInstanceState == null) {
-            navigation.setSelectedItemId(R.id.navigation_home); // change to whichever id should be default
-        }
+
         Intent intent = getIntent();
         if (intent.hasExtra("message")) {
             Toast.makeText(this, intent.getExtras().getString("message"), Toast.LENGTH_LONG).show();
@@ -98,6 +91,15 @@ public class MainActivity extends AppCompatActivity {
 
         if (tokenIntent != null) {
             registerToken(tokenIntent);
+        }
+
+        //session = new SessionManagement(getApplicationContext());
+//        session.checkLogin();
+
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        if (savedInstanceState == null) {
+            navigation.setSelectedItemId(R.id.navigation_home); // change to whichever id should be default
         }
 
     }

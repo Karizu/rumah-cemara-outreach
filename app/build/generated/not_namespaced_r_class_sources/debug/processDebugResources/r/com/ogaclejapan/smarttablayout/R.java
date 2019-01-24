@@ -45,13 +45,13 @@ public final class R {
     public static final class id {
         private id() {}
 
-        public static final int auto = 0x7f090027;
-        public static final int auto_center = 0x7f090028;
-        public static final int bottom = 0x7f090032;
-        public static final int center = 0x7f09003b;
-        public static final int linear = 0x7f0900ab;
-        public static final int smart = 0x7f0900f6;
-        public static final int top = 0x7f09011d;
+        public static final int auto = 0x7f0a0027;
+        public static final int auto_center = 0x7f0a0028;
+        public static final int bottom = 0x7f0a0032;
+        public static final int center = 0x7f0a003b;
+        public static final int linear = 0x7f0a00a9;
+        public static final int smart = 0x7f0a00f4;
+        public static final int top = 0x7f0a011c;
     }
     public static final class styleable {
         private styleable() {}

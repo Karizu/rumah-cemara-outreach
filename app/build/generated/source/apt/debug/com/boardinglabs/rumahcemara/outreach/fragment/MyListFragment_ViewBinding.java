@@ -14,7 +14,7 @@ import java.lang.Override;
 public class MyListFragment_ViewBinding implements Unbinder {
   private MyListFragment target;
 
-  private View view2131296398;
+  private View view2131361933;
 
   @UiThread
   public MyListFragment_ViewBinding(final MyListFragment target, View source) {
@@ -22,7 +22,7 @@ public class MyListFragment_ViewBinding implements Unbinder {
 
     View view;
     view = Utils.findRequiredView(source, R.id.imgHistoryAppointment, "method 'onClickHistory'");
-    view2131296398 = view;
+    view2131361933 = view;
     view.setOnClickListener(new DebouncingOnClickListener() {
       @Override
       public void doClick(View p0) {
@@ -38,7 +38,7 @@ public class MyListFragment_ViewBinding implements Unbinder {
     target = null;
 
 
-    view2131296398.setOnClickListener(null);
-    view2131296398 = null;
+    view2131361933.setOnClickListener(null);
+    view2131361933 = null;
   }
 }

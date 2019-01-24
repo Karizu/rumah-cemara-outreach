@@ -112,18 +112,33 @@ public class HistoryAppointmentActivity extends AppCompatActivity {
 
                                 for (int i = 0; i < res.size(); i++) {
                                     AppointmentDataResponse article = res.get(i);
-                                    articleModels.add(new HistoryModel(article.getId(),
-                                            article.getService_type().getName(),
-                                            article.getUser().getProfile().getPicture(),
-                                            article.getUser().getProfile().getFullname(),
-                                            article.getUser().getProfile().getPhoneNumber(),
-                                            article.getStart_date(),
-                                            article.getUpdated_at(),
-                                            article.getDescription(),
-                                            article.getRating().getRating(),
-                                            article.getRating().getDescription(),
-                                            article.getAttachment(),
-                                            article.getAppointment()));
+                                    if (article.getRating() != null){
+                                        articleModels.add(new HistoryModel(article.getId(),
+                                                article.getService_type().getName(),
+                                                article.getUser().getProfile().getPicture(),
+                                                article.getUser().getProfile().getFullname(),
+                                                article.getUser().getProfile().getPhoneNumber(),
+                                                article.getStart_date(),
+                                                article.getUpdated_at(),
+                                                article.getDescription(),
+                                                article.getRating().getRating(),
+                                                article.getRating().getDescription(),
+                                                article.getAttachment(),
+                                                article.getAppointment()));
+                                    } else {
+                                        articleModels.add(new HistoryModel(article.getId(),
+                                                article.getService_type().getName(),
+                                                article.getUser().getProfile().getPicture(),
+                                                article.getUser().getProfile().getFullname(),
+                                                article.getUser().getProfile().getPhoneNumber(),
+                                                article.getStart_date(),
+                                                article.getUpdated_at(),
+                                                article.getDescription(),
+                                                "0",
+                                                "there is no comment!",
+                                                article.getAttachment(),
+                                                article.getAppointment()));
+                                    }
                                 }
 
                                 adapter.notifyDataSetChanged(); // or notifyItemRangeRemoved
@@ -153,18 +168,34 @@ public class HistoryAppointmentActivity extends AppCompatActivity {
 
                             for (int i = 0; i < res.size(); i++) {
                                 AppointmentDataResponse article = res.get(i);
-                                articleModels.add(new HistoryModel(article.getId(),
-                                        article.getService_type().getName(),
-                                        article.getUser().getProfile().getPicture(),
-                                        article.getUser().getProfile().getFullname(),
-                                        article.getUser().getProfile().getPhoneNumber(),
-                                        article.getStart_date(),
-                                        article.getUpdated_at(),
-                                        article.getDescription(),
-                                        article.getRating().getRating(),
-                                        article.getRating().getDescription(),
-                                        article.getAttachment(),
-                                        article.getAppointment()));
+                                if (article.getRating() != null){
+                                    articleModels.add(new HistoryModel(article.getId(),
+                                            article.getService_type().getName(),
+                                            article.getUser().getProfile().getPicture(),
+                                            article.getUser().getProfile().getFullname(),
+                                            article.getUser().getProfile().getPhoneNumber(),
+                                            article.getStart_date(),
+                                            article.getUpdated_at(),
+                                            article.getDescription(),
+                                            article.getRating().getRating(),
+                                            article.getRating().getDescription(),
+                                            article.getAttachment(),
+                                            article.getAppointment()));
+                                } else {
+                                    articleModels.add(new HistoryModel(article.getId(),
+                                            article.getService_type().getName(),
+                                            article.getUser().getProfile().getPicture(),
+                                            article.getUser().getProfile().getFullname(),
+                                            article.getUser().getProfile().getPhoneNumber(),
+                                            article.getStart_date(),
+                                            article.getUpdated_at(),
+                                            article.getDescription(),
+                                            "0",
+                                            "there is no comment!",
+                                            article.getAttachment(),
+                                            article.getAppointment()));
+                                }
+
                             }
 
                             adapter = new AdapterHistoryAppointment(articleModels, activity);

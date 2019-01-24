@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/muhtar/Public/Kotlin/rumah-cemara-outreach-android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-zh/values-zh.xml",
+            "outputFile": "E:\\ProjectAndroid\\RumahCemara\\RumahCemaraAndroid\\rumah-cemara\\outreach-android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-zh\\values-zh.xml",
             "map": [
                 {
-                    "source": "/Users/muhtar/.gradle/caches/transforms-1/files-1.1/calendarview-3.4.8.aar/0572f86dd5b3639e0d7e4adbe86d1758/res/values-zh/values-zh.xml",
+                    "source": "C:\\Users\\PRO\\.gradle\\caches\\transforms-1\\files-1.1\\calendarview-3.4.8.aar\\bd7aac0abb975b680401e1ad86eb5109\\res\\values-zh\\values-zh.xml",
                     "from": {
                         "startLines": "2,16,48,62,82,108,113,122,131,140,141,142,143,144,145,146,147",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

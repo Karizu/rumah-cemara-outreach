@@ -19,6 +19,7 @@ import android.support.v7.app.AlertDialog;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
@@ -27,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.boardinglabs.rumahcemara.outreach.apihelper.API;
 import com.boardinglabs.rumahcemara.outreach.apihelper.ApiResponse;
 import com.boardinglabs.rumahcemara.outreach.dialog.LoadingDialog;
 import com.boardinglabs.rumahcemara.outreach.models.Group;
@@ -79,13 +81,14 @@ public class RegisterActivity extends Activity {
     EditText password;
     @BindView(R.id.etGender)
     AutoCompleteTextView gender;
-    @BindView(R.id.etIntitutionName)
-    EditText institutionName;
+    @BindView(R.id.spinnerInstitution)
+    Spinner institutionName;
 
     Bitmap photoImage;
     File fileImage;
-    ArrayList<String> dsoId;
+    ArrayList<String> listValue;
     Context appContext;
+    String selectedName, valueName;
 
     private LoadingDialog loadingDialog;
 
@@ -116,6 +119,52 @@ public class RegisterActivity extends Activity {
 
         appContext = this;
         loadingDialog = new LoadingDialog(this);
+
+        initSpinnerDosen();
+
+        institutionName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedName = parent.getItemAtPosition(position).toString();
+                valueName = listValue.get(position);
+//                requestDetailDosen(selectedName);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void initSpinnerDosen() {
+        API.baseApiService().getGroup().enqueue(new retrofit2.Callback<ApiResponse<List<Group>>>() {
+            @Override
+            public void onResponse(retrofit2.Call<ApiResponse<List<Group>>> call, retrofit2.Response<ApiResponse<List<Group>>> response) {
+                if (response.isSuccessful()) {
+                    List<Group> dataInstitution = response.body().getData();
+                    listValue = new ArrayList<String>();
+                    ArrayList<String> listLabel = new ArrayList<String>();
+                    for (int i = 0; i < dataInstitution.size(); i++){
+                        listValue.add(dataInstitution.get(i).getId());
+                        listLabel.add(dataInstitution.get(i).getName());
+                    }
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(appContext,
+                            android.R.layout.simple_spinner_item, listLabel);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    institutionName.setAdapter(adapter);
+                } else {
+                    Toast.makeText(appContext, "Connecting Failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<ApiResponse<List<Group>>> call, Throwable t) {
+
+            }
+        });
+
     }
 
     @OnClick(R.id.tvSelectPicture)
@@ -181,6 +230,7 @@ public class RegisterActivity extends Activity {
                 .addFormDataPart("username", username.getText().toString())
                 .addFormDataPart("password", password.getText().toString())
                 .addFormDataPart("picture", "photo.jpeg", RequestBody.create(MediaType.parse("image/jpeg"), stream.toByteArray()))
+                .addFormDataPart("group_id", valueName)
                 .build();
         Request request = new Request.Builder()
                 .url("http://37.72.172.144/rumah-cemara-api/public/api/register")
