@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:background="@drawable/background_left"
-        android:text="test"/>
+        android:text=""/>
 
     <TextView
         android:id="@+id/text_date"
@@ -21,6 +21,6 @@
         android:layout_below="@+id/text_chat"
         android:layout_marginLeft="10dp"
         android:textSize="10sp"
-        android:text="test" />
+        android:text="" />
 
 </RelativeLayout>
