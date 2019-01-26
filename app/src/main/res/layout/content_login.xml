@@ -15,7 +15,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:background="@drawable/bg_login">
+            android:background="@drawable/bcg_login">
 
             <EditText
                 android:id="@+id/etUsername"

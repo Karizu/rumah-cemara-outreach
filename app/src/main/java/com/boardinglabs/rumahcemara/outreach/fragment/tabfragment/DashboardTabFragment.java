@@ -55,14 +55,15 @@ public class DashboardTabFragment extends Fragment {
     String[] days;
     GraphView graph;
     private BarGraphSeries<DataPoint> series;
-    private TextView dateNow, rangeDate, month, totalRange, totalMonth;
-    private Date d1, d2, d3, d4, d5, d6, d7;
+    private TextView dateNow, rangeDate, month, totalRange, totalMonth, totalToday;
+    private Date d1, d2, d3, d4, d5, d6, d7, dDate;
     private final static String TAG = DashboardTabFragment.class.getSimpleName();
     private LoadingDialog loadingDialog;
     private List<Total7DayModel> articleModels;
-    String sId, sTokenId, sGroupId, sBearerToken,
-            sTotal1, sTotal2, sTotal3, sTotal4, sTotal5, sTotal6, sTotal7,
-            sTotalRange, sTotal7Day, sTotalMonth, sMonth;
+    String sId, sTokenId, sGroupId, sBearerToken, paramStartDate, paramEndDate,
+            sTotal1, sTotal2, sTotal3, sTotal4, sTotal5, sTotal6, sTotal7, sTotalRange,
+            sTotalMonth, sMonth;
+    Integer sTotal7Day1, sTotal7Day2, sTotal7Day3, sTotal7Day4, sTotal7Day5, sTotal7Day6, sTotal7Day7;
     SessionManagement session;
 
     @Override
@@ -92,17 +93,14 @@ public class DashboardTabFragment extends Fragment {
         month = view.findViewById(R.id.tvMonth);
         totalRange = view.findViewById(R.id.tvTotalRange);
         totalMonth = view.findViewById(R.id.tvTotalMonth);
+        totalToday = view.findViewById(R.id.tvAppointmentTotal);
+        graph = view.findViewById(R.id.graph);
 
         DateFormat format = new SimpleDateFormat("dd MMM");
         Calendar calendar = Calendar.getInstance();
-//        calendar.setFirstDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK));
-//        calendar.set(Calendar.DAY_OF_WEEK, calendar.get(Calendar.DAY_OF_WEEK));
-//        Date d42 = calendar.getTime();
-//        calendar.add(Calendar.DAY_OF_MONTH, -1);
-//        Date d52 = calendar.getTime();
-//        String d62 = format.format(calendar.getTime());
-//        System.out.println("d4: "+d42+" d6 :"+d62);
-
+        Calendar paramDate = Calendar.getInstance();
+        paramDate.add(Calendar.DATE, +1);
+        dDate = paramDate.getTime();
         // generate Dates
         d1 = calendar.getTime();
         calendar.add(Calendar.DATE, -1);
@@ -118,122 +116,69 @@ public class DashboardTabFragment extends Fragment {
         calendar.add(Calendar.DATE, -1);
         d7 = calendar.getTime();
 
-        System.out.println("d1: " + d1 + "d2 :" + d2 + "d3 :" + d3);
-
         generateDateNow();
 
         getProfileDetail();
 
-        getDashboardGraph();
-
-        graph = view.findViewById(R.id.graph);
-        series = new BarGraphSeries<>(new DataPoint[]{
-                new DataPoint(d7, 1),
-                new DataPoint(d6, 5),
-                new DataPoint(d5, 3),
-                new DataPoint(d4, 6),
-                new DataPoint(d3, 1),
-                new DataPoint(d2, 3),
-                new DataPoint(d1, 5),
-        });
-
-        graph.addSeries(series);
-
-        // set date label formatter
-        graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity()));
-        graph.getGridLabelRenderer().setNumHorizontalLabels(3); // only 4 because of the space
-
-// set manual x bounds to have nice steps
-        graph.getViewport().setMinX(d7.getTime());
-        graph.getViewport().setMaxX(d1.getTime());
-        graph.getViewport().setXAxisBoundsManual(true);
-
-// as we use dates as labels, the human rounding to nice readable numbers
-// is not necessary
-        graph.getGridLabelRenderer().setHumanRounding(false);
-        // enable scaling and scrolling
-        graph.getViewport().setScalable(true);
-        graph.getViewport().setScalableY(true);
-
-        graph.addSeries(series);
-//        series.setValueDependentColor(data -> Color.rgb((int) data.getX()*255/4, (int) Math.abs(data.getY()*255/6), 100));
-        series.setColor(Color.CYAN);
-
-        series.setSpacing(40);
-
-        series.setDataWidth(10);
-// draw values on top
-        series.setDrawValuesOnTop(true);
-        series.setValuesOnTopColor(Color.RED);
-//series.setValuesOnTopSize(50);
-
         return view;
-    }
-
-    private DataPoint[] generateData() {
-
-        DateFormat format = new SimpleDateFormat("dd");
-        Calendar calendar = Calendar.getInstance();
-        calendar.setFirstDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK));
-        calendar.set(Calendar.DAY_OF_WEEK, calendar.get(Calendar.DAY_OF_WEEK));
-        DataPoint[] values = new DataPoint[7];
-        days = new String[7];
-        String input = "26";
-        String pattern = "-?\\d+";
-        for (int i = 0; i < 7; i++) {
-            days[i] = format.format(calendar.getTime());
-            calendar.add(Calendar.DAY_OF_MONTH, -1);
-            DataPoint v = new DataPoint(Double.parseDouble(days[i]), 4);
-            values[i] = v;
-            System.out.println("days: " + days[i]);
-        }
-        return values;
     }
 
     public void generateDateNow() {
         DateFormat formatDay = new SimpleDateFormat("EEEE, dd MMM");
         DateFormat formatRangeDate = new SimpleDateFormat("dd MMM");
         DateFormat formatMonth = new SimpleDateFormat("MMMM");
+        DateFormat formatParamDate = new SimpleDateFormat("yyyy-MM-dd");
         Calendar datenow = Calendar.getInstance();
+        paramStartDate = formatParamDate.format(d7);
+        paramEndDate = formatParamDate.format(dDate);
         String today = formatDay.format(d1);
         String rangeDateD7 = formatRangeDate.format(d7);
         String rangeDateD1 = formatRangeDate.format(d1);
         String rangeMonth = formatMonth.format(d1);
         switch (rangeMonth) {
             case "Januari":
+            case "January":
                 sMonth = "1";
                 break;
             case "Februari":
+            case "February":
                 sMonth = "2";
                 break;
             case "Maret":
+            case "March":
                 sMonth = "3";
                 break;
             case "April":
                 sMonth = "4";
                 break;
             case "Mei":
+            case "May":
                 sMonth = "5";
                 break;
             case "Juni":
+            case "June":
                 sMonth = "6";
                 break;
             case "Juli":
+            case "July":
                 sMonth = "7";
                 break;
             case "Agustus":
+            case "August":
                 sMonth = "8";
                 break;
             case "September":
                 sMonth = "9";
                 break;
             case "Oktober":
+            case "October":
                 sMonth = "10";
                 break;
             case "November":
                 sMonth = "11";
                 break;
             case "Desember":
+            case "December":
                 sMonth = "12";
                 break;
         }
@@ -247,50 +192,86 @@ public class DashboardTabFragment extends Fragment {
     private void getProfileDetail() {
         loadingDialog.setCancelable(false);
         loadingDialog.show();
-        API.baseApiService().getDashboardData(sGroupId, sId, sMonth, sBearerToken).enqueue(new Callback<ApiResponse<Dashboard>>() {
+        API.baseApiService().getDashboardData(sGroupId, sId, sMonth, paramStartDate, paramEndDate, sBearerToken).enqueue(new Callback<ApiResponse<Dashboard>>() {
             @Override
             public void onResponse(Call<ApiResponse<Dashboard>> call, Response<ApiResponse<Dashboard>> response) {
 
                 loadingDialog.dismiss();
-                final ApiResponse<Dashboard> user = response.body();
-               // System.out.println("JSON: " + user.getData());
+                ApiResponse<Dashboard> user = response.body();
+//                System.out.println("JSON: " + response.body().toString());
                 sTotalRange = user.getData().getTotalRange();
                 sTotalMonth = user.getData().getTotalMonth();
-//
+
                 totalRange.setText(sTotalRange);
                 totalMonth.setText(sTotalMonth);
+
+                String[] total7Date = new String[7];
+                Integer[] total7Count = new Integer[7];
+                for (int i = 0; i < 7; i++) {
+                    total7Date[i] = user.getData().getTotal7day().get(i).getDate();
+                    total7Count[i] = Integer.valueOf(user.getData().getTotal7day().get(i).getTotal());
+                    sTotal7Day1 = total7Count[0];
+                    sTotal7Day2 = total7Count[1];
+                    sTotal7Day3 = total7Count[2];
+                    sTotal7Day4 = total7Count[3];
+                    sTotal7Day5 = total7Count[4];
+                    sTotal7Day6 = total7Count[5];
+                    sTotal7Day7 = total7Count[6];
+                }
+
+                totalToday.setText(sTotal7Day1 + "x Appointment");
+
+                series = new BarGraphSeries<>(new DataPoint[]{
+                        new DataPoint(d7, sTotal7Day7),
+                        new DataPoint(d6, sTotal7Day6),
+                        new DataPoint(d5, sTotal7Day5),
+                        new DataPoint(d4, sTotal7Day4),
+                        new DataPoint(d3, sTotal7Day3),
+                        new DataPoint(d2, sTotal7Day2),
+                        new DataPoint(d1, sTotal7Day1),
+                });
+
+                graph.addSeries(series);
+
+                // set date label formatter
+                graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(
+                        getActivity(),new SimpleDateFormat("dd MMM")));
+                graph.getGridLabelRenderer().setNumHorizontalLabels(7); // only 4 because of the space
+                graph.getGridLabelRenderer().setTextSize(30);
+
+// set manual x bounds to have nice steps
+                graph.getViewport().setMinX(d7.getTime());
+                graph.getViewport().setMaxX(d1.getTime());
+                graph.getViewport().setXAxisBoundsManual(true);
+
+// as we use dates as labels, the human rounding to nice readable numbers
+// is not necessary
+                graph.getGridLabelRenderer().setHumanRounding(false, false);
+                // enable scaling and scrolling
+                graph.getViewport().setScalable(true);
+                graph.getViewport().setScalableY(true);
+
+// styling
+//                series.setValueDependentColor(new ValueDependentColor<DataPoint>() {
+//                    @Override
+//                    public int get(DataPoint data) {
+//                        return Color.rgb((int) data.getX()*255/4, (int) Math.abs(data.getY()*255/6), 100);
+//                    }
+//                });
+                series.setColor(getResources().getColor(R.color.colorAccent));
+
+                series.setSpacing(40);
+
+//                series.setDataWidth(10);
+// draw values on top
+                series.setDrawValuesOnTop(true);
+                series.setValuesOnTopColor(getResources().getColor(R.color.colorPrimary));
+//series.setValuesOnTopSize(50);
+
             }
 
             @Override
             public void onFailure(Call<ApiResponse<Dashboard>> call, Throwable t) {
-                loadingDialog.dismiss();
-                Log.e(TAG, t.toString());
-                Toast.makeText(getActivity(), "Error loading!", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void getDashboardGraph() {
-        loadingDialog.setCancelable(false);
-        loadingDialog.show();
-        API.baseApiService().getDashboardGraph(sGroupId, sId, sMonth, sBearerToken).enqueue(new Callback<ApiResponse<List<Total7Day>>>() {
-            @Override
-            public void onResponse(Call<ApiResponse<List<Total7Day>>> call, Response<ApiResponse<List<Total7Day>>> response) {
-
-                loadingDialog.dismiss();
-                final List<Total7Day> res = response.body().getData();
-                articleModels = new ArrayList<>();
-                System.out.println("JSON: " + res);
-                for (int i = 0; i < res.size(); i++) {
-                    Total7Day article = res.get(i);
-                    articleModels.add(new Total7DayModel(article.getDate(),
-                            article.getTotal()
-                    ));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ApiResponse<List<Total7Day>>> call, Throwable t) {
                 loadingDialog.dismiss();
                 Log.e(TAG, t.toString());
                 Toast.makeText(getActivity(), "Error loading!", Toast.LENGTH_SHORT).show();

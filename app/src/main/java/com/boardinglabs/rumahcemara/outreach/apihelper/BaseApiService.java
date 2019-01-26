@@ -3,6 +3,7 @@ package com.boardinglabs.rumahcemara.outreach.apihelper;
 import com.boardinglabs.rumahcemara.outreach.models.Appointment;
 import com.boardinglabs.rumahcemara.outreach.models.Dashboard;
 import com.boardinglabs.rumahcemara.outreach.models.GeneralDataProfile;
+import com.boardinglabs.rumahcemara.outreach.models.Group;
 import com.boardinglabs.rumahcemara.outreach.models.Total7Day;
 import com.boardinglabs.rumahcemara.outreach.models.response.AppointmentDataResponse;
 import com.boardinglabs.rumahcemara.outreach.models.response.MemberDataResponse;
@@ -46,6 +47,14 @@ public interface BaseApiService {
     Call<ResponseBody> updateWorker(@Field("fullname") String fullname,
                                     @Field("phone_number") String phone_number,
                                     @Header("Authorization") String token);
+
+    @Multipart
+    @POST("profile")
+    Call<ResponseBody> updateWorkerImg(@Part("fullname") RequestBody fullname,
+                                       @Part("phone_number") RequestBody phone_number,
+                                       @Part MultipartBody.Part file,
+                                       @Part("_method") RequestBody method,
+                                       @Header("Authorization") String token);
 
     @FormUrlEncoded
     @POST("userDevice")
@@ -102,9 +111,8 @@ public interface BaseApiService {
     Call<ApiResponse<Appointment>> getDetailAppointment(@Path("service_transaction_id") String service_transaction_id, @Header("Authorization") String token);
 
     @GET("dashboardMobile")
-    Call<ApiResponse<Dashboard>> getDashboardData(@Query("group_id") String group_id, @Query("worker_id") String worker_id, @Query("month") String month, @Header("Authorization") String token);
+    Call<ApiResponse<Dashboard>> getDashboardData(@Query("group_id") String group_id, @Query("worker_id") String worker_id, @Query("month") String month, @Query("start_date") String start_date, @Query("end_date") String end_date, @Header("Authorization") String token);
 
-    @GET("dashboardMobile")
-    Call<ApiResponse<List<Total7Day>>> getDashboardGraph(@Query("group_id") String group_id, @Query("worker_id") String worker_id, @Query("month") String month, @Header("Authorization") String token);
-
+    @GET("group")
+    Call <ApiResponse<List<Group>>> getGroup();
 }

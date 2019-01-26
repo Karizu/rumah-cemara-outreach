@@ -4,7 +4,9 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -82,6 +84,7 @@ public class EditAccountActivity extends AppCompatActivity {
     ProgressBar progressBar;
     BaseApiService mApiService;
     String sId, sTokenId, sBearerToken, sUser, sFullname, sImgURL, sPhonenumber, sEmail;
+    private Uri uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +97,9 @@ public class EditAccountActivity extends AppCompatActivity {
         actionBar.hide();
         initToolbar();
 
+        ActivityCompat.requestPermissions(EditAccountActivity.this,
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+
         Intent iGet = getIntent();
         sId = iGet.getStringExtra("userId");
         sTokenId = iGet.getStringExtra("tokenId");
@@ -104,6 +110,27 @@ public class EditAccountActivity extends AppCompatActivity {
 
         getProfileDetail();
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission granted and now can proceed
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(EditAccountActivity.this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+            // add other cases for more permissions
+        }
     }
 
     @OnClick(R.id.tvChangePhoto)
@@ -141,6 +168,7 @@ public class EditAccountActivity extends AppCompatActivity {
             }
         }
     }
+
 
     private void initToolbar() {
         toolbar = findViewById(R.id.toolbar);
@@ -191,123 +219,75 @@ public class EditAccountActivity extends AppCompatActivity {
 
         loadingDialog.setCancelable(false);
         loadingDialog.show();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        File file = new File(getCacheDir(), "file.jpeg");
-        RequestBody requestBody;
+
         String fullname = etFullname.getText().toString();
         String phone_number = etPhoneNumber.getText().toString();
 
-//        if (photoImage != null) {
+        try {
+            if (photoImage != null) {
+                photoImage.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 
-            RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
-            MultipartBody.Part body = MultipartBody.Part.createFormData("picture", file.getName(), reqFile);
-            RequestBody named = RequestBody.create(MediaType.parse("text/plain"), "picture");
+                String[] projection = {MediaStore.Images.Media.DATA};
+                Cursor cursor = this.managedQuery(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection, null, null, null);
+                int column_index_data = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                cursor.moveToLast();
+                String photoPath = cursor.getString(column_index_data);
+                File file = new File(photoPath);
 
-            RequestBody name = RequestBody.create(MediaType.parse("fullname"), etFullname.getText().toString());
-            RequestBody phone = RequestBody.create(MediaType.parse("phone_number"), etPhoneNumber.getText().toString());
+                RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), stream.toByteArray());
+                MultipartBody.Part body =
+                        MultipartBody.Part.createFormData("picture", file.getName(), reqFile);
 
-            HashMap<String,RequestBody> map = new HashMap<>();
-            map.put("name",name);
-            map.put("phone",phone);
-//            photoImage.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-//            requestBody = new MultipartBody.Builder()
-//                    .setType(MultipartBody.FORM)
-//                    .addFormDataPart("fullname", etFullname.getText().toString())
-//                    .addFormDataPart("phone_number", etPhoneNumber.getText().toString())
-//                    .addFormDataPart("email", sEmail)
-//                    .addFormDataPart("picture", "photo.jpeg", RequestBody.create(MediaType.parse("image/jpeg"), stream.toByteArray()))
-//                    .build();
-//        } else {
-//            RequestBody name = RequestBody.create(MediaType.parse("fullname"), etFullname.getText().toString());
-//            RequestBody phone = RequestBody.create(MediaType.parse("phone_number"), etPhoneNumber.getText().toString());
-//
-//            HashMap<String,RequestBody> map = new HashMap<>();
-//            map.put("name",name);
-//            map.put("phone",phone);
-//            requestBody = new MultipartBody.Builder()
-//                    .setType(MultipartBody.FORM)
-//                    .addFormDataPart("fullname", etFullname.getText().toString())
-//                    .addFormDataPart("phone_number", etPhoneNumber.getText().toString())
-//                    .addFormDataPart("email", sEmail)
-//                    .build();
-//        }
+                RequestBody fullName =
+                        RequestBody.create(
+                                okhttp3.MultipartBody.FORM, fullname);
+                RequestBody phoneNumber =
+                        RequestBody.create(
+                                okhttp3.MultipartBody.FORM, phone_number);
+                RequestBody method =
+                        RequestBody.create(
+                                okhttp3.MultipartBody.FORM, "PUT");
 
-        API.baseApiService().updateWorker(fullname, phone_number, sBearerToken).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                System.out.println("RESPONSE:  " + response.toString() + "\n" + "BODY: " + response.body() + "\n" + "RAW: " + response.raw() + "\n" + "MESSAGE: " + response.message());
-                loadingDialog.dismiss();
-                Intent intent = new Intent(EditAccountActivity.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                intent.putExtra("message", "Successfully Updated");
-                startActivity(intent);
+                API.baseApiService().updateWorkerImg(fullName, phoneNumber, body, method, sBearerToken).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        System.out.println("RESPONSE:  " + response.toString() + "\n" + "BODY: " + response.body() + "\n" + "RAW: " + response.raw() + "\n" + "MESSAGE: " + response.message());
+                        loadingDialog.dismiss();
+                        Intent intent = new Intent(EditAccountActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.putExtra("message", "Successfully Updated");
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        loadingDialog.dismiss();
+                        t.printStackTrace();
+                        Log.e("IO", "IO" + t);
+                    }
+                });
+            } else {
+                API.baseApiService().updateWorker(fullname, phone_number, sBearerToken).enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        System.out.println("RESPONSE:  " + response.toString() + "\n" + "BODY: " + response.body() + "\n" + "RAW: " + response.raw() + "\n" + "MESSAGE: " + response.message());
+                        loadingDialog.dismiss();
+                        Intent intent = new Intent(EditAccountActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                        intent.putExtra("message", "Successfully Updated");
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        loadingDialog.dismiss();
+                    }
+                });
             }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                loadingDialog.dismiss();
-            }
-        });
-
-    }
-
-//    okhttp3.Call post(okhttp3.Callback callback) {
-//        OkHttpClient client = new OkHttpClient();
-//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//        File file = new File(getCacheDir(), "file.jpeg");
-//        RequestBody requestBody;
-//
-//        if (photoImage != null) {
-//            photoImage.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-//            requestBody = new MultipartBody.Builder()
-//                    .setType(MultipartBody.FORM)
-//                    .addFormDataPart("fullname", etFullname.getText().toString())
-//                    .addFormDataPart("phone_number", etPhoneNumber.getText().toString())
-//                    .addFormDataPart("picture", "photo.jpeg", RequestBody.create(MediaType.parse("image/jpeg"), stream.toByteArray()))
-//                    .build();
-//        } else {
-//            requestBody = new MultipartBody.Builder()
-//                    .setType(MultipartBody.FORM)
-//                    .addFormDataPart("fullname", etFullname.getText().toString())
-//                    .addFormDataPart("phone_number", etPhoneNumber.getText().toString())
-//                    .build();
-//        }
-//        Request request = new Request.Builder()
-//                .url("http://37.72.172.144/rumah-cemara-api/public/api/profile")
-//                .header("Authorization", sBearerToken)
-//                .put(requestBody)
-//                .build();
-////
-//        Log.d("Response", "before response");
-//        okhttp3.Call call = client.newCall(request);
-//        call.enqueue(callback);
-//        return call;
-//    }
-//
-//    @OnClick(R.id.btnEditSave)
-//    void updateProfile() {
-//        loadingDialog.setCancelable(false);
-//        loadingDialog.show();
-//        post(new okhttp3.Callback() {
-//            @Override
-//            public void onResponse(okhttp3.Call call, okhttp3.Response response) {
-//                System.out.println("RESPONSE:  " + response.toString() + "\n" + "BODY: " + response.body() + "\n" + "RAW: " + response.headers() + "\n" + "MESSAGE: " + response.message());
-//                loadingDialog.dismiss();
-//                Intent intent = new Intent(EditAccountActivity.this, MainActivity.class);
-//                intent.putExtra("message", "Successfully Updated");
-//                startActivity(intent);
-//            }
-//
-//            @Override
-//            public void onFailure(okhttp3.Call call, IOException e) {
-//                loadingDialog.dismiss();
-//            }
-//        });
-//    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("IO", "IO" + e);
+        }
     }
 }
