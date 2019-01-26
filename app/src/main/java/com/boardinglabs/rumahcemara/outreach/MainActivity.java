@@ -90,11 +90,14 @@ public class MainActivity extends AppCompatActivity {
         }
         HashMap<String, String> user = session.getUserDetails();
         String name = user.get(SessionManagement.KEY_NAME);
+        String userId = user.get(SessionManagement.KEY_ID);
         mTextMessage.setText(("Username: " + name));
 
         FirebaseMessaging.getInstance().subscribeToTopic("appointment");
 
         String tokenIntent = intent.getStringExtra("tokenId");
+        Log.d("muhtar", "token " + tokenIntent);
+        Log.d("muhtar", "user id " + userId);
 
         if (tokenIntent != null) {
             registerToken(tokenIntent);

@@ -13,7 +13,7 @@ public class FirebaseToken extends FirebaseInstanceIdService {
     @Override
     public void onTokenRefresh() {
         String token = FirebaseInstanceId.getInstance().getToken();
-        Log.d("muhtar", token);
+        Log.d("muhtars", token);
     }
 
 }

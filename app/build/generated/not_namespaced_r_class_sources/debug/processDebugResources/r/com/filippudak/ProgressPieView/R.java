@@ -38,8 +38,8 @@ public final class R {
     public static final class id {
         private id() {}
 
-        public static final int center = 0x7f09003b;
-        public static final int radial = 0x7f0900d0;
+        public static final int center = 0x7f09003e;
+        public static final int radial = 0x7f0900d8;
     }
     public static final class styleable {
         private styleable() {}

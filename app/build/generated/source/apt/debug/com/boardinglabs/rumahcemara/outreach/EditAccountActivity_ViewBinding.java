@@ -16,9 +16,9 @@ import java.lang.Override;
 public class EditAccountActivity_ViewBinding implements Unbinder {
   private EditAccountActivity target;
 
-  private View view2131296550;
+  private View view2131296561;
 
-  private View view2131296308;
+  private View view2131296310;
 
   @UiThread
   public EditAccountActivity_ViewBinding(EditAccountActivity target) {
@@ -36,7 +36,7 @@ public class EditAccountActivity_ViewBinding implements Unbinder {
     target.etImgProfile = Utils.findRequiredViewAsType(source, R.id.imgEditProfile, "field 'etImgProfile'", CircularImageView.class);
     view = Utils.findRequiredView(source, R.id.tvChangePhoto, "field 'tvChangePhoto' and method 'onClickChangeProfilePhoto'");
     target.tvChangePhoto = Utils.castView(view, R.id.tvChangePhoto, "field 'tvChangePhoto'", TextView.class);
-    view2131296550 = view;
+    view2131296561 = view;
     view.setOnClickListener(new DebouncingOnClickListener() {
       @Override
       public void doClick(View p0) {
@@ -44,7 +44,7 @@ public class EditAccountActivity_ViewBinding implements Unbinder {
       }
     });
     view = Utils.findRequiredView(source, R.id.btnEditSave, "method 'updateProfile'");
-    view2131296308 = view;
+    view2131296310 = view;
     view.setOnClickListener(new DebouncingOnClickListener() {
       @Override
       public void doClick(View p0) {
@@ -66,9 +66,9 @@ public class EditAccountActivity_ViewBinding implements Unbinder {
     target.etImgProfile = null;
     target.tvChangePhoto = null;
 
-    view2131296550.setOnClickListener(null);
-    view2131296550 = null;
-    view2131296308.setOnClickListener(null);
-    view2131296308 = null;
+    view2131296561.setOnClickListener(null);
+    view2131296561 = null;
+    view2131296310.setOnClickListener(null);
+    view2131296310 = null;
   }
 }

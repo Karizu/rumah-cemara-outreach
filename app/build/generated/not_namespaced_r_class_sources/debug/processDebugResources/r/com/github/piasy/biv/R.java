@@ -28,15 +28,15 @@ public final class R {
     public static final class id {
         private id() {}
 
-        public static final int center = 0x7f09003b;
-        public static final int centerCrop = 0x7f09003c;
-        public static final int centerInside = 0x7f09003d;
-        public static final int custom = 0x7f09004b;
-        public static final int fitCenter = 0x7f090075;
-        public static final int fitEnd = 0x7f090076;
-        public static final int fitStart = 0x7f090077;
-        public static final int fitXY = 0x7f090078;
-        public static final int start = 0x7f090102;
+        public static final int center = 0x7f09003e;
+        public static final int centerCrop = 0x7f09003f;
+        public static final int centerInside = 0x7f090040;
+        public static final int custom = 0x7f09004f;
+        public static final int fitCenter = 0x7f09007a;
+        public static final int fitEnd = 0x7f09007b;
+        public static final int fitStart = 0x7f09007c;
+        public static final int fitXY = 0x7f09007d;
+        public static final int start = 0x7f09010a;
     }
     public static final class styleable {
         private styleable() {}

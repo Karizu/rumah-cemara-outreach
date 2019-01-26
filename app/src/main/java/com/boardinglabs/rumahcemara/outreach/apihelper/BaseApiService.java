@@ -57,6 +57,18 @@ public interface BaseApiService {
                                      @Field("token") String token,
                                      @Header("Authorization") String authorization);
 
+    @FormUrlEncoded
+    @POST("message")
+    Call<ResponseBody> sendChat(@Field("service_transaction_id") String serviceTransId,
+                                     @Field("channel") String channel,
+                                     @Field("from_id") String fromId,
+                                     @Field("from_name") String fromName,
+                                     @Field("message_type") String messageType,
+                                     @Field("message") String message,
+                                     @Field("to_id") String toId,
+                                     @Header("Authorization") String authorization);
+
+
     @GET("user/{user_id}")
     Call<ApiResponse<GeneralDataProfile>> getProfileDetail(@Path("user_id") String user_id, @Header("Authorization") String token);
 

@@ -30,6 +30,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onNewToken(String s) {
         super.onNewToken(s);
+        Log.d("muhtar", "new token " + s);
         getSharedPreferences("_", MODE_PRIVATE).edit().putString("firebase-token", s).apply();
     }
 
@@ -47,8 +48,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             sendMyNotification(title, body, data); //send notification to user
         }*/
 
+        super.onMessageReceived(remoteMessage);
+
+        Log.d("test", "test");
+
         String title = remoteMessage.getData().get("title");
         String body = remoteMessage.getData().get("body");
+        Log.d("muhtar", "notif " + remoteMessage.getData());
         showNotification(title, body);
     }
 

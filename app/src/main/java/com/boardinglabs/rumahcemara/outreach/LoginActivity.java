@@ -93,11 +93,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initComponents() {
 
-        etUsername = (EditText) findViewById(R.id.etUsername);
-        etPassword = (EditText) findViewById(R.id.etPassword);
-        btnLogin = (Button) findViewById(R.id.btnLogin);
-        tvSignUp = (TextView) findViewById(R.id.tvSignUp);
-        tvForgotPass = (TextView) findViewById(R.id.tvForgotPassword);
+        etUsername = findViewById(R.id.etUsername);
+        etPassword = findViewById(R.id.etPassword);
+        btnLogin = findViewById(R.id.btnLogin);
+        tvSignUp = findViewById(R.id.tvSignUp);
+        tvForgotPass = findViewById(R.id.tvForgotPassword);
 
         intent = getIntent();
         if (intent.hasExtra("username"))
