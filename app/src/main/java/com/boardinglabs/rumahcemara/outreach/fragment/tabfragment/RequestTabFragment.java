@@ -125,6 +125,8 @@ public class RequestTabFragment extends Fragment {
                                             article.getDescription(),
                                             article.getAttachment(),
                                             article.getAppointment(),
+                                            article.getWorker_id(),
+                                            article.getProvider_id(),
                                             getFragmentManager()));
                                 }
 
@@ -165,6 +167,8 @@ public class RequestTabFragment extends Fragment {
                                         article.getDescription(),
                                         article.getWorker().getProfile().getAddress(),
                                         article.getAppointment(),
+                                        article.getWorker_id(),
+                                        article.getProvider_id(),
                                         getFragmentManager()));
                             }
 

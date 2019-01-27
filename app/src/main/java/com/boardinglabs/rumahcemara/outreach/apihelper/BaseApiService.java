@@ -3,6 +3,7 @@ package com.boardinglabs.rumahcemara.outreach.apihelper;
 import com.boardinglabs.rumahcemara.outreach.models.Appointment;
 import com.boardinglabs.rumahcemara.outreach.models.Dashboard;
 import com.boardinglabs.rumahcemara.outreach.models.GeneralDataProfile;
+import com.boardinglabs.rumahcemara.outreach.models.GenerateToken;
 import com.boardinglabs.rumahcemara.outreach.models.Group;
 import com.boardinglabs.rumahcemara.outreach.models.Total7Day;
 import com.boardinglabs.rumahcemara.outreach.models.response.AppointmentDataResponse;
@@ -77,9 +78,13 @@ public interface BaseApiService {
                                 @Field("to_id") String toId,
                                 @Header("Authorization") String authorization);
 
-    @GET("generateToken?{user_id}")
-    Call<ResponseBody> generateToken(@Path("user_id") String userId,
-                                     @Header("Authorization") String authorization);
+    @GET("generateToken")
+    Call<GenerateToken> generateToken(@Query("user_id") String userId,
+                                      @Header("Authorization") String authorization);
+
+    @GET("generateToken")
+    Call<GenerateToken> chatHistory(@Query("channel") String channel,
+                                      @Header("Authorization") String authorization);
 
     @GET("user/{user_id}")
     Call<ApiResponse<GeneralDataProfile>> getProfileDetail(@Path("user_id") String user_id, @Header("Authorization") String token);

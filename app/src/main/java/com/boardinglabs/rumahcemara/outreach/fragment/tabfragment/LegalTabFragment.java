@@ -121,6 +121,8 @@ public class LegalTabFragment extends Fragment {
                                             article.getDescription(),
                                             article.getWorker().getProfile().getAddress(),
                                             article.getAppointment(),
+                                            article.getWorker_id(),
+                                            article.getProvider_id(),
                                             getFragmentManager()));
                                 }
 
@@ -161,6 +163,8 @@ public class LegalTabFragment extends Fragment {
                                         article.getDescription(),
                                         article.getWorker().getProfile().getAddress(),
                                         article.getAppointment(),
+                                        article.getWorker_id(),
+                                        article.getProvider_id(),
                                         getFragmentManager()));
                             }
 

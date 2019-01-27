@@ -18,10 +18,13 @@ public class RequestModel {
     private String end_date;
     private String description;
     private String location;
+    private String worker_id;
+    private String provider_id;
     private Appointment appointment;
     private FragmentManager fragmentManager;
 
-    public RequestModel(String serviceId, String serviceName, String imgUrl, String fullName, String phoneNumber, String start_date, String end_date, String description, String location, Appointment appointment, FragmentManager fragmentManager) {
+    public RequestModel(String serviceId, String serviceName, String imgUrl, String fullName, String phoneNumber, String start_date, String end_date, String description, String location, Appointment appointment,
+                        String workerId, String providerId, FragmentManager fragmentManager) {
         this.serviceId = serviceId;
         this.serviceName = serviceName;
         this.imgUrl = imgUrl;
@@ -32,6 +35,8 @@ public class RequestModel {
         this.description = description;
         this.location = location;
         this.appointment = appointment;
+        this.worker_id = workerId;
+        this.provider_id = providerId;
         this.fragmentManager = fragmentManager;
     }
 
@@ -121,5 +126,21 @@ public class RequestModel {
 
     public void setFragmentManager(FragmentManager fragmentManager) {
         this.fragmentManager = fragmentManager;
+    }
+
+    public String getWorker_id() {
+        return worker_id;
+    }
+
+    public void setWorker_id(String worker_id) {
+        this.worker_id = worker_id;
+    }
+
+    public String getProvider_id() {
+        return provider_id;
+    }
+
+    public void setProvider_id(String provider_id) {
+        this.provider_id = provider_id;
     }
 }

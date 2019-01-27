@@ -1,5 +1,6 @@
 package com.boardinglabs.rumahcemara.outreach;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import com.boardinglabs.rumahcemara.outreach.apihelper.BaseApiService;
 import com.boardinglabs.rumahcemara.outreach.apihelper.UtilsApi;
 import com.boardinglabs.rumahcemara.outreach.config.SessionManagement;
 import com.boardinglabs.rumahcemara.outreach.models.Chat;
+import com.boardinglabs.rumahcemara.outreach.models.GenerateToken;
 import com.centrifugal.centrifuge.android.Centrifugo;
 import com.centrifugal.centrifuge.android.credentials.Token;
 import com.centrifugal.centrifuge.android.credentials.User;
@@ -40,7 +42,10 @@ public class ChatActivity extends AppCompatActivity {
     private String token;
     private String tokenTimestamp;
     private String centrifugoAddress;
-    private String userId;
+    private String serviceId;
+    private String workerId;
+    private String providerId;
+    private String toId;
     private EditText textMessage;
     private Centrifugo centrifugo;
     private RecyclerView recyclerView;
@@ -68,14 +73,20 @@ public class ChatActivity extends AppCompatActivity {
         }
 
         centrifugoAddress = "ws://37.72.172.144:5050/connection/websocket";
-        userId = "97464d02-2ecc-4b70-aed0-897fcb3ab460";
         userToken = "";
-        token = "2128baa0aa378bafd7e7e86e64ed4babee647307253dc60183212335272e00ef";
-        tokenTimestamp = "1548385285";
-
-        connectToCentrifugo();
 
         generateToken();
+
+        Intent intent = getIntent();
+        serviceId = intent.getStringExtra("serviceId");
+        workerId = intent.getStringExtra("workerId");
+        providerId = intent.getStringExtra("providerId");
+
+        if (workerId == null) {
+            toId = providerId;
+        } else {
+            toId = workerId;
+        }
 
         btnSend.setOnClickListener(view -> sendChat());
     }
@@ -88,26 +99,28 @@ public class ChatActivity extends AppCompatActivity {
 
         BaseApiService mApiService = UtilsApi.getAPIService();
         mApiService.generateToken(userId, "Bearer "+tokenId)
-                .enqueue(new Callback<ResponseBody>() {
+                .enqueue(new Callback<GenerateToken>() {
                     @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        Log.d("generate", "onresponse " + response.message());
+                    public void onResponse(Call<GenerateToken> call, Response<GenerateToken> response) {
+                        token = response.body().getData().getToken();
+                        tokenTimestamp = response.body().getData().getTimestamp().toString();
+                        connectToCentrifugo(token, tokenTimestamp, userId);
                     }
 
                     @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    public void onFailure(Call<GenerateToken> call, Throwable t) {
                         Log.d("generate", "onfailure " + t.getLocalizedMessage());
                     }
                 });
     }
 
-    private void connectToCentrifugo() {
+    private void connectToCentrifugo(String token, String tokenTimestamp, String userId) {
         centrifugo = new Centrifugo.Builder(centrifugoAddress)
                 .setUser(new User(userId, userToken))
                 .setToken(new Token(token, tokenTimestamp))
                 .build();
         centrifugo.connect();
-        centrifugo.subscribe(new SubscriptionRequest("f10d9781-4abd-49ea-97af-ba28a956be07"));
+        centrifugo.subscribe(new SubscriptionRequest(serviceId));
 
         new Thread() {
             @Override
@@ -144,11 +157,13 @@ public class ChatActivity extends AppCompatActivity {
             SessionManagement session = new SessionManagement(getApplicationContext());
             HashMap<String, String> user = session.getUserDetails();
             String tokenId = user.get(SessionManagement.KEY_IMG_TOKEN);
+            String userId = user.get(SessionManagement.KEY_ID);
+            String name = user.get(SessionManagement.KEY_NAME);
 
             BaseApiService mApiService = UtilsApi.getAPIService();
-            mApiService.sendChat("f10d9781-4abd-49ea-97af-ba28a956be07", "f10d9781-4abd-49ea-97af-ba28a956be07",
-                    "da727d7a-e920-463a-bf16-04fdf9870a3b", "Admin", "text",
-                    textMessage.getText().toString(), "97464d02-2ecc-4b70-aed0-897fcb3ab460", "Bearer "+tokenId)
+            mApiService.sendChat(serviceId, serviceId,
+                    userId, name, "text",
+                    textMessage.getText().toString(), toId, "Bearer "+tokenId)
                     .enqueue(new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -167,7 +182,6 @@ public class ChatActivity extends AppCompatActivity {
 
     private void showMessage(final DataMessage message) {
         runOnUiThread(() -> {
-            Log.d("centrifugo", "message : " + message.getData());
             JSONObject jsonObject = null;
             try {
                 jsonObject = new JSONObject(message.getData());

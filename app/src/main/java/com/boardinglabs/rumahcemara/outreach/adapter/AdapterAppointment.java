@@ -53,6 +53,10 @@ public class AdapterAppointment extends RecyclerView.Adapter<AdapterAppointment.
         final String endDate = articleModel.getEnd_date();
         final String description = articleModel.getDescription();
         final String location = articleModel.getLocation();
+        final String workerId = articleModel.getWorker_id();
+        final String providerId = articleModel.getProvider_id();
+
+        Log.d("provider id", providerId);
 
         Glide.with(context).applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_person_signup)).load(articleModel.getImgUrl()).into(holder.imageView);
         holder.textViewFullname.setText(articleModel.getFullName());
@@ -75,6 +79,9 @@ public class AdapterAppointment extends RecyclerView.Adapter<AdapterAppointment.
         });
         holder.ivChat.setOnClickListener(v -> {
             Intent chat = new Intent(context, ChatActivity.class);
+            chat.putExtra("serviceId", serviceId);
+            chat.putExtra("workerId", workerId);
+            chat.putExtra("providerId", providerId);
             context.startActivity(chat);
         });
     }

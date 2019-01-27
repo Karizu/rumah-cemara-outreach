@@ -108,6 +108,7 @@ public class BiomedicalTabFragment extends Fragment {
 
                                 for (int i = 0; i < res.size(); i++) {
                                     AppointmentDataResponse article = res.get(i);
+
                                     articleModels.add(new RequestModel(article.getId(),
                                             article.getService_type().getName(),
                                             article.getUser().getProfile().getPicture(),
@@ -118,6 +119,8 @@ public class BiomedicalTabFragment extends Fragment {
                                             article.getDescription(),
                                             article.getWorker().getProfile().getAddress(),
                                             article.getAppointment(),
+                                            article.getWorker_id(),
+                                            article.getProvider_id(),
                                             getFragmentManager()));
                                 }
 
@@ -148,6 +151,7 @@ public class BiomedicalTabFragment extends Fragment {
 
                             for (int i = 0; i < res.size(); i++) {
                                 AppointmentDataResponse article = res.get(i);
+
                                 articleModels.add(new RequestModel(article.getId(),
                                         article.getService_type().getName(),
                                         article.getUser().getProfile().getPicture(),
@@ -158,6 +162,8 @@ public class BiomedicalTabFragment extends Fragment {
                                         article.getDescription(),
                                         article.getWorker().getProfile().getAddress(),
                                         article.getAppointment(),
+                                        article.getWorker_id(),
+                                        article.getProvider_id(),
                                         getFragmentManager()));
                             }
 

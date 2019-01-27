@@ -68,6 +68,7 @@ dependencies {
     implementation 'com.jjoe64:graphview:4.2.2'
     implementation 'com.github.centrifugal:centrifuge-android:master'
     implementation project(':centrifuge')
+    implementation 'org.ocpsoft.prettytime:prettytime:4.0.2.Final'
 }
 
 apply plugin: 'com.google.gms.google-services'
