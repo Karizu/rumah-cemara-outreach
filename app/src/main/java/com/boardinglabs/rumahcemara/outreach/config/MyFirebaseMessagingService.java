@@ -52,10 +52,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         Log.d("test", "test");
 
+        SessionManagement sessionManagement = new SessionManagement(this);
+
         String title = remoteMessage.getData().get("title");
         String body = remoteMessage.getData().get("body");
         Log.d("muhtar", "notif " + remoteMessage.getData());
-        showNotification(title, body);
+
+        if (sessionManagement.getNotification() == 1) {
+            showNotification(title, body);
+        }
     }
 
     private void showNotification(String title, String body) {

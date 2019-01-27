@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,17 +34,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.support.constraint.Constraints.TAG;
-
 public class OptionsFragment extends Fragment {
-
     TextView logout;
     TextView notif;
     TextView langeuage;
     CardView bahasa;
     CardView english;
     SessionManagement session;
-    Intent intent;
+    Switch switchNotif;
 
     @BindView(R.id.imgProfile)
     CircularImageView imageProfile;
@@ -80,7 +78,6 @@ public class OptionsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_options, container, false);
 
         ButterKnife.bind(this, view);
@@ -102,6 +99,7 @@ public class OptionsFragment extends Fragment {
         bahasa = view.findViewById(R.id.cvIndo);
         english = view.findViewById(R.id.cvEnglish);
         notif = view.findViewById(R.id.tvNotification);
+        switchNotif = view.findViewById(R.id.swicthNotif);
 
         bahasa.setVisibility(View.GONE);
         english.setVisibility(View.GONE);
@@ -141,6 +139,22 @@ public class OptionsFragment extends Fragment {
             logout.setText("Keluar");
             notif.setText("Pemberitahuan");
         }
+
+        if (session.getNotification() == 0) {
+            switchNotif.setChecked(false);
+        } else if (session.getNotification() == 1) {
+            switchNotif.setChecked(true);
+        } else {
+            switchNotif.setChecked(true);
+        }
+
+        switchNotif.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (b) {
+                session.setNotification(1);
+            } else {
+                session.setNotification(0);
+            }
+        });
 
 
         return view;
@@ -187,7 +201,6 @@ public class OptionsFragment extends Fragment {
             @Override
             public void onFailure(Call<ApiResponse<GeneralDataProfile>> call, Throwable t) {
                 loadingDialog.dismiss();
-                Log.e(TAG, t.toString());
                 Toast.makeText(getActivity(), "Error loading!", Toast.LENGTH_SHORT).show();
             }
         });

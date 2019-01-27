@@ -37,6 +37,7 @@ public class SessionManagement {
     public static final String KEY_IMG_TOKEN = "token";
     public static final String KEY_GROUP_ID = "group_id";
     public static final String KEY_LANGUAGE_ID = "language_id";
+    public static final String NOTIFICATION = "notification";
 
     // Constructor
     public SessionManagement(Context context) {
@@ -69,6 +70,17 @@ public class SessionManagement {
         int languageId;
         languageId = pref.getInt(KEY_LANGUAGE_ID, 0);
         return languageId;
+    }
+
+    public void setNotification(int notification) {
+        editor.putInt(NOTIFICATION, notification);
+        editor.commit();
+    }
+
+    public int getNotification() {
+        int notification;
+        notification = pref.getInt(NOTIFICATION, 0);
+        return notification;
     }
 
     public void checkLogin(){
