@@ -14,7 +14,7 @@
     </style>
 
     <style name="quicksandTheme">
-        <item name="android:fontFamily" tools:ignore="NewApi">@font/quicksand</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif</item>
         <item name="android:textSize">@dimen/text_size_micro</item>
         <item name="android:textColor">@color/NormalColorText</item>
     </style>

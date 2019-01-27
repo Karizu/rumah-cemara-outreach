@@ -69,14 +69,17 @@ public interface BaseApiService {
     @FormUrlEncoded
     @POST("message")
     Call<ResponseBody> sendChat(@Field("service_transaction_id") String serviceTransId,
-                                     @Field("channel") String channel,
-                                     @Field("from_id") String fromId,
-                                     @Field("from_name") String fromName,
-                                     @Field("message_type") String messageType,
-                                     @Field("message") String message,
-                                     @Field("to_id") String toId,
-                                     @Header("Authorization") String authorization);
+                                @Field("channel") String channel,
+                                @Field("from_id") String fromId,
+                                @Field("from_name") String fromName,
+                                @Field("message_type") String messageType,
+                                @Field("message") String message,
+                                @Field("to_id") String toId,
+                                @Header("Authorization") String authorization);
 
+    @GET("generateToken?{user_id}")
+    Call<ResponseBody> generateToken(@Path("user_id") String userId,
+                                     @Header("Authorization") String authorization);
 
     @GET("user/{user_id}")
     Call<ApiResponse<GeneralDataProfile>> getProfileDetail(@Path("user_id") String user_id, @Header("Authorization") String token);
@@ -114,5 +117,5 @@ public interface BaseApiService {
     Call<ApiResponse<Dashboard>> getDashboardData(@Query("group_id") String group_id, @Query("worker_id") String worker_id, @Query("month") String month, @Query("start_date") String start_date, @Query("end_date") String end_date, @Header("Authorization") String token);
 
     @GET("group")
-    Call <ApiResponse<List<Group>>> getGroup();
+    Call<ApiResponse<List<Group>>> getGroup();
 }

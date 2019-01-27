@@ -75,7 +75,30 @@ public class ChatActivity extends AppCompatActivity {
 
         connectToCentrifugo();
 
+        generateToken();
+
         btnSend.setOnClickListener(view -> sendChat());
+    }
+
+    private void generateToken() {
+        SessionManagement session = new SessionManagement(getApplicationContext());
+        HashMap<String, String> user = session.getUserDetails();
+        String tokenId = user.get(SessionManagement.KEY_IMG_TOKEN);
+        String userId = user.get(SessionManagement.KEY_ID);
+
+        BaseApiService mApiService = UtilsApi.getAPIService();
+        mApiService.generateToken(userId, "Bearer "+tokenId)
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        Log.d("generate", "onresponse " + response.message());
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.d("generate", "onfailure " + t.getLocalizedMessage());
+                    }
+                });
     }
 
     private void connectToCentrifugo() {
