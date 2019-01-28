@@ -199,17 +199,15 @@ public class ChatActivity extends AppCompatActivity {
 
         final ProgressDialog progressDoalog;
         progressDoalog = new ProgressDialog(ChatActivity.this);
-        //progressDoalog.setMax(100);
+
         if (session.getLanguage() == 0) {
             progressDoalog.setMessage("Please wait....");
         } else {
             progressDoalog.setMessage("Mohon tunggu sebentar....");
         }
-        //progressDoalog.setTitle("ProgressDialog bar example");
-        //progressDoalog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
         progressDoalog.getWindow().setGravity(Gravity.CENTER_VERTICAL);
         progressDoalog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        // show it
         progressDoalog.show();
 
         mApiService.chatHistory(serviceId, "Bearer " + tokenId)
