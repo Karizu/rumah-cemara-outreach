@@ -84,7 +84,7 @@ public interface BaseApiService {
     Call<GenerateToken> generateToken(@Query("user_id") String userId,
                                       @Header("Authorization") String authorization);
 
-    @GET("generateToken")
+    @GET("messageHistory")
     Call<ChatHistory> chatHistory(@Query("channel") String channel,
                                   @Header("Authorization") String authorization);
 

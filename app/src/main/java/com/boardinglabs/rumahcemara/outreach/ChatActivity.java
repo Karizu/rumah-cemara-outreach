@@ -1,5 +1,6 @@
 package com.boardinglabs.rumahcemara.outreach;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -10,6 +11,8 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -30,6 +33,7 @@ import com.centrifugal.centrifuge.android.subscription.SubscriptionRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -52,6 +56,7 @@ public class ChatActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private AdapterChat adapterChat;
     private ArrayList<Chat> chats;
+    private LinearLayoutManager linearLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +68,8 @@ public class ChatActivity extends AppCompatActivity {
         ImageButton btnSend = findViewById(R.id.btn_send);
         recyclerView = findViewById(R.id.chat_recyclerview);
         textMessage = findViewById(R.id.text_message);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         SessionManagement sessionManagement = new SessionManagement(this);
 
@@ -101,7 +107,7 @@ public class ChatActivity extends AppCompatActivity {
         String userId = user.get(SessionManagement.KEY_ID);
 
         BaseApiService mApiService = UtilsApi.getAPIService();
-        mApiService.generateToken(userId, "Bearer "+tokenId)
+        mApiService.generateToken(userId, "Bearer " + tokenId)
                 .enqueue(new Callback<GenerateToken>() {
                     @Override
                     public void onResponse(Call<GenerateToken> call, Response<GenerateToken> response) {
@@ -166,7 +172,7 @@ public class ChatActivity extends AppCompatActivity {
             BaseApiService mApiService = UtilsApi.getAPIService();
             mApiService.sendChat(serviceId, serviceId,
                     userId, name, "text",
-                    textMessage.getText().toString(), toId, "Bearer "+tokenId)
+                    textMessage.getText().toString(), toId, "Bearer " + tokenId)
                     .enqueue(new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -185,23 +191,51 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void getChatHistory() {
-            SessionManagement session = new SessionManagement(getApplicationContext());
-            HashMap<String, String> user = session.getUserDetails();
-            String tokenId = user.get(SessionManagement.KEY_IMG_TOKEN);
+        SessionManagement session = new SessionManagement(getApplicationContext());
+        HashMap<String, String> user = session.getUserDetails();
+        String tokenId = user.get(SessionManagement.KEY_IMG_TOKEN);
 
-            BaseApiService mApiService = UtilsApi.getAPIService();
-            mApiService.chatHistory(serviceId, "Bearer "+tokenId)
-                    .enqueue(new Callback<ChatHistory>() {
-                        @Override
-                        public void onResponse(Call<ChatHistory> call, Response<ChatHistory> response) {
-                            Log.d("history", "onresponse " + response.body().getData());
-                        }
+        BaseApiService mApiService = UtilsApi.getAPIService();
 
-                        @Override
-                        public void onFailure(Call<ChatHistory> call, Throwable t) {
-                            Log.d("history", "onfailure " + t.getLocalizedMessage());
+        final ProgressDialog progressDoalog;
+        progressDoalog = new ProgressDialog(ChatActivity.this);
+        //progressDoalog.setMax(100);
+        if (session.getLanguage() == 0) {
+            progressDoalog.setMessage("Please wait....");
+        } else {
+            progressDoalog.setMessage("Mohon tunggu sebentar....");
+        }
+        //progressDoalog.setTitle("ProgressDialog bar example");
+        //progressDoalog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        progressDoalog.getWindow().setGravity(Gravity.CENTER_VERTICAL);
+        progressDoalog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        // show it
+        progressDoalog.show();
+
+        mApiService.chatHistory(serviceId, "Bearer " + tokenId)
+                .enqueue(new Callback<ChatHistory>() {
+                    @Override
+                    public void onResponse(Call<ChatHistory> call, Response<ChatHistory> response) {
+                        for (ChatHistory.Datum datum : response.body().getData()) {
+                            Log.d("muhtar", datum.getChannel());
+                            Chat chat = new Chat(datum.getMessage(), datum.getFromId(),
+                                    datum.getCreatedAt());
+                            chats.add(chat);
+                            progressDoalog.dismiss();
+                            linearLayoutManager.scrollToPosition(chats.size()-1);
                         }
-                    });
+                    }
+
+                    @Override
+                    public void onFailure(Call<ChatHistory> call, Throwable t) {
+                        progressDoalog.dismiss();
+                        Log.d("history", "onfailure " + t.getLocalizedMessage());
+                    }
+                });
+
+        adapterChat = new AdapterChat(this, chats);
+        recyclerView.setAdapter(adapterChat);
+        linearLayoutManager.scrollToPosition(chats.size()-1);
     }
 
 
@@ -215,6 +249,7 @@ public class ChatActivity extends AppCompatActivity {
                 chats.add(chat);
                 adapterChat = new AdapterChat(this, chats);
                 recyclerView.setAdapter(adapterChat);
+                linearLayoutManager.scrollToPosition(chats.size()-1);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
