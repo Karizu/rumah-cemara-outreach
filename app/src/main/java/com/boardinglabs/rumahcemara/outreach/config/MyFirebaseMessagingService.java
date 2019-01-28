@@ -16,6 +16,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
+import com.boardinglabs.rumahcemara.outreach.ChatActivity;
 import com.boardinglabs.rumahcemara.outreach.MainActivity;
 import com.boardinglabs.rumahcemara.outreach.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -56,18 +57,25 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         String title = remoteMessage.getData().get("title");
         String body = remoteMessage.getData().get("body");
+        String type = remoteMessage.getData().get("type");
         Log.d("muhtar", "notif " + remoteMessage.getData());
 
         if (sessionManagement.getNotification() == 1) {
-            showNotification(title, body);
+            showNotification(title, body, type);
         }
     }
 
-    private void showNotification(String title, String body) {
-        Intent i = new Intent(this, MainActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    private void showNotification(String title, String body, String type) {
+        Intent intent;
+        if(type.equals("chat")){
+            intent = new Intent(this, ChatActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        } else {
+            intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        }
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, i,
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         Uri soundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);

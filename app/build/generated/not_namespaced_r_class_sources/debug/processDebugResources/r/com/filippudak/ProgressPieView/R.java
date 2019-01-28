@@ -30,16 +30,16 @@ public final class R {
     public static final class color {
         private color() {}
 
-        public static final int default_background_color = 0x7f060046;
-        public static final int default_progress_color = 0x7f060049;
-        public static final int default_stroke_color = 0x7f06004a;
-        public static final int default_text_color = 0x7f06004b;
+        public static final int default_background_color = 0x7f0600db;
+        public static final int default_progress_color = 0x7f0600de;
+        public static final int default_stroke_color = 0x7f0600df;
+        public static final int default_text_color = 0x7f0600e0;
     }
     public static final class id {
         private id() {}
 
         public static final int center = 0x7f09003e;
-        public static final int radial = 0x7f0900d8;
+        public static final int radial = 0x7f0900d6;
     }
     public static final class styleable {
         private styleable() {}

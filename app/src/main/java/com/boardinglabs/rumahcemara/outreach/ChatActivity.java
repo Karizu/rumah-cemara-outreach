@@ -18,6 +18,7 @@ import com.boardinglabs.rumahcemara.outreach.apihelper.BaseApiService;
 import com.boardinglabs.rumahcemara.outreach.apihelper.UtilsApi;
 import com.boardinglabs.rumahcemara.outreach.config.SessionManagement;
 import com.boardinglabs.rumahcemara.outreach.models.Chat;
+import com.boardinglabs.rumahcemara.outreach.models.ChatHistory;
 import com.boardinglabs.rumahcemara.outreach.models.GenerateToken;
 import com.centrifugal.centrifuge.android.Centrifugo;
 import com.centrifugal.centrifuge.android.credentials.Token;
@@ -89,6 +90,8 @@ public class ChatActivity extends AppCompatActivity {
         }
 
         btnSend.setOnClickListener(view -> sendChat());
+
+        getChatHistory();
     }
 
     private void generateToken() {
@@ -168,6 +171,7 @@ public class ChatActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                             Log.d("centrifugo", "onresponse " + response.message());
+
                         }
 
                         @Override
@@ -179,6 +183,27 @@ public class ChatActivity extends AppCompatActivity {
         }
 
     }
+
+    private void getChatHistory() {
+            SessionManagement session = new SessionManagement(getApplicationContext());
+            HashMap<String, String> user = session.getUserDetails();
+            String tokenId = user.get(SessionManagement.KEY_IMG_TOKEN);
+
+            BaseApiService mApiService = UtilsApi.getAPIService();
+            mApiService.chatHistory(serviceId, "Bearer "+tokenId)
+                    .enqueue(new Callback<ChatHistory>() {
+                        @Override
+                        public void onResponse(Call<ChatHistory> call, Response<ChatHistory> response) {
+                            Log.d("history", "onresponse " + response.body().getData());
+                        }
+
+                        @Override
+                        public void onFailure(Call<ChatHistory> call, Throwable t) {
+                            Log.d("history", "onfailure " + t.getLocalizedMessage());
+                        }
+                    });
+    }
+
 
     private void showMessage(final DataMessage message) {
         runOnUiThread(() -> {
