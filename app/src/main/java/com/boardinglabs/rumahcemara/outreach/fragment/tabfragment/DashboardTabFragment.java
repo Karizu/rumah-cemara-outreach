@@ -1,7 +1,5 @@
 package com.boardinglabs.rumahcemara.outreach.fragment.tabfragment;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -11,35 +9,21 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.boardinglabs.rumahcemara.outreach.R;
 import com.boardinglabs.rumahcemara.outreach.apihelper.API;
 import com.boardinglabs.rumahcemara.outreach.apihelper.ApiResponse;
 import com.boardinglabs.rumahcemara.outreach.config.SessionManagement;
 import com.boardinglabs.rumahcemara.outreach.dialog.LoadingDialog;
 import com.boardinglabs.rumahcemara.outreach.models.Dashboard;
-import com.boardinglabs.rumahcemara.outreach.models.GeneralDataProfile;
-import com.boardinglabs.rumahcemara.outreach.models.RequestModel;
-import com.boardinglabs.rumahcemara.outreach.models.Total7Day;
 import com.boardinglabs.rumahcemara.outreach.models.Total7DayModel;
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.ValueDependentColor;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;

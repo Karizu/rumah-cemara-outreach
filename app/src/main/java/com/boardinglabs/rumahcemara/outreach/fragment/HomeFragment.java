@@ -11,15 +11,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.boardinglabs.rumahcemara.outreach.R;
+import com.boardinglabs.rumahcemara.outreach.apihelper.API;
 import com.boardinglabs.rumahcemara.outreach.config.SessionManagement;
 import com.boardinglabs.rumahcemara.outreach.fragment.tabfragment.DashboardTabFragment;
 import com.boardinglabs.rumahcemara.outreach.fragment.tabfragment.RequestTabFragment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class HomeFragment extends Fragment {
     private int languageId;
+    String sId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,6 +39,8 @@ public class HomeFragment extends Fragment {
 
         SessionManagement sessionManagement = new SessionManagement(getActivity());
         languageId = sessionManagement.getLanguage();
+        HashMap<String, String> user = sessionManagement.getUserDetails();
+        sId = user.get(SessionManagement.KEY_ID);
 
         ViewPager viewPager = view.findViewById(R.id.container);
         setupViewPager(viewPager);
@@ -85,4 +93,18 @@ public class HomeFragment extends Fragment {
             return mFragmentTitleList.get(position);
         }
     }
+
+//    private void createLocation(){
+////
+//        RequestBody requestBody;
+//        requestBody = new MultipartBody.Builder()
+//                .setType(MultipartBody.FORM)
+//                .addFormDataPart("user_id", sId)
+//                .addFormDataPart("lat", "-6.893870")
+//                .addFormDataPart("long", "107.631200")
+//                .addFormDataPart("description", "Boarding Labs 1")
+//                .build();
+//
+//        API.baseApiService().updateLocation(requestBody)
+//    }
 }

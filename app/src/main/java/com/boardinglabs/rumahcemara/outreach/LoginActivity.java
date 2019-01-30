@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.boardinglabs.rumahcemara.outreach.apihelper.API;
 import com.boardinglabs.rumahcemara.outreach.apihelper.ApiResponse;
 import com.boardinglabs.rumahcemara.outreach.apihelper.AuthHelper;
 import com.boardinglabs.rumahcemara.outreach.apihelper.BaseApiService;
@@ -52,6 +53,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import okhttp3.Headers;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -74,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
 
     Intent intent;
     SessionManagement session;
+    String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +124,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
+
     private void requestLogin(){
         mApiService.loginRequest(etUsername.getText().toString(), etPassword.getText().toString())
                 .enqueue(new Callback<ResponseBody>() {
@@ -131,7 +136,7 @@ public class LoginActivity extends AppCompatActivity {
                                 JSONObject jsonRESULTS = new JSONObject(response.body().string());
                                 if (jsonRESULTS.getString("status").equals("true")){
                                     String nama = jsonRESULTS.getJSONObject("data").getString("username");
-                                    String id = jsonRESULTS.getJSONObject("data").getString("id");
+                                    id = jsonRESULTS.getJSONObject("data").getString("id");
                                     String group_id = jsonRESULTS.getJSONObject("data").getString("group_id");
                                     String fullname = jsonRESULTS.getJSONObject("data").getJSONObject("profile").getString("fullname");
                                     String phonenumber = jsonRESULTS.getJSONObject("data").getJSONObject("profile").getString("phone_number");

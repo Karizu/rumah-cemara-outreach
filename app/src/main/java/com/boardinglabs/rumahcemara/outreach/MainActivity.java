@@ -104,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             navigation.setSelectedItemId(R.id.navigation_home); // change to whichever id should be default
         }
-
     }
 
     private void registerToken(String token) {
@@ -120,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
         Field[] fields = Build.VERSION_CODES.class.getFields();
         String os = fields[Build.VERSION.SDK_INT + 1].getName();
         String version = Build.VERSION.RELEASE;
-        mApiService.getUserDevice(userId, type, "Android", version, os,
+        mApiService.getUserDevice(userId, "Android", type, version, os,
                 token, bearerToken)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override

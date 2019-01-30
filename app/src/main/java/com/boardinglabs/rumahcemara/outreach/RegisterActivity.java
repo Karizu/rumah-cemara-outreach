@@ -32,6 +32,8 @@ import com.boardinglabs.rumahcemara.outreach.apihelper.API;
 import com.boardinglabs.rumahcemara.outreach.apihelper.ApiResponse;
 import com.boardinglabs.rumahcemara.outreach.dialog.LoadingDialog;
 import com.boardinglabs.rumahcemara.outreach.models.Group;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.rezkyatinnov.kyandroid.reztrofit.ErrorResponse;
 import com.rezkyatinnov.kyandroid.reztrofit.RestCallback;
 
@@ -60,10 +62,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import pl.aprilapps.easyphotopicker.DefaultCallback;
+import pl.aprilapps.easyphotopicker.EasyImage;
 
-public class RegisterActivity extends Activity {
+public class RegisterActivity extends Activity implements AdapterView.OnItemSelectedListener {
 
     String[] genderArray = {"male", "female"};
+    private final int REQEUST_CAMERA = 1, REQUEST_GALLERY = 2;
     private static final int CAMERA_REQUEST_CODE = 1;
     @BindView(R.id.etName)
     EditText fullname;
@@ -79,12 +84,15 @@ public class RegisterActivity extends Activity {
     EditText username;
     @BindView(R.id.etPassword)
     EditText password;
-    @BindView(R.id.etGender)
-    AutoCompleteTextView gender;
+    @BindView(R.id.spinnerGender)
+    Spinner sGender;
+    @BindView(R.id.imgProfile)
+    ImageView etImgProfile;
     @BindView(R.id.spinnerInstitution)
     Spinner institutionName;
+    Boolean validate = false;
 
-    Bitmap photoImage;
+    Bitmap bitmap;
     File fileImage;
     ArrayList<String> listValue;
     Context appContext;
@@ -105,10 +113,8 @@ public class RegisterActivity extends Activity {
             updateLabel(calendar);
         };
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_singlechoice, genderArray);
-        AutoCompleteTextView acTextView = findViewById(R.id.etGender);
-        acTextView.setThreshold(1);
-        acTextView.setAdapter(adapter);
+        ActivityCompat.requestPermissions(RegisterActivity.this,
+                new String[]{Manifest.permission.CAMERA}, 1);
 
         birthDate.setKeyListener(null);
         birthDate.setOnClickListener(view -> new DatePickerDialog(RegisterActivity.this,
@@ -120,8 +126,10 @@ public class RegisterActivity extends Activity {
         appContext = this;
         loadingDialog = new LoadingDialog(this);
 
-        initSpinnerDosen();
+        sGender.setOnItemSelectedListener(this);
 
+        settingGenderSpinner();
+        initSpinnerDosen();
         institutionName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -137,15 +145,38 @@ public class RegisterActivity extends Activity {
         });
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission granted and now can proceed
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(RegisterActivity.this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+            // add other cases for more permissions
+        }
+    }
+
     private void initSpinnerDosen() {
+        Log.d("Masuk initSpinner", " ");
         API.baseApiService().getGroup().enqueue(new retrofit2.Callback<ApiResponse<List<Group>>>() {
             @Override
             public void onResponse(retrofit2.Call<ApiResponse<List<Group>>> call, retrofit2.Response<ApiResponse<List<Group>>> response) {
                 if (response.isSuccessful()) {
                     List<Group> dataInstitution = response.body().getData();
+                    Log.d("Masuk response Sukses", dataInstitution.toString());
                     listValue = new ArrayList<String>();
                     ArrayList<String> listLabel = new ArrayList<String>();
-                    for (int i = 0; i < dataInstitution.size(); i++){
+                    for (int i = 0; i < dataInstitution.size(); i++) {
                         listValue.add(dataInstitution.get(i).getId());
                         listLabel.add(dataInstitution.get(i).getName());
                     }
@@ -161,86 +192,135 @@ public class RegisterActivity extends Activity {
 
             @Override
             public void onFailure(retrofit2.Call<ApiResponse<List<Group>>> call, Throwable t) {
-
+                Log.d("Masuk response gagal ", t.getMessage());
             }
         });
 
     }
 
+    private void validateField() {
+        if (validate == false){
+            if (fullname.getText().toString().length() == 0) {
+                fullname.setError("Name is required!");
+                validate = true;
+            }
+            if (username.getText().toString().length() == 0) {
+                username.setError("Username is required!");
+                validate = true;
+            }
+            if (email.getText().toString().length() == 0) {
+                email.setError("Email is required!");
+                validate = true;
+            } else if (!email.getText().toString().contains("@")) {
+                email.setError("Email format is wrong!");
+                validate = true;
+            }
+            if (password.getText().toString().length() == 0) {
+                password.setError("Password is required!");
+                validate = true;
+            }
+        } else {
+            validate = false;
+        }
+        loadingDialog.dismiss();
+    }
+
     @OnClick(R.id.tvSelectPicture)
     void onClickChangeProfilePhoto() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE);
-        } else {
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(intent, CAMERA_REQUEST_CODE);
-        }
+        changephoto();
     }
 
     @OnClick(R.id.btnSignUp)
     void onClickBtnRegister() {
         loadingDialog.setCancelable(false);
         loadingDialog.show();
+        validateField();
 
-        post(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                loadingDialog.dismiss();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                loadingDialog.dismiss();
-                if (response.isSuccessful()) {
-                    Log.d("Response", "Response successful");
-                    Log.d("Body", response.body().string());
-                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                    intent.putExtra("username", username.getText().toString());
-                    intent.putExtra("password", password.getText().toString());
-                    intent.putExtra("message", "Thanks for signing up! Please wait for verification by administrator.");
-                    startActivity(intent);
-                    finish();
-                } else {
-                    runOnUiThread(() -> Toast.makeText(appContext, "Username has already been taken.", Toast.LENGTH_SHORT).show());
-                    Log.d("Response Failed", response.message());
-                    Log.d("Body", response.body().string());
+        if (!validate) {
+            post(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    loadingDialog.dismiss();
                 }
-            }
-        });
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    loadingDialog.dismiss();
+                    if (response.isSuccessful()) {
+                        Log.d("Response", "Response successful");
+                        Log.d("Body", response.body().string());
+                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                        intent.putExtra("username", username.getText().toString());
+                        intent.putExtra("password", password.getText().toString());
+                        intent.putExtra("message", "Thanks for signing up! Please wait for verification by administrator.");
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        runOnUiThread(() -> Toast.makeText(appContext, "Username has already been taken.", Toast.LENGTH_SHORT).show());
+                        Log.d("Response Failed", response.message());
+                        Log.d("Body", response.body().string());
+                    }
+                }
+            });
+        }
     }
 
     Call post(Callback callback) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        Log.d("photo", "check photo");
-        File file = new File(getCacheDir(), "file.jpeg");
-        if (photoImage != null)
-            photoImage.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        if (fileImage != null) {
+            Log.d("photo", "check photo");
+            File file = new File(getCacheDir(), "file.jpeg");
+            bitmap = BitmapFactory.decodeFile(fileImage.getAbsolutePath());
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream);
+            Log.d("photo", "check after take foto");
+            OkHttpClient client = new OkHttpClient();
+            String fileName = "file.jpeg";
+            RequestBody body = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("fullname", fullname.getText().toString())
+                    .addFormDataPart("birth_date", birthDate.getText().toString())
+                    .addFormDataPart("email", email.getText().toString())
+                    .addFormDataPart("gender", sGender.getSelectedItem().toString())
+                    .addFormDataPart("username", username.getText().toString())
+                    .addFormDataPart("password", password.getText().toString())
+                    .addFormDataPart("picture", "photo.jpeg", RequestBody.create(MediaType.parse("image/jpeg"), byteArrayOutputStream.toByteArray()))
+                    .addFormDataPart("group_id", valueName)
+                    .addFormDataPart("type", "worker")
+                    .build();
+            Request request = new Request.Builder()
+                    .url("http://37.72.172.144/rumah-cemara-api/public/api/register")
+                    .post(body)
+                    .build();
 
-        Log.d("photo", "check after take foto");
-        OkHttpClient client = new OkHttpClient();
-        String fileName = "file.jpeg";
-        RequestBody body = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("fullname", fullname.getText().toString())
-                .addFormDataPart("birth_date", birthDate.getText().toString())
-                .addFormDataPart("email", email.getText().toString())
-                .addFormDataPart("gender", gender.getText().toString())
-                .addFormDataPart("username", username.getText().toString())
-                .addFormDataPart("password", password.getText().toString())
-                .addFormDataPart("picture", "photo.jpeg", RequestBody.create(MediaType.parse("image/jpeg"), stream.toByteArray()))
-                .addFormDataPart("group_id", valueName)
-                .build();
-        Request request = new Request.Builder()
-                .url("http://37.72.172.144/rumah-cemara-api/public/api/register")
-                .post(body)
-                .build();
+            Log.d("Response", "before response");
+            Call call = client.newCall(request);
+            call.enqueue(callback);
+            return call;
+        } else {
+            Log.d("photo", "check after take foto");
+            OkHttpClient client = new OkHttpClient();
+            String fileName = "file.jpeg";
+            RequestBody body = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("fullname", fullname.getText().toString())
+                    .addFormDataPart("birth_date", birthDate.getText().toString())
+                    .addFormDataPart("email", email.getText().toString())
+                    .addFormDataPart("gender", sGender.getSelectedItem().toString())
+                    .addFormDataPart("username", username.getText().toString())
+                    .addFormDataPart("password", password.getText().toString())
+                    .addFormDataPart("group_id", valueName)
+                    .addFormDataPart("type", "worker")
+                    .build();
+            Request request = new Request.Builder()
+                    .url("http://37.72.172.144/rumah-cemara-api/public/api/register")
+                    .post(body)
+                    .build();
 
-        Log.d("Response", "before response");
-        Call call = client.newCall(request);
-        call.enqueue(callback);
-        return call;
+            Log.d("Response", "before response");
+            Call call = client.newCall(request);
+            call.enqueue(callback);
+            return call;
+        }
     }
 
     @OnClick(R.id.tvSignIn)
@@ -250,28 +330,57 @@ public class RegisterActivity extends Activity {
         finish();
     }
 
+    private void changephoto() {
+        final CharSequence[] options = {"Take Photo", "Choose From Gallery", "Cancel"};
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
+        builder.setTitle("Select Option");
+        builder.setItems(options, (dialog, item) -> {
+            if (options[item].equals("Take Photo")) {
+                EasyImage.openCamera(this, REQEUST_CAMERA);
+            } else if (options[item].equals("Choose From Gallery")) {
+                EasyImage.openGallery(this, REQUEST_GALLERY);
+            } else if (options[item].equals("Cancel")) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+    }
+
+    private void settingGenderSpinner() {
+        // Spinner Drop down elements
+        List<String> gender = new ArrayList<String>();
+        gender.add("male");
+        gender.add("female");
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, gender);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        sGender.setAdapter(dataAdapter);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
-            ImageView img = findViewById(R.id.imgProfile);
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            photoImage = (Bitmap) data.getExtras().get("data");
-            photoImage.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-            img.setImageBitmap(photoImage);
-            try {
-                File outputDir = getCacheDir();
-                fileImage = File.createTempFile("photo", "jpeg", outputDir);
-                FileOutputStream outputStream = openFileOutput("photo.jpeg", Context.MODE_PRIVATE);
-                outputStream.write(stream.toByteArray());
-                outputStream.close();
-                Log.d("Write File", "Success");
-            } catch (IOException e) {
-                e.printStackTrace();
-                Log.d("Write File", "Failed2");
+        EasyImage.handleActivityResult(requestCode, resultCode, data, this, new DefaultCallback() {
+            @Override
+            public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
+                //Some error handling
             }
-        }
+
+            @Override
+            public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
+                Glide.with(appContext)
+                        .load(imageFile)
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(etImgProfile);
+                fileImage = imageFile;
+            }
+        });
     }
 
     @Override
@@ -286,5 +395,51 @@ public class RegisterActivity extends Activity {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format, Locale.US);
 
         birthDate.setText(simpleDateFormat.format(calendar.getTime()));
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        checkPermissionGrant();
+    }
+
+    private void checkPermissionGrant() {
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.CAMERA)) {
+
+                // Show an expanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                int MY_PERMISSIONS_REQUEST_CAMERA = 100;
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.CAMERA},
+                        MY_PERMISSIONS_REQUEST_CAMERA);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        }
     }
 }

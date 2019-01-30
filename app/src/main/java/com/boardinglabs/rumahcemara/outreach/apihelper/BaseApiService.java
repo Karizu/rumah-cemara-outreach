@@ -1,13 +1,11 @@
 package com.boardinglabs.rumahcemara.outreach.apihelper;
 
 import com.boardinglabs.rumahcemara.outreach.models.Appointment;
-import com.boardinglabs.rumahcemara.outreach.models.Chat;
 import com.boardinglabs.rumahcemara.outreach.models.ChatHistory;
 import com.boardinglabs.rumahcemara.outreach.models.Dashboard;
-import com.boardinglabs.rumahcemara.outreach.models.GeneralDataProfile;
+import com.boardinglabs.rumahcemara.outreach.models.GeneralData;
 import com.boardinglabs.rumahcemara.outreach.models.GenerateToken;
 import com.boardinglabs.rumahcemara.outreach.models.Group;
-import com.boardinglabs.rumahcemara.outreach.models.Total7Day;
 import com.boardinglabs.rumahcemara.outreach.models.response.AppointmentDataResponse;
 import com.boardinglabs.rumahcemara.outreach.models.response.MemberDataResponse;
 
@@ -38,6 +36,10 @@ public interface BaseApiService {
     Call<ResponseBody> loginRequest(@Field("username") String username,
                                     @Field("password") String password);
 
+    @FormUrlEncoded
+    @POST("forgot")
+    Call<ResponseBody> forgotPassword(@Field("email") String email);
+
     // Fungsi ini untuk memanggil API http://10.0.2.2/mahasiswa/register.php
     @FormUrlEncoded
     @POST("register")
@@ -58,6 +60,9 @@ public interface BaseApiService {
                                        @Part MultipartBody.Part file,
                                        @Part("_method") RequestBody method,
                                        @Header("Authorization") String token);
+
+    @POST("profile")
+    Call<ApiResponse> updateProfileData(@Body RequestBody profile, @Header("Authorization") String token);
 
     @FormUrlEncoded
     @POST("userDevice")
@@ -89,7 +94,7 @@ public interface BaseApiService {
                                   @Header("Authorization") String authorization);
 
     @GET("user/{user_id}")
-    Call<ApiResponse<GeneralDataProfile>> getProfileDetail(@Path("user_id") String user_id, @Header("Authorization") String token);
+    Call<ApiResponse<GeneralData>> getProfileDetail(@Path("user_id") String user_id, @Header("Authorization") String token);
 
     @PUT("profile")
     Call<ResponseBody> updateProfile(@Body RequestBody body, @Header("Authorization") String token);
@@ -107,8 +112,8 @@ public interface BaseApiService {
     @POST("serviceTransaction/{service_id}/status")
     Call<ResponseBody> updateStatus(@Path("service_id") String service_id, @Field("status") int status, @Header("Authorization") String token);
 
-    @GET("serviceTransaction")
-    Call<ApiResponse<List<AppointmentDataResponse>>> getAppointmentHistory(@Query("search") String search, @Query("limit") int limit, @Query("offset") String offset, @Query("worker_id") String worker_id, @Query("status") int status, @Header("Authorization") String token);
+    @GET("serviceTransaction/myHistory")
+    Call<ApiResponse<List<AppointmentDataResponse>>> getAppointmentHistory(@Query("worker_id") String worker_id, @Header("Authorization") String token);
 
     @GET("serviceTransaction")
     Call<ApiResponse<List<AppointmentDataResponse>>> getRequestServicePerId(@Query("search") String search, @Query("limit") int limit, @Query("offset") String offset, @Query("worker_id") String worker_id, @Query("status") int status, @Query("user_id") String user_id, @Header("Authorization") String token);
@@ -125,4 +130,12 @@ public interface BaseApiService {
 
     @GET("group")
     Call<ApiResponse<List<Group>>> getGroup();
+
+    @POST("userLocation")
+    Call<ApiResponse> updateLocation(@Body RequestBody location, @Header("Authorization") String token);
+
+    @POST("recover")
+    @FormUrlEncoded
+    Call<ApiResponse> postRecoverPassword (@Field("email") String email, @Field("number") String number, @Field("password") String password);
+
 }

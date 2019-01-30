@@ -1,13 +1,10 @@
 package com.boardinglabs.rumahcemara.outreach;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -16,26 +13,17 @@ import com.boardinglabs.rumahcemara.outreach.apihelper.ApiResponse;
 import com.boardinglabs.rumahcemara.outreach.config.SessionManagement;
 import com.boardinglabs.rumahcemara.outreach.dialog.LoadingDialog;
 import com.boardinglabs.rumahcemara.outreach.models.Appointment;
-import com.boardinglabs.rumahcemara.outreach.models.GeneralDataProfile;
-import com.boardinglabs.rumahcemara.outreach.models.response.AppointmentDataResponse;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.support.constraint.Constraints.TAG;
 
 public class DetailHistoryAppointmentActivity extends AppCompatActivity {
 

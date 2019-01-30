@@ -22,6 +22,7 @@ import com.boardinglabs.rumahcemara.outreach.R;
 import com.boardinglabs.rumahcemara.outreach.models.RequestModel;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterAppointment extends RecyclerView.Adapter<AdapterAppointment.ViewHolder> {
@@ -105,5 +106,11 @@ public class AdapterAppointment extends RecyclerView.Adapter<AdapterAppointment.
             linearLayout = v.findViewById(R.id.layout_article);
             ivChat = v.findViewById(R.id.ivChat);
         }
+    }
+
+    public void updateData(List<RequestModel> newUser){
+        articleModels = new ArrayList<>();
+        articleModels.addAll(newUser);
+        notifyDataSetChanged();
     }
 }

@@ -10,6 +10,7 @@
     android:layout_marginBottom="16dp"
     android:background="@drawable/rectangle_layout"
     android:theme="@style/quicksandTheme"
+    android:fontFamily="@font/quicksand"
     android:orientation="vertical"
     android:padding="10dp">
 
@@ -21,12 +22,11 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="25dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="32dp"
             android:layout_marginRight="8dp"
-            android:background="#11111111"
-            android:src="@drawable/icon_biomedical_white" />
+            android:src="@drawable/icon_biomedical_dark" />
 
         <TextView
             android:id="@+id/tvServiceName"
@@ -233,17 +233,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#666666"
-                android:drawableLeft="@drawable/ic_location_on_black_24dp"
                 android:drawablePadding="4dp"
                 android:maxLines="1" />
 
         </LinearLayout>
-
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_location_button" />
 
     </LinearLayout>
 

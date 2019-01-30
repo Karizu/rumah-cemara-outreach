@@ -79,6 +79,9 @@ public class Appointment extends RealmObject {
     @SerializedName("type")
     @Expose
     private String type;
+    @SerializedName("location")
+    @Expose
+    private String location;
 
     public String getId() {
         return id;

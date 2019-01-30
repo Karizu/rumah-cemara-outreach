@@ -1,6 +1,6 @@
 package com.boardinglabs.rumahcemara.outreach.apihelper;
 
-import com.boardinglabs.rumahcemara.outreach.models.GeneralDataProfile;
+import com.boardinglabs.rumahcemara.outreach.models.GeneralData;
 import com.boardinglabs.rumahcemara.outreach.models.Group;
 import com.boardinglabs.rumahcemara.outreach.models.Password;
 import com.boardinglabs.rumahcemara.outreach.models.Profile;
@@ -16,10 +16,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
-import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -55,7 +52,7 @@ public interface ApiInterface {
     Call<ApiResponse<List<MemberDataResponse>>> getMember(@Query("limit") int limit, @Query("offset") int offset, @Query("status") int status, @Query("group_id") String groupId);
 
     @GET("user/{user_id}")
-    Call<ApiResponse<GeneralDataProfile>> getProfileDetail(@Path("user_id") String user_id);
+    Call<ApiResponse<GeneralData>> getProfileDetail(@Path("user_id") String user_id);
 
 //    @GET("area")
 //    Call<ApiResponse<List<AreaDataResponse>>> getArea();
@@ -103,7 +100,7 @@ public interface ApiInterface {
 ////    Call<ApiResponse> putNotificationIsRead(@Path("id") String notificationId);
 
     @GET("profile")
-    Call<ApiResponse<GeneralDataProfile>> getProfile();
+    Call<ApiResponse<GeneralData>> getProfile();
 
     @POST("userDevice")
 

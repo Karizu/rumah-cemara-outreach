@@ -40,7 +40,7 @@ public class HistoryAppointmentActivity extends AppCompatActivity {
     Toolbar toolbar;
     private String typeProvider = "worker";
     private String search = " ";
-    private int limit = 6;
+    private int limit = 10;
     private String offset = " ";
     private int status = 4;
     private Context activity;
@@ -102,7 +102,7 @@ public class HistoryAppointmentActivity extends AppCompatActivity {
     private void populateData(boolean onRefresh) {
         try {
             if (onRefresh) {
-                API.baseApiService().getRequestService(search, limit, offset, sId, status, sBearerToken).enqueue(new Callback<ApiResponse<List<AppointmentDataResponse>>>() {
+                API.baseApiService().getAppointmentHistory(sId, sBearerToken).enqueue(new Callback<ApiResponse<List<AppointmentDataResponse>>>() {
                     @Override
                     public void onResponse(Call<ApiResponse<List<AppointmentDataResponse>>> call, Response<ApiResponse<List<AppointmentDataResponse>>> body) {
                         try {
@@ -157,7 +157,7 @@ public class HistoryAppointmentActivity extends AppCompatActivity {
                     }
                 });
             } else {
-                API.baseApiService().getRequestService(search, limit, offset, sId, status, sBearerToken).enqueue(new Callback<ApiResponse<List<AppointmentDataResponse>>>() {
+                API.baseApiService().getAppointmentHistory(sId, sBearerToken).enqueue(new Callback<ApiResponse<List<AppointmentDataResponse>>>() {
                     @Override
                     public void onResponse(Call<ApiResponse<List<AppointmentDataResponse>>> call, Response<ApiResponse<List<AppointmentDataResponse>>> body) {
                         System.out.println("RESPONSE:  " + body.toString() + "\n" + "BODY: " + body.body().getData() + "\n" + "RAW: " + body.raw() + "\n" + "MESSAGE: " + body.message());
@@ -195,7 +195,6 @@ public class HistoryAppointmentActivity extends AppCompatActivity {
                                             article.getAttachment(),
                                             article.getAppointment()));
                                 }
-
                             }
 
                             adapter = new AdapterHistoryAppointment(articleModels, activity);

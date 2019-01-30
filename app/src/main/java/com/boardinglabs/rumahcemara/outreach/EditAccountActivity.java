@@ -4,10 +4,9 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -21,24 +20,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.boardinglabs.rumahcemara.outreach.models.GeneralData;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.boardinglabs.rumahcemara.outreach.apihelper.API;
 import com.boardinglabs.rumahcemara.outreach.apihelper.ApiResponse;
 import com.boardinglabs.rumahcemara.outreach.apihelper.BaseApiService;
-import com.boardinglabs.rumahcemara.outreach.models.GeneralDataProfile;
 import com.boardinglabs.rumahcemara.outreach.dialog.LoadingDialog;
-import com.boardinglabs.rumahcemara.outreach.models.MemberProfile;
-import com.boardinglabs.rumahcemara.outreach.models.Profile;
-import com.boardinglabs.rumahcemara.outreach.models.User;
-import com.boardinglabs.rumahcemara.outreach.models.response.MemberDataResponse;
-import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -47,10 +39,10 @@ import butterknife.OnClick;
 import io.realm.Realm;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import pl.aprilapps.easyphotopicker.DefaultCallback;
+import pl.aprilapps.easyphotopicker.EasyImage;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -58,6 +50,8 @@ import retrofit2.Response;
 public class EditAccountActivity extends AppCompatActivity {
 
     private static final int CAMERA_REQUEST_CODE = 1;
+    private final int REQEUST_CAMERA = 1, REQUEST_GALLERY = 2;
+    private final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
 
     @BindView(R.id.etEditName)
     EditText etFullname;
@@ -66,7 +60,7 @@ public class EditAccountActivity extends AppCompatActivity {
     @BindView(R.id.etEditUsername)
     EditText etUser;
     @BindView(R.id.imgEditProfile)
-    CircularImageView etImgProfile;
+    ImageView etImgProfile;
     @BindView(R.id.tvChangePhoto)
     TextView tvChangePhoto;
 
@@ -77,7 +71,9 @@ public class EditAccountActivity extends AppCompatActivity {
     private File fileImage;
     private final static String TAG = EditAccountActivity.class.getSimpleName();
     private LoadingDialog loadingDialog;
+    Boolean validate = false;
 
+    Context mContext;
     Toolbar toolbar;
     ByteArrayOutputStream stream;
     FileOutputStream outputStream;
@@ -90,8 +86,8 @@ public class EditAccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_account);
-
         ButterKnife.bind(this);
+        mContext = this;
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
@@ -135,39 +131,66 @@ public class EditAccountActivity extends AppCompatActivity {
 
     @OnClick(R.id.tvChangePhoto)
     void onClickChangeProfilePhoto() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE);
-        } else {
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(intent, CAMERA_REQUEST_CODE);
-        }
+        changephoto();
+    }
+
+    private void changephoto(){
+        final CharSequence[] options = {"Take Photo", "Choose From Gallery","Cancel"};
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
+        builder.setTitle("Select Option");
+        builder.setItems(options, (dialog, item) -> {
+            if (options[item].equals("Take Photo")) {
+                EasyImage.openCamera(this, REQEUST_CAMERA);
+            } else if (options[item].equals("Choose From Gallery")) {
+                EasyImage.openGallery(this, REQUEST_GALLERY);
+            } else if (options[item].equals("Cancel")) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
-            ImageView img = findViewById(R.id.imgEditProfile);
-            stream = new ByteArrayOutputStream();
-            photoImage = (Bitmap) data.getExtras().get("data");
-            photoImage.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-            img.setImageBitmap(photoImage);
-            try {
-                File outputDir = getCacheDir();
-                fileImage = File.createTempFile("photo", "jpeg", outputDir);
-                outputStream = openFileOutput("photo.jpeg", Context.MODE_PRIVATE);
-                outputStream.write(stream.toByteArray());
-                outputStream.close();
-                Log.d("Write File", "Success");
-            } catch (IOException e) {
-                e.printStackTrace();
-                Log.d("Write File", "Failed2");
+        EasyImage.handleActivityResult(requestCode, resultCode, data, this, new DefaultCallback() {
+            @Override
+            public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
+                //Some error handling
             }
-        }
+
+            @Override
+            public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
+                Glide.with(mContext)
+                        .load(imageFile)
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(etImgProfile);
+                fileImage = imageFile;
+            }
+        });
+
+//        if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
+//            ImageView img = findViewById(R.id.imgEditProfile);
+//            stream = new ByteArrayOutputStream();
+//            photoImage = (Bitmap) data.getExtras().get("data");
+//            photoImage.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+//            img.setImageBitmap(photoImage);
+//            try {
+//                File outputDir = getCacheDir();
+//                fileImage = File.createTempFile("photo", "jpeg", outputDir);
+//                outputStream = openFileOutput("photo.jpeg", Context.MODE_PRIVATE);
+//                outputStream.write(stream.toByteArray());
+//                outputStream.close();
+//                Log.d("Write File", "Success");
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//                Log.d("Write File", "Failed2");
+//            }
+//        }
     }
+
+//
 
 
     private void initToolbar() {
@@ -177,15 +200,31 @@ public class EditAccountActivity extends AppCompatActivity {
         });
     }
 
+    private void validateField() {
+        if (validate == false){
+            if (etFullname.getText().toString().length() == 0) {
+                etFullname.setError("Name is required!");
+                validate = true;
+            }
+            if (etPhoneNumber.getText().toString().length() == 0) {
+                etPhoneNumber.setError("Username is required!");
+                validate = true;
+            }
+        } else {
+            validate = false;
+        }
+        loadingDialog.dismiss();
+    }
+
     private void getProfileDetail() {
         loadingDialog.setCancelable(false);
         loadingDialog.show();
-        API.baseApiService().getProfileDetail(sId, sBearerToken).enqueue(new Callback<ApiResponse<GeneralDataProfile>>() {
+        API.baseApiService().getProfileDetail(sId, sBearerToken).enqueue(new Callback<ApiResponse<GeneralData>>() {
             @Override
-            public void onResponse(Call<ApiResponse<GeneralDataProfile>> call, Response<ApiResponse<GeneralDataProfile>> response) {
+            public void onResponse(Call<ApiResponse<GeneralData>> call, Response<ApiResponse<GeneralData>> response) {
 
                 loadingDialog.dismiss();
-                final ApiResponse<GeneralDataProfile> user = response.body();
+                final ApiResponse<GeneralData> user = response.body();
                 System.out.println("JSON: " + user);
                 sFullname = user.getData().getProfile().getFullname();
                 sPhonenumber = user.getData().getProfile().getPhoneNumber();
@@ -201,12 +240,14 @@ public class EditAccountActivity extends AppCompatActivity {
                     etPhoneNumber.setText(sPhonenumber);
                 }
                 if (sImgURL != null)
-                    Glide.with(getApplicationContext()).applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_person_signup)).load(sImgURL).into(etImgProfile);
-
+                    Glide.with(mContext)
+                            .load(sImgURL)
+                            .apply(RequestOptions.circleCropTransform())
+                            .into(etImgProfile);
             }
 
             @Override
-            public void onFailure(Call<ApiResponse<GeneralDataProfile>> call, Throwable t) {
+            public void onFailure(Call<ApiResponse<GeneralData>> call, Throwable t) {
                 loadingDialog.dismiss();
                 Log.e(TAG, t.toString());
                 Toast.makeText(getApplicationContext(), "Error loading!", Toast.LENGTH_SHORT).show();
@@ -219,75 +260,112 @@ public class EditAccountActivity extends AppCompatActivity {
 
         loadingDialog.setCancelable(false);
         loadingDialog.show();
+        validateField();
 
-        String fullname = etFullname.getText().toString();
-        String phone_number = etPhoneNumber.getText().toString();
+        if (!validate){
+            String fullname = etFullname.getText().toString();
+            String phone_number = etPhoneNumber.getText().toString();
+            RequestBody requestBody;
+            try {
+                if (fileImage != null) {
+                    Bitmap bitmap = BitmapFactory.decodeFile(fileImage.getAbsolutePath());
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream);
+                    RequestBody reqFile = RequestBody.create(MediaType.parse("image/jpeg"), byteArrayOutputStream.toByteArray());
+                    MultipartBody.Part body =
+                            MultipartBody.Part.createFormData("picture", fileImage.getName(), reqFile);
+                    RequestBody fullName =
+                            RequestBody.create(
+                                    okhttp3.MultipartBody.FORM, fullname);
+                    RequestBody phoneNumber =
+                            RequestBody.create(
+                                    okhttp3.MultipartBody.FORM, phone_number);
+                    RequestBody method =
+                            RequestBody.create(
+                                    okhttp3.MultipartBody.FORM, "PUT");
+                    requestBody = new MultipartBody.Builder()
+                            .setType(MultipartBody.FORM)
+                            .addFormDataPart("_method", "PUT")
+                            .addFormDataPart("fullname", fullname)
+                            .addFormDataPart("phone_number", phone_number)
+                            .addFormDataPart("picture", "photo.jpeg", RequestBody.create(MediaType.parse("image/jpeg"), byteArrayOutputStream.toByteArray()))
+                            .build();
 
-        try {
-            if (photoImage != null) {
-                photoImage.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                    API.baseApiService().updateProfileData(requestBody, sBearerToken).enqueue(new Callback<ApiResponse>() {
+                        @Override
+                        public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+                            System.out.println("RESPONSE:  " + response.toString() + "\n" + "BODY: " + response.body() + "\n" + "RAW: " + response.raw() + "\n" + "MESSAGE: " + response.message());
+                            loadingDialog.dismiss();
+                            Intent intent = new Intent(EditAccountActivity.this, MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.putExtra("message", "Successfully Updated");
+                            startActivity(intent);
+                        }
 
-                String[] projection = {MediaStore.Images.Media.DATA};
-                Cursor cursor = this.managedQuery(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection, null, null, null);
-                int column_index_data = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                cursor.moveToLast();
-                String photoPath = cursor.getString(column_index_data);
-                File file = new File(photoPath);
+                        @Override
+                        public void onFailure(Call<ApiResponse> call, Throwable t) {
+                            loadingDialog.dismiss();
+                            t.printStackTrace();
+                            Log.e("IO", "IO" + t);
+                        }
+                    });
+                } else {
+                    API.baseApiService().updateWorker(fullname, phone_number, sBearerToken).enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            System.out.println("RESPONSE:  " + response.toString() + "\n" + "BODY: " + response.body() + "\n" + "RAW: " + response.raw() + "\n" + "MESSAGE: " + response.message());
+                            loadingDialog.dismiss();
+                            Intent intent = new Intent(EditAccountActivity.this, MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.putExtra("message", "Successfully Updated");
+                            startActivity(intent);
+                        }
 
-                RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), stream.toByteArray());
-                MultipartBody.Part body =
-                        MultipartBody.Part.createFormData("picture", file.getName(), reqFile);
-
-                RequestBody fullName =
-                        RequestBody.create(
-                                okhttp3.MultipartBody.FORM, fullname);
-                RequestBody phoneNumber =
-                        RequestBody.create(
-                                okhttp3.MultipartBody.FORM, phone_number);
-                RequestBody method =
-                        RequestBody.create(
-                                okhttp3.MultipartBody.FORM, "PUT");
-
-                API.baseApiService().updateWorkerImg(fullName, phoneNumber, body, method, sBearerToken).enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        System.out.println("RESPONSE:  " + response.toString() + "\n" + "BODY: " + response.body() + "\n" + "RAW: " + response.raw() + "\n" + "MESSAGE: " + response.message());
-                        loadingDialog.dismiss();
-                        Intent intent = new Intent(EditAccountActivity.this, MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        intent.putExtra("message", "Successfully Updated");
-                        startActivity(intent);
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        loadingDialog.dismiss();
-                        t.printStackTrace();
-                        Log.e("IO", "IO" + t);
-                    }
-                });
-            } else {
-                API.baseApiService().updateWorker(fullname, phone_number, sBearerToken).enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        System.out.println("RESPONSE:  " + response.toString() + "\n" + "BODY: " + response.body() + "\n" + "RAW: " + response.raw() + "\n" + "MESSAGE: " + response.message());
-                        loadingDialog.dismiss();
-                        Intent intent = new Intent(EditAccountActivity.this, MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                        intent.putExtra("message", "Successfully Updated");
-                        startActivity(intent);
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        loadingDialog.dismiss();
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            loadingDialog.dismiss();
+                        }
+                    });
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e("IO", "IO" + e);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("IO", "IO" + e);
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        checkPermissionGrant();
+    }
+
+    private void checkPermissionGrant(){
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.CAMERA)) {
+
+                // Show an expanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.CAMERA},
+                        MY_PERMISSIONS_REQUEST_CAMERA);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
         }
     }
 }

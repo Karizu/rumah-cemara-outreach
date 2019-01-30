@@ -43,7 +43,7 @@ public class RequestTabFragment extends Fragment {
     View view;
     private String typeProvider = "worker";
     private String search = " ";
-    private int limit = 6;
+    private int limit = 10;
     private String offset = " ";
     private int status = 0;
     private Context activity;
@@ -123,7 +123,7 @@ public class RequestTabFragment extends Fragment {
                                             article.getStart_date(),
                                             article.getEnd_date(),
                                             article.getDescription(),
-                                            article.getAttachment(),
+                                            article.getLocation(),
                                             article.getAppointment(),
                                             article.getWorker_id(),
                                             article.getProvider_id(),
@@ -131,7 +131,6 @@ public class RequestTabFragment extends Fragment {
                                 }
 
                                 adapter.notifyDataSetChanged(); // or notifyItemRangeRemoved
-
                                 swipeContainer.setRefreshing(false);
                             }
                         } catch (Exception e) {
@@ -165,7 +164,7 @@ public class RequestTabFragment extends Fragment {
                                         article.getStart_date(),
                                         article.getEnd_date(),
                                         article.getDescription(),
-                                        article.getWorker().getProfile().getAddress(),
+                                        article.getLocation(),
                                         article.getAppointment(),
                                         article.getWorker_id(),
                                         article.getProvider_id(),

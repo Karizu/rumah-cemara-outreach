@@ -1,21 +1,15 @@
 package com.boardinglabs.rumahcemara.outreach.adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.boardinglabs.rumahcemara.outreach.R;
-import com.boardinglabs.rumahcemara.outreach.apihelper.ApiResponse;
-import com.boardinglabs.rumahcemara.outreach.models.GeneralDataProfile;
 import com.boardinglabs.rumahcemara.outreach.models.Profile;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class NewAdapter extends RecyclerView.Adapter<NewAdapter.ListClientAdapter>{

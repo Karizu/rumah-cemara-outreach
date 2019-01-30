@@ -14,18 +14,13 @@
         android:padding="16dp"
         android:orientation="vertical">
 
-        <com.mikhaellopez.circularimageview.CircularImageView
+        <ImageView
             android:id="@+id/imgEditProfile"
             android:layout_width="135dp"
             android:layout_height="135dp"
             android:src="@drawable/ic_person_signup"
             android:layout_gravity="center"
-            android:scaleType="centerInside"
-            app:civ_border_color="#EEEEEE"
-            app:civ_border_width="4dp"
-            app:civ_shadow="true"
-            app:civ_shadow_radius="10"
-            app:civ_shadow_color="#8BC34A"/>
+            android:scaleType="centerInside"/>
 
         <TextView
             android:id="@+id/tvChangePhoto"

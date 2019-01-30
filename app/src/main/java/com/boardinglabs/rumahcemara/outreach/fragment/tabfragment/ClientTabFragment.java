@@ -7,10 +7,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -30,19 +32,19 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ClientTabFragment extends Fragment {
+public class ClientTabFragment extends Fragment implements SearchView.OnQueryTextListener{
 
     private RecyclerView recyclerView;
     SessionManagement session;
     private String sTokenId, sBearerToken;
     View view;
     private String search = " ";
-    private int limit = 5;
+    private int limit = 10;
     private String offset = " ";
     private Context activity;
     private List<ClientModel> articleModels;
     private SwipeRefreshLayout swipeContainer;
-    private RecyclerView.Adapter adapter;
+    private AdapterListClient adapter;
     private LinearLayoutManager layoutManager;
 
     @Override
@@ -87,6 +89,20 @@ public class ClientTabFragment extends Fragment {
                 android.R.color.holo_red_light);
 
         populateData(false);
+
+        SearchView searchView = view.findViewById(R.id.searchView);
+
+        int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+        EditText searchEditText = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        searchEditText.setTextColor(getResources().getColor(R.color.colorAccent));
+        searchEditText.setHintTextColor(getResources().getColor(R.color.colorAccent));
+
+        searchView.setOnQueryTextListener(this);
+
+        searchView.setOnClickListener(v -> {
+                    searchView.setIconified(false);
+                }
+        );
 
         return view;
     }
@@ -171,4 +187,23 @@ public class ClientTabFragment extends Fragment {
         }
     }
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        List<ClientModel> newWorker = new ArrayList<>();
+        String newTextLowerCase = newText.toLowerCase();
+        for (ClientModel user : articleModels) {
+            if (user.getFullName().toLowerCase().contains(newTextLowerCase)) {
+                newWorker.add(user);
+            }
+        }
+
+//        adapter.updateData(newWorker);
+        adapter.updateData(newWorker);
+        return true;
+    }
 }

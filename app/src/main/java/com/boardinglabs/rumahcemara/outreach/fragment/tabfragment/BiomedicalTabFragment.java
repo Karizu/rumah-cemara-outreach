@@ -6,10 +6,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -29,7 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BiomedicalTabFragment extends Fragment {
+public class BiomedicalTabFragment extends Fragment implements SearchView.OnQueryTextListener{
 
     private RecyclerView recyclerView;
     SessionManagement session;
@@ -40,11 +42,11 @@ public class BiomedicalTabFragment extends Fragment {
     private int limit = 6;
     private String offset = " ";
     private int status = 1;
-    private String service_type_id = "17c00365-4987-5f1e-925b-2119fbe5ff8b";
+    private String service_type_id = "74b991aa-cf71-5f8f-990c-742081b2f601";
     private Context activity;
     private List<RequestModel> articleModels;
     private SwipeRefreshLayout swipeContainer;
-    private RecyclerView.Adapter adapter;
+    private AdapterAppointment adapter;
     private LinearLayoutManager layoutManager;
 
     @Override
@@ -91,6 +93,20 @@ public class BiomedicalTabFragment extends Fragment {
 
         populateData(false);
 
+        SearchView searchView = view.findViewById(R.id.searchView);
+
+        int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+        EditText searchEditText = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        searchEditText.setTextColor(getResources().getColor(R.color.colorAccent));
+        searchEditText.setHintTextColor(getResources().getColor(R.color.colorAccent));
+
+        searchView.setOnQueryTextListener(this);
+
+        searchView.setOnClickListener(v -> {
+                    searchView.setIconified(false);
+                }
+        );
+
         return view;
     }
 
@@ -117,7 +133,7 @@ public class BiomedicalTabFragment extends Fragment {
                                             article.getStart_date(),
                                             article.getEnd_date(),
                                             article.getDescription(),
-                                            article.getWorker().getProfile().getAddress(),
+                                            article.getLocation(),
                                             article.getAppointment(),
                                             article.getWorker_id(),
                                             article.getProvider_id(),
@@ -188,4 +204,23 @@ public class BiomedicalTabFragment extends Fragment {
         }
     }
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        List<RequestModel> newWorker = new ArrayList<>();
+        String newTextLowerCase = newText.toLowerCase();
+        for (RequestModel user : articleModels) {
+            if (user.getFullName().toLowerCase().contains(newTextLowerCase)) {
+                newWorker.add(user);
+            }
+        }
+
+//        adapter.updateData(newWorker);
+        adapter.updateData(newWorker);
+        return true;
+    }
 }

@@ -64,4 +64,6 @@
     <string name="your_rating">Your Rating</string>
     <string name="comment">Comment</string>
 
+    <string name="revocer_description">Please fill this form to recover your password</string>
+
 </resources>

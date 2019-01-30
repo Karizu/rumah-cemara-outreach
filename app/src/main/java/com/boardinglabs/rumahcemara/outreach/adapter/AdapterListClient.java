@@ -20,6 +20,7 @@ import com.boardinglabs.rumahcemara.outreach.R;
 import com.boardinglabs.rumahcemara.outreach.models.ClientModel;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterListClient extends RecyclerView.Adapter<AdapterListClient.ViewHolder> {
@@ -80,6 +81,12 @@ public class AdapterListClient extends RecyclerView.Adapter<AdapterListClient.Vi
             textViewPhoneNumber = (TextView) v.findViewById(R.id.tvPhoneNumber);
             linearLayout = (FrameLayout) v.findViewById(R.id.layout_article);
         }
+    }
+
+    public void updateData(List<ClientModel> newUser){
+        articleModels = new ArrayList<>();
+        articleModels.addAll(newUser);
+        notifyDataSetChanged();
     }
 }
 

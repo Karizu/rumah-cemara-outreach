@@ -9,9 +9,10 @@
     android:layout_marginRight="16dp"
     android:layout_marginBottom="16dp"
     android:background="@drawable/rectangle_layout"
-    android:theme="@style/quicksandTheme"
+    android:fontFamily="@font/quicksand"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:theme="@style/quicksandTheme">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,19 +22,18 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="25dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="32dp"
             android:layout_marginRight="8dp"
-            android:background="#11111111"
-            android:src="@drawable/icon_biomedical_white" />
+            android:src="@drawable/icon_biomedical_dark" />
 
         <TextView
             android:id="@+id/tvServiceName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/counseling"
             android:lines="2"
+            android:text="@string/counseling"
             android:textColor="@color/default_text_color"
             android:textSize="16sp" />
 
@@ -102,8 +102,8 @@
                 android:id="@+id/tvPhoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#666666"
                 android:text="+628117993780"
+                android:textColor="#666666"
                 android:textSize="11sp" />
 
         </LinearLayout>
@@ -134,14 +134,25 @@
             android:layout_marginRight="8dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvEndDate"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/icon_date"
-                android:textColor="#666666"
-                android:drawablePadding="16dp"
-                android:text="26/08/2018" />
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="12dp"
+                    android:src="@drawable/icon_date" />
+
+                <TextView
+                    android:id="@+id/tvStartDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="26/08/2018"
+                    android:textColor="#666666" />
+
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -164,14 +175,26 @@
             android:gravity="right"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvStartDate"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/icon_date"
-                android:textColor="#666666"
-                android:drawablePadding="16dp"
-                android:text="26/08/2018" />
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="12dp"
+                    android:src="@drawable/icon_date" />
+
+                <TextView
+                    android:id="@+id/tvEndDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="16dp"
+                    android:text="26/08/2018"
+                    android:textColor="#666666" />
+
+            </LinearLayout>
 
             <View
                 android:layout_width="110dp"
@@ -202,8 +225,8 @@
             android:id="@+id/tvDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#666666"
-            android:maxLines="3" />
+            android:maxLines="3"
+            android:textColor="#666666" />
 
     </LinearLayout>
 
@@ -232,18 +255,11 @@
                 android:id="@+id/tvLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#666666"
-                android:drawableLeft="@drawable/ic_location_on_black_24dp"
                 android:drawablePadding="4dp"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:textColor="#666666" />
 
         </LinearLayout>
-
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_location_button" />
 
     </LinearLayout>
 

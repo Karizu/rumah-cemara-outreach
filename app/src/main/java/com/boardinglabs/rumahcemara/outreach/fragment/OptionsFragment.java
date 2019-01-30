@@ -20,7 +20,7 @@ import com.boardinglabs.rumahcemara.outreach.apihelper.API;
 import com.boardinglabs.rumahcemara.outreach.apihelper.ApiResponse;
 import com.boardinglabs.rumahcemara.outreach.config.SessionManagement;
 import com.boardinglabs.rumahcemara.outreach.dialog.LoadingDialog;
-import com.boardinglabs.rumahcemara.outreach.models.GeneralDataProfile;
+import com.boardinglabs.rumahcemara.outreach.models.GeneralData;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -173,12 +173,12 @@ public class OptionsFragment extends Fragment {
     private void getProfileDetail() {
         loadingDialog.setCancelable(false);
         loadingDialog.show();
-        API.baseApiService().getProfileDetail(userId, sBearerToken).enqueue(new Callback<ApiResponse<GeneralDataProfile>>() {
+        API.baseApiService().getProfileDetail(userId, sBearerToken).enqueue(new Callback<ApiResponse<GeneralData>>() {
             @Override
-            public void onResponse(Call<ApiResponse<GeneralDataProfile>> call, Response<ApiResponse<GeneralDataProfile>> response) {
+            public void onResponse(Call<ApiResponse<GeneralData>> call, Response<ApiResponse<GeneralData>> response) {
 
                 loadingDialog.dismiss();
-                final ApiResponse<GeneralDataProfile> user = response.body();
+                final ApiResponse<GeneralData> user = response.body();
                 System.out.println("JSON: " + user);
                 fullName = user.getData().getProfile().getFullname();
                 phoneNumber = user.getData().getProfile().getPhoneNumber();
@@ -198,7 +198,7 @@ public class OptionsFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<ApiResponse<GeneralDataProfile>> call, Throwable t) {
+            public void onFailure(Call<ApiResponse<GeneralData>> call, Throwable t) {
                 loadingDialog.dismiss();
                 Toast.makeText(getActivity(), "Error loading!", Toast.LENGTH_SHORT).show();
             }

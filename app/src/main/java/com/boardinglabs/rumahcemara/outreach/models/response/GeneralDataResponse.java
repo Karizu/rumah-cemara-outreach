@@ -19,6 +19,7 @@ public class GeneralDataResponse {
     private String end_date;
     private String description;
     private String attachment;
+    private String location;
     private String type_provider;
     private int status;
     private int status_report;
@@ -96,6 +97,14 @@ public class GeneralDataResponse {
 
     public void setWorker_id(String worker_id) {
         this.worker_id = worker_id;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getStart_date() {
