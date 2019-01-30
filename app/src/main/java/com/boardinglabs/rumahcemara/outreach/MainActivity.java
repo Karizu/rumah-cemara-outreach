@@ -89,8 +89,8 @@ public class MainActivity extends AppCompatActivity {
         FirebaseMessaging.getInstance().subscribeToTopic("appointment");
 
         String tokenIntent = intent.getStringExtra("tokenId");
-        Log.d("muhtar", "token " + tokenIntent);
-        Log.d("muhtar", "user id " + userId);
+        Log.d("MainActivity", "token intent " + tokenIntent);
+        Log.d("MainActivity", "user id " + userId);
 
         if (tokenIntent != null) {
             registerToken(tokenIntent);
@@ -104,6 +104,14 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             navigation.setSelectedItemId(R.id.navigation_home); // change to whichever id should be default
         }
+
+        String fragment = intent.getStringExtra("fragment");
+
+        if (fragment != null) {
+            navigation.setSelectedItemId(R.id.navigation_dashboard);
+        }
+
+        Log.d("MainActivity", "fragment " + fragment);
     }
 
     private void registerToken(String token) {

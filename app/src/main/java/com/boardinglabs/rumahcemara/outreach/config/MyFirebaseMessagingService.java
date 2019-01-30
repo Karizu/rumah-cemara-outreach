@@ -2,7 +2,6 @@ package com.boardinglabs.rumahcemara.outreach.config;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -16,7 +15,6 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
-import com.boardinglabs.rumahcemara.outreach.ChatActivity;
 import com.boardinglabs.rumahcemara.outreach.MainActivity;
 import com.boardinglabs.rumahcemara.outreach.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -51,24 +49,26 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         super.onMessageReceived(remoteMessage);
 
-        Log.d("test", "test");
-
         SessionManagement sessionManagement = new SessionManagement(this);
 
+        String id = remoteMessage.getData().get("id");
         String title = remoteMessage.getData().get("title");
         String body = remoteMessage.getData().get("body");
         String type = remoteMessage.getData().get("type");
-        Log.d("muhtar", "notif " + remoteMessage.getData());
+
+        Log.d("FirebaseMessaging", "notif " + remoteMessage.getData());
+        Log.d("FirebaseMessaging", "Status notifikasi " + sessionManagement.getNotification());
 
         if (sessionManagement.getNotification() == 1) {
-            showNotification(title, body, type);
+            showNotification(title, body, type, id);
         }
     }
 
-    private void showNotification(String title, String body, String type) {
+    private void showNotification(String title, String body, String type, String id) {
         Intent intent;
         if(type.equals("chat")){
-            intent = new Intent(this, ChatActivity.class);
+            intent = new Intent(this, MainActivity.class);
+            intent.putExtra("fragment", "MyListFragment");
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         } else {
             intent = new Intent(this, MainActivity.class);

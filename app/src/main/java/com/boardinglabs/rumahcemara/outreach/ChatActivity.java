@@ -12,7 +12,7 @@ import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.ViewGroup;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -33,7 +33,6 @@ import com.centrifugal.centrifuge.android.subscription.SubscriptionRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -88,12 +87,20 @@ public class ChatActivity extends AppCompatActivity {
         serviceId = intent.getStringExtra("serviceId");
         workerId = intent.getStringExtra("workerId");
         providerId = intent.getStringExtra("providerId");
+        toId = intent.getStringExtra("userId");
 
-        if (workerId == null) {
+        Log.d("ChatActivity", "" + serviceId);
+        Log.d("ChatActivity", workerId);
+        Log.d("ChatActivity", providerId);
+
+        /*if (workerId == null) {
             toId = providerId;
         } else {
             toId = workerId;
-        }
+        }*/
+
+        getSupportActionBar().setTitle(intent.getStringExtra("fullName"));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         btnSend.setOnClickListener(view -> sendChat());
 
@@ -169,6 +176,9 @@ public class ChatActivity extends AppCompatActivity {
             String userId = user.get(SessionManagement.KEY_ID);
             String name = user.get(SessionManagement.KEY_NAME);
 
+            Log.d("ChatActivity", "from id " + userId);
+            Log.d("ChatActivity", "to id " + toId);
+
             BaseApiService mApiService = UtilsApi.getAPIService();
             mApiService.sendChat(serviceId, serviceId,
                     userId, name, "text",
@@ -177,7 +187,6 @@ public class ChatActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                             Log.d("centrifugo", "onresponse " + response.message());
-
                         }
 
                         @Override
@@ -214,8 +223,10 @@ public class ChatActivity extends AppCompatActivity {
                 .enqueue(new Callback<ChatHistory>() {
                     @Override
                     public void onResponse(Call<ChatHistory> call, Response<ChatHistory> response) {
+                        if (response.body().getData().size() == 0) {
+                            progressDoalog.dismiss();
+                        }
                         for (ChatHistory.Datum datum : response.body().getData()) {
-                            Log.d("muhtar", datum.getChannel());
                             Chat chat = new Chat(datum.getMessage(), datum.getFromId(),
                                     datum.getCreatedAt());
                             chats.add(chat);
@@ -238,6 +249,7 @@ public class ChatActivity extends AppCompatActivity {
 
 
     private void showMessage(final DataMessage message) {
+        Log.d("ChatActivity", message.getData());
         runOnUiThread(() -> {
             JSONObject jsonObject = null;
             try {
@@ -253,6 +265,15 @@ public class ChatActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void error(final String error) {

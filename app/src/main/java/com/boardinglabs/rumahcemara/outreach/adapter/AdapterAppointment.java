@@ -56,6 +56,7 @@ public class AdapterAppointment extends RecyclerView.Adapter<AdapterAppointment.
         final String location = articleModel.getLocation();
         final String workerId = articleModel.getWorker_id();
         final String providerId = articleModel.getProvider_id();
+        final String userId = articleModel.getUser_id();
 
         Log.d("provider id", providerId);
 
@@ -83,6 +84,8 @@ public class AdapterAppointment extends RecyclerView.Adapter<AdapterAppointment.
             chat.putExtra("serviceId", serviceId);
             chat.putExtra("workerId", workerId);
             chat.putExtra("providerId", providerId);
+            chat.putExtra("userId", userId);
+            chat.putExtra("fullName", fullName);
             context.startActivity(chat);
         });
     }

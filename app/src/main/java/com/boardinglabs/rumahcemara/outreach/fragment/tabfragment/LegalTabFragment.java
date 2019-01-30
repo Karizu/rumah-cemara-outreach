@@ -139,6 +139,7 @@ public class LegalTabFragment extends Fragment implements SearchView.OnQueryText
                                             article.getAppointment(),
                                             article.getWorker_id(),
                                             article.getProvider_id(),
+                                            article.getUser_id(),
                                             getFragmentManager()));
                                 }
 
@@ -181,6 +182,7 @@ public class LegalTabFragment extends Fragment implements SearchView.OnQueryText
                                         article.getAppointment(),
                                         article.getWorker_id(),
                                         article.getProvider_id(),
+                                        article.getUser_id(),
                                         getFragmentManager()));
                             }
 
