@@ -97,7 +97,6 @@
             app:civ_border_color="#EEEEEE"
             app:civ_border_width="2dp"
             app:civ_shadow="true"
-            app:civ_shadow_color="#8BC34A"
             app:civ_shadow_radius="7" />
 
         <LinearLayout

@@ -3,9 +3,10 @@ package com.boardinglabs.rumahcemara.outreach.apihelper;
 import com.boardinglabs.rumahcemara.outreach.models.Appointment;
 import com.boardinglabs.rumahcemara.outreach.models.ChatHistory;
 import com.boardinglabs.rumahcemara.outreach.models.Dashboard;
-import com.boardinglabs.rumahcemara.outreach.models.GeneralData;
+import com.boardinglabs.rumahcemara.outreach.models.GeneralDataProfile;
 import com.boardinglabs.rumahcemara.outreach.models.GenerateToken;
 import com.boardinglabs.rumahcemara.outreach.models.Group;
+import com.boardinglabs.rumahcemara.outreach.models.Location;
 import com.boardinglabs.rumahcemara.outreach.models.response.AppointmentDataResponse;
 import com.boardinglabs.rumahcemara.outreach.models.response.MemberDataResponse;
 
@@ -94,7 +95,7 @@ public interface BaseApiService {
                                   @Header("Authorization") String authorization);
 
     @GET("user/{user_id}")
-    Call<ApiResponse<GeneralData>> getProfileDetail(@Path("user_id") String user_id, @Header("Authorization") String token);
+    Call<ApiResponse<GeneralDataProfile>> getProfileDetail(@Path("user_id") String user_id, @Header("Authorization") String token);
 
     @PUT("profile")
     Call<ResponseBody> updateProfile(@Body RequestBody body, @Header("Authorization") String token);
@@ -132,10 +133,20 @@ public interface BaseApiService {
     Call<ApiResponse<List<Group>>> getGroup();
 
     @POST("userLocation")
-    Call<ApiResponse> updateLocation(@Body RequestBody location, @Header("Authorization") String token);
+    Call<ApiResponse> createLocation(@Body RequestBody location, @Header("Authorization") String token);
+
+    @POST("userLocation/{user_location_id}")
+    Call<ApiResponse> updateLocation(@Path("user_location_id") String user_location_id, @Body RequestBody location, @Header("Authorization") String token);
+
+    @GET("userLocation/{user_id}")
+    Call<ApiResponse<Location>> getLocation(@Path("user_id") String user_id, @Header("Authorization") String token);
 
     @POST("recover")
     @FormUrlEncoded
     Call<ApiResponse> postRecoverPassword (@Field("email") String email, @Field("number") String number, @Field("password") String password);
+
+    @POST("user/{user_id}")
+    Call<ApiResponse> updateStatusWorker(@Path("user_id") String user_id, @Body RequestBody user, @Header("Authorization") String token);
+
 
 }

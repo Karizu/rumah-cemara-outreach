@@ -136,7 +136,7 @@ public class DetailListClientActivity extends AppCompatActivity {
                                             article.getStart_date(),
                                             article.getEnd_date(),
                                             article.getDescription(),
-                                            article.getWorker().getProfile().getAddress(),
+                                            article.getLocation(),
                                             article.getAttachment(),
                                             article.getAppointment()));
                                 }
@@ -176,7 +176,7 @@ public class DetailListClientActivity extends AppCompatActivity {
                                         article.getStart_date(),
                                         article.getEnd_date(),
                                         article.getDescription(),
-                                        article.getWorker().getProfile().getAddress(),
+                                        article.getLocation(),
                                         article.getAttachment(),
                                         article.getAppointment()));
                             }

@@ -1,161 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="@layout/activity_sign_up"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_above="@id/layBottomSignUp"
     android:layout_below="@id/layTopSignUp"
-    android:layout_above="@id/layBottomSignUp">
+    tools:showIn="@layout/activity_sign_up">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical"
-        android:padding="16dp"
-        android:gravity="center">
+        android:padding="16dp">
 
         <ImageView
             android:id="@+id/imgProfile"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:src="@drawable/ic_person_signup"/>
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/select_dp" />
 
         <TextView
             android:id="@+id/tvSelectPicture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/select_picture"
-            android:textSize="18dp"
-            android:textColor="@color/colorAccent"/>
+            android:textColor="@color/colorAccent"
+            android:layout_marginBottom="16dp"
+            android:textSize="18dp" />
 
         <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_layout_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="@color/colorAccent"
-        android:background="@drawable/rectangle_edit_text"
-        android:layout_marginTop="12dp">
-
-        <EditText
-            android:id="@+id/etName"
+            android:id="@+id/input_layout_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:textSize="14sp"
-            android:singleLine="true"
-            android:hint="@string/name" />
-    </android.support.design.widget.TextInputLayout>
+            style="@style/SignUpTextInputLayoutStyle"
+            android:layout_marginTop="12dp"
+            android:divider="@color/colorAccent">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_layout_birth_day"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="@color/colorAccent"
-        android:background="@drawable/rectangle_edit_text"
-        android:layout_marginTop="6dp">
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/name"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:singleLine="true"
+                android:textSize="14sp" />
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/etBirthDay"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_birth_day"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:textSize="14sp"
-            android:singleLine="true"
-            android:hint="@string/birth_date" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_layout_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="@color/colorAccent"
-        android:background="@drawable/rectangle_edit_text"
-        android:layout_marginTop="6dp">
-
-        <EditText
-            android:id="@+id/etEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:textSize="14sp"
-            android:singleLine="true"
-            android:hint="@string/email" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_layout_username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="@color/colorAccent"
-        android:background="@drawable/rectangle_edit_text"
-        android:layout_marginTop="6dp">
-
-        <EditText
-            android:id="@+id/etUsername"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:hint="@string/username"
-            android:singleLine="true"
-            android:textSize="14sp" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/input_layout_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="@color/colorAccent"
-        android:background="@drawable/rectangle_edit_text"
-        android:layout_marginTop="6dp">
-
-        <EditText
-            android:id="@+id/etPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:singleLine="true"
-            android:textSize="14sp" />
-    </android.support.design.widget.TextInputLayout>
-
-        <Spinner
-            android:id="@+id/spinnerGender"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="50dp"
-            android:padding="8dp"
-            android:textSize="14sp"
             android:layout_marginTop="6dp"
-            android:background="@drawable/rectangle_edit_text"/>
+            style="@style/SignUpTextInputLayoutStyle"
+            android:divider="@color/colorAccent">
 
-        <Spinner
-            android:id="@+id/spinnerInstitution"
+            <EditText
+                android:id="@+id/etBirthDay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/birth_date"
+                android:singleLine="true"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:textSize="14sp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="50dp"
-            android:padding="8dp"
-            android:textSize="14sp"
             android:layout_marginTop="6dp"
-            android:background="@drawable/rectangle_edit_text"/>
+            style="@style/SignUpTextInputLayoutStyle"
+            android:divider="@color/colorAccent">
+
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/email"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:singleLine="true"
+                android:textSize="14sp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            style="@style/SignUpTextInputLayoutStyle"
+            android:divider="@color/colorAccent">
+
+            <EditText
+                android:id="@+id/etUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/username"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:singleLine="true"
+                android:textSize="14sp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            style="@style/SignUpTextInputLayoutStyle"
+            android:divider="@color/colorAccent">
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"
+                android:singleLine="true"
+                android:textSize="14sp" />
+        </android.support.design.widget.TextInputLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginBottom="8dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/rounded_grey_transparent" />
+
+            <TextView
+                android:id="@+id/label_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="8dp"
+                android:background="#FAFAFA"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:text="@string/gender"
+                android:textSize="@dimen/text_size_micro" />
+
+            <Spinner
+                android:id="@+id/spinnerGender"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="16dp"
+                tools:ignore="RtlCompat" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginBottom="8dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/rounded_grey_transparent" />
+
+            <TextView
+                android:id="@+id/tvSpinnerInstitution"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="8dp"
+                android:background="#FAFAFA"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:text="Institution"
+                android:textSize="@dimen/text_size_micro" />
+
+            <Spinner
+                android:id="@+id/spinnerInstitution"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="16dp" />
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="right">
+            android:gravity="right"
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/btnSignUp"
                 android:layout_width="150dp"
                 android:layout_height="40dp"
-                android:layout_weight="1"
-                android:text="@string/sign_up"
-                android:textColor="#ffffff"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
-                android:background="@drawable/rectangle_button"/>
+                android:layout_weight="1"
+                android:background="@drawable/rectangle_button"
+                android:text="@string/sign_up"
+                android:textColor="#ffffff" />
 
         </LinearLayout>
 

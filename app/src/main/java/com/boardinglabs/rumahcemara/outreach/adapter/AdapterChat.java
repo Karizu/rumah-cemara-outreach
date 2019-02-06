@@ -52,7 +52,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.ViewHolder> {
         HashMap<String, String> user = sessionManagement.getUserDetails();
         String userId = user.get(SessionManagement.KEY_ID);
 
-        if (userId.equals(mData.get(position).getFromId())) {
+        if (!userId.equals(mData.get(position).getFromId())) {
             return MSG_TYPE_LEFT;
         } else {
             return MSG_TYPE_RIGHT;

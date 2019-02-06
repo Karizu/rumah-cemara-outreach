@@ -20,7 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.boardinglabs.rumahcemara.outreach.models.GeneralData;
+import com.boardinglabs.rumahcemara.outreach.models.GeneralDataProfile;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.boardinglabs.rumahcemara.outreach.apihelper.API;
@@ -134,8 +134,8 @@ public class EditAccountActivity extends AppCompatActivity {
         changephoto();
     }
 
-    private void changephoto(){
-        final CharSequence[] options = {"Take Photo", "Choose From Gallery","Cancel"};
+    private void changephoto() {
+        final CharSequence[] options = {"Take Photo", "Choose From Gallery", "Cancel"};
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
         builder.setTitle("Select Option");
         builder.setItems(options, (dialog, item) -> {
@@ -201,30 +201,26 @@ public class EditAccountActivity extends AppCompatActivity {
     }
 
     private void validateField() {
-        if (validate == false){
-            if (etFullname.getText().toString().length() == 0) {
-                etFullname.setError("Name is required!");
-                validate = true;
-            }
-            if (etPhoneNumber.getText().toString().length() == 0) {
-                etPhoneNumber.setError("Username is required!");
-                validate = true;
-            }
-        } else {
-            validate = false;
+
+        if (etFullname.getText().toString().length() == 0) {
+            etFullname.setError("Name is required!");
         }
+        if (etPhoneNumber.getText().toString().length() == 0) {
+            etPhoneNumber.setError("Username is required!");
+        }
+
         loadingDialog.dismiss();
     }
 
     private void getProfileDetail() {
         loadingDialog.setCancelable(false);
         loadingDialog.show();
-        API.baseApiService().getProfileDetail(sId, sBearerToken).enqueue(new Callback<ApiResponse<GeneralData>>() {
+        API.baseApiService().getProfileDetail(sId, sBearerToken).enqueue(new Callback<ApiResponse<GeneralDataProfile>>() {
             @Override
-            public void onResponse(Call<ApiResponse<GeneralData>> call, Response<ApiResponse<GeneralData>> response) {
+            public void onResponse(Call<ApiResponse<GeneralDataProfile>> call, Response<ApiResponse<GeneralDataProfile>> response) {
 
                 loadingDialog.dismiss();
-                final ApiResponse<GeneralData> user = response.body();
+                final ApiResponse<GeneralDataProfile> user = response.body();
                 System.out.println("JSON: " + user);
                 sFullname = user.getData().getProfile().getFullname();
                 sPhonenumber = user.getData().getProfile().getPhoneNumber();
@@ -247,7 +243,7 @@ public class EditAccountActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ApiResponse<GeneralData>> call, Throwable t) {
+            public void onFailure(Call<ApiResponse<GeneralDataProfile>> call, Throwable t) {
                 loadingDialog.dismiss();
                 Log.e(TAG, t.toString());
                 Toast.makeText(getApplicationContext(), "Error loading!", Toast.LENGTH_SHORT).show();
@@ -262,7 +258,7 @@ public class EditAccountActivity extends AppCompatActivity {
         loadingDialog.show();
         validateField();
 
-        if (!validate){
+        if (etFullname.getText().toString().length() > 1) {
             String fullname = etFullname.getText().toString();
             String phone_number = etPhoneNumber.getText().toString();
             RequestBody requestBody;
@@ -340,7 +336,7 @@ public class EditAccountActivity extends AppCompatActivity {
         checkPermissionGrant();
     }
 
-    private void checkPermissionGrant(){
+    private void checkPermissionGrant() {
         // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA)

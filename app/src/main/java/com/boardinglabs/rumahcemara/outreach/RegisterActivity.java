@@ -199,30 +199,22 @@ public class RegisterActivity extends Activity implements AdapterView.OnItemSele
     }
 
     private void validateField() {
-        if (validate == false){
+
             if (fullname.getText().toString().length() == 0) {
                 fullname.setError("Name is required!");
-                validate = true;
             }
             if (username.getText().toString().length() == 0) {
                 username.setError("Username is required!");
-                validate = true;
             }
             if (email.getText().toString().length() == 0) {
                 email.setError("Email is required!");
-                validate = true;
-            } else if (!email.getText().toString().contains("@")) {
+            }
+            if (!email.getText().toString().contains("@")) {
                 email.setError("Email format is wrong!");
-                validate = true;
             }
             if (password.getText().toString().length() == 0) {
                 password.setError("Password is required!");
-                validate = true;
             }
-        } else {
-            validate = false;
-        }
-        loadingDialog.dismiss();
     }
 
     @OnClick(R.id.tvSelectPicture)
@@ -232,11 +224,11 @@ public class RegisterActivity extends Activity implements AdapterView.OnItemSele
 
     @OnClick(R.id.btnSignUp)
     void onClickBtnRegister() {
+        validateField();
         loadingDialog.setCancelable(false);
         loadingDialog.show();
-        validateField();
 
-        if (!validate) {
+        if (username.getText().toString().length() > 2 && email.getText().toString().contains("@") && password.getText().toString().length() > 2) {
             post(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
@@ -262,6 +254,8 @@ public class RegisterActivity extends Activity implements AdapterView.OnItemSele
                     }
                 }
             });
+        } else {
+            loadingDialog.dismiss();
         }
     }
 

@@ -102,6 +102,7 @@ public class CounselingTabFragment extends Fragment implements SearchView.OnQuer
         EditText searchEditText = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         searchEditText.setTextColor(getResources().getColor(R.color.colorAccent));
         searchEditText.setHintTextColor(getResources().getColor(R.color.colorAccent));
+        searchEditText.setTextSize(15);
 
         searchView.setOnQueryTextListener(this);
 

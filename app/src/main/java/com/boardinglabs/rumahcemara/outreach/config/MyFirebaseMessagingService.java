@@ -66,12 +66,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private void showNotification(String title, String body, String type, String id) {
         Intent intent;
+        Log.d("karizu", type);
         if(type.equals("chat")){
             intent = new Intent(this, MainActivity.class);
             intent.putExtra("fragment", "MyListFragment");
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         } else {
             intent = new Intent(this, MainActivity.class);
+            intent.putExtra("fragment", type);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         }
 

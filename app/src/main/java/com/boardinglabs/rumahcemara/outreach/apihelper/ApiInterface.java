@@ -1,6 +1,6 @@
 package com.boardinglabs.rumahcemara.outreach.apihelper;
 
-import com.boardinglabs.rumahcemara.outreach.models.GeneralData;
+import com.boardinglabs.rumahcemara.outreach.models.GeneralDataProfile;
 import com.boardinglabs.rumahcemara.outreach.models.Group;
 import com.boardinglabs.rumahcemara.outreach.models.Password;
 import com.boardinglabs.rumahcemara.outreach.models.Profile;
@@ -52,7 +52,7 @@ public interface ApiInterface {
     Call<ApiResponse<List<MemberDataResponse>>> getMember(@Query("limit") int limit, @Query("offset") int offset, @Query("status") int status, @Query("group_id") String groupId);
 
     @GET("user/{user_id}")
-    Call<ApiResponse<GeneralData>> getProfileDetail(@Path("user_id") String user_id);
+    Call<ApiResponse<GeneralDataProfile>> getProfileDetail(@Path("user_id") String user_id);
 
 //    @GET("area")
 //    Call<ApiResponse<List<AreaDataResponse>>> getArea();
@@ -100,7 +100,7 @@ public interface ApiInterface {
 ////    Call<ApiResponse> putNotificationIsRead(@Path("id") String notificationId);
 
     @GET("profile")
-    Call<ApiResponse<GeneralData>> getProfile();
+    Call<ApiResponse<GeneralDataProfile>> getProfile();
 
     @POST("userDevice")
 

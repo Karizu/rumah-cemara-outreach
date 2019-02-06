@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,22 +14,17 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.boardinglabs.rumahcemara.outreach.R;
-import com.boardinglabs.rumahcemara.outreach.adapter.AdapterListClient;
 import com.boardinglabs.rumahcemara.outreach.adapter.AdapterRequestAppointment;
 import com.boardinglabs.rumahcemara.outreach.apihelper.API;
 import com.boardinglabs.rumahcemara.outreach.apihelper.ApiResponse;
 import com.boardinglabs.rumahcemara.outreach.config.SessionManagement;
-import com.boardinglabs.rumahcemara.outreach.models.ClientModel;
 import com.boardinglabs.rumahcemara.outreach.models.RequestModel;
 import com.boardinglabs.rumahcemara.outreach.models.response.AppointmentDataResponse;
-import com.boardinglabs.rumahcemara.outreach.models.response.MemberDataResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -51,6 +45,7 @@ public class RequestTabFragment extends Fragment {
     private SwipeRefreshLayout swipeContainer;
     private RecyclerView.Adapter adapter;
     private LinearLayoutManager layoutManager;
+    Double latitude, longitude;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

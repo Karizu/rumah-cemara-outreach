@@ -38,6 +38,7 @@ public class SessionManagement {
     public static final String KEY_GROUP_ID = "group_id";
     public static final String KEY_LANGUAGE_ID = "language_id";
     public static final String NOTIFICATION = "notification";
+    public static final String STATUS_ONLINE = "status_online";
 
     // Constructor
     public SessionManagement(Context context) {
@@ -81,6 +82,17 @@ public class SessionManagement {
         int notification;
         notification = pref.getInt(NOTIFICATION, 0);
         return notification;
+    }
+
+    public void setStatusOnline(int statusOnline) {
+        editor.putInt(STATUS_ONLINE, statusOnline);
+        editor.commit();
+    }
+
+    public int getStatusOnline() {
+        int statusOnline;
+        statusOnline = pref.getInt(STATUS_ONLINE, 0);
+        return statusOnline;
     }
 
     public void checkLogin(){
