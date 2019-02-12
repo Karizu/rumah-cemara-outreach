@@ -8,16 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.boardinglabs.rumahcemara.outreach.apihelper.API;
-import com.boardinglabs.rumahcemara.outreach.apihelper.ApiResponse;
+import com.boardinglabs.rumahcemara.outreach.helper.API;
+import com.boardinglabs.rumahcemara.outreach.helper.ApiResponse;
 import com.boardinglabs.rumahcemara.outreach.dialog.LoadingDialog;
-import com.rezkyatinnov.kyandroid.reztrofit.ErrorResponse;
-import com.rezkyatinnov.kyandroid.reztrofit.RestCallback;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.Headers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

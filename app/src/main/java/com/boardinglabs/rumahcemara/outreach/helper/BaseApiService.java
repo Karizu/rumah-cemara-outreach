@@ -1,4 +1,4 @@
-package com.boardinglabs.rumahcemara.outreach.apihelper;
+package com.boardinglabs.rumahcemara.outreach.helper;
 
 import com.boardinglabs.rumahcemara.outreach.models.Appointment;
 import com.boardinglabs.rumahcemara.outreach.models.ChatHistory;

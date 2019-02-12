@@ -1,7 +1,9 @@
 package com.boardinglabs.rumahcemara.outreach.config;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -82,15 +84,34 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         Uri soundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        String NOTIFICATION_CHANNEL_ID = "appointment";
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            @SuppressLint("WrongConstant") NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID,
+                    "Rumah Cemara", manager.IMPORTANCE_MAX);
+
+            notificationChannel.setDescription("appointment channel");
+            notificationChannel.enableLights(true);
+            notificationChannel.setLightColor(Color.RED);
+            notificationChannel.setVibrationPattern(new long[]{0,1000,500,1000});
+            notificationChannel.enableVibration(true);
+
+            manager.createNotificationChannel(notificationChannel);
+        }
+
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
                 .setAutoCancel(true)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .setWhen(System.currentTimeMillis())
                 .setContentTitle(title)
                 .setContentText(body)
                 .setSmallIcon(R.drawable.logo_header)
                 .setContentIntent(pendingIntent)
-                .setSound(soundUri);
+                .setSound(soundUri)
+                .setContentInfo("Appointment");
 
-        NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         manager.notify(0, builder.build());
     }
 

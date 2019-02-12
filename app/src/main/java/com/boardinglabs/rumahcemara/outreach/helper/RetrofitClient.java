@@ -1,4 +1,4 @@
-package com.boardinglabs.rumahcemara.outreach.apihelper;
+package com.boardinglabs.rumahcemara.outreach.helper;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

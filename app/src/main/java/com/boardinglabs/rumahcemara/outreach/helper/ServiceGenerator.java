@@ -1,4 +1,4 @@
-package com.boardinglabs.rumahcemara.outreach.apihelper;
+package com.boardinglabs.rumahcemara.outreach.helper;
 
 import android.text.TextUtils;
 
@@ -8,7 +8,7 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.boardinglabs.rumahcemara.outreach.apihelper.UtilsApi.BASE_URL_API;
+import static com.boardinglabs.rumahcemara.outreach.helper.UtilsApi.BASE_URL_API;
 
 public class ServiceGenerator {
 

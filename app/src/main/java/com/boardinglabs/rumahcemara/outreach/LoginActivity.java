@@ -1,60 +1,29 @@
 package com.boardinglabs.rumahcemara.outreach;
 
-import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
-import android.view.animation.AlphaAnimation;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.boardinglabs.rumahcemara.outreach.apihelper.API;
-import com.boardinglabs.rumahcemara.outreach.apihelper.ApiResponse;
-import com.boardinglabs.rumahcemara.outreach.apihelper.AuthHelper;
-import com.boardinglabs.rumahcemara.outreach.apihelper.BaseApiService;
-import com.boardinglabs.rumahcemara.outreach.apihelper.UtilsApi;
+import com.boardinglabs.rumahcemara.outreach.helper.BaseApiService;
+import com.boardinglabs.rumahcemara.outreach.helper.UtilsApi;
 import com.boardinglabs.rumahcemara.outreach.config.SessionManagement;
-import com.boardinglabs.rumahcemara.outreach.models.User;
-import com.boardinglabs.rumahcemara.outreach.models.UserDevice;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.rezkyatinnov.kyandroid.localdata.LocalData;
-import com.rezkyatinnov.kyandroid.reztrofit.ErrorResponse;
-import com.rezkyatinnov.kyandroid.reztrofit.RestCallback;
-import com.rezkyatinnov.kyandroid.session.Session;
-import com.rezkyatinnov.kyandroid.session.SessionNotFoundException;
-import com.rezkyatinnov.kyandroid.session.SessionObject;
-import com.victor.loading.rotate.RotateLoading;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.HashMap;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
-import okhttp3.Headers;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;

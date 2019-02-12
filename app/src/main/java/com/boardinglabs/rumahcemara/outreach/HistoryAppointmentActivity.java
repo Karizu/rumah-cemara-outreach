@@ -14,11 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.boardinglabs.rumahcemara.outreach.adapter.AdapterHistoryAppointment;
-import com.boardinglabs.rumahcemara.outreach.apihelper.API;
-import com.boardinglabs.rumahcemara.outreach.apihelper.ApiResponse;
+import com.boardinglabs.rumahcemara.outreach.helper.API;
+import com.boardinglabs.rumahcemara.outreach.helper.ApiResponse;
 import com.boardinglabs.rumahcemara.outreach.config.SessionManagement;
 import com.boardinglabs.rumahcemara.outreach.models.HistoryModel;
-import com.boardinglabs.rumahcemara.outreach.models.RequestModel;
 import com.boardinglabs.rumahcemara.outreach.models.response.AppointmentDataResponse;
 
 import java.util.ArrayList;
@@ -28,8 +27,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import android.support.v4.app.Fragment;
 
 public class HistoryAppointmentActivity extends AppCompatActivity {
 

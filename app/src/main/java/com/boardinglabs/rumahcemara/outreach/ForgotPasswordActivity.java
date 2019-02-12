@@ -6,11 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.boardinglabs.rumahcemara.outreach.apihelper.API;
+import com.boardinglabs.rumahcemara.outreach.helper.API;
 import com.boardinglabs.rumahcemara.outreach.dialog.LoadingDialog;
 
 import butterknife.ButterKnife;

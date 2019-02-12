@@ -17,9 +17,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.boardinglabs.rumahcemara.outreach.adapter.AdapterChat;
-import com.boardinglabs.rumahcemara.outreach.apihelper.BaseApiService;
-import com.boardinglabs.rumahcemara.outreach.apihelper.UtilsApi;
 import com.boardinglabs.rumahcemara.outreach.config.SessionManagement;
+import com.boardinglabs.rumahcemara.outreach.helper.BaseApiService;
+import com.boardinglabs.rumahcemara.outreach.helper.UtilsApi;
 import com.boardinglabs.rumahcemara.outreach.models.Chat;
 import com.boardinglabs.rumahcemara.outreach.models.ChatHistory;
 import com.boardinglabs.rumahcemara.outreach.models.GenerateToken;

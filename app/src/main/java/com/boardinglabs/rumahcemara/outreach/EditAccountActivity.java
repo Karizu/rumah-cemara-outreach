@@ -23,9 +23,9 @@ import android.widget.Toast;
 import com.boardinglabs.rumahcemara.outreach.models.GeneralDataProfile;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.boardinglabs.rumahcemara.outreach.apihelper.API;
-import com.boardinglabs.rumahcemara.outreach.apihelper.ApiResponse;
-import com.boardinglabs.rumahcemara.outreach.apihelper.BaseApiService;
+import com.boardinglabs.rumahcemara.outreach.helper.API;
+import com.boardinglabs.rumahcemara.outreach.helper.ApiResponse;
+import com.boardinglabs.rumahcemara.outreach.helper.BaseApiService;
 import com.boardinglabs.rumahcemara.outreach.dialog.LoadingDialog;
 
 import java.io.ByteArrayOutputStream;

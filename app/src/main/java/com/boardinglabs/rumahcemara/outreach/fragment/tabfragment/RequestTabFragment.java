@@ -15,8 +15,8 @@ import android.widget.Toast;
 
 import com.boardinglabs.rumahcemara.outreach.R;
 import com.boardinglabs.rumahcemara.outreach.adapter.AdapterRequestAppointment;
-import com.boardinglabs.rumahcemara.outreach.apihelper.API;
-import com.boardinglabs.rumahcemara.outreach.apihelper.ApiResponse;
+import com.boardinglabs.rumahcemara.outreach.helper.API;
+import com.boardinglabs.rumahcemara.outreach.helper.ApiResponse;
 import com.boardinglabs.rumahcemara.outreach.config.SessionManagement;
 import com.boardinglabs.rumahcemara.outreach.models.RequestModel;
 import com.boardinglabs.rumahcemara.outreach.models.response.AppointmentDataResponse;

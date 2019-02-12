@@ -1,4 +1,4 @@
-package com.boardinglabs.rumahcemara.outreach.apihelper;
+package com.boardinglabs.rumahcemara.outreach.helper;
 
 public class ApiResponse<T> {
     private boolean status;

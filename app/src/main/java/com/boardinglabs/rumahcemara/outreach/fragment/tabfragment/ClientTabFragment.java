@@ -1,6 +1,5 @@
 package com.boardinglabs.rumahcemara.outreach.fragment.tabfragment;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,8 +17,8 @@ import android.widget.Toast;
 
 import com.boardinglabs.rumahcemara.outreach.R;
 import com.boardinglabs.rumahcemara.outreach.adapter.AdapterListClient;
-import com.boardinglabs.rumahcemara.outreach.apihelper.API;
-import com.boardinglabs.rumahcemara.outreach.apihelper.ApiResponse;
+import com.boardinglabs.rumahcemara.outreach.helper.API;
+import com.boardinglabs.rumahcemara.outreach.helper.ApiResponse;
 import com.boardinglabs.rumahcemara.outreach.config.SessionManagement;
 import com.boardinglabs.rumahcemara.outreach.models.ClientModel;
 import com.boardinglabs.rumahcemara.outreach.models.response.MemberDataResponse;

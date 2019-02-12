@@ -1,4 +1,4 @@
-package com.boardinglabs.rumahcemara.outreach.apihelper;
+package com.boardinglabs.rumahcemara.outreach.helper;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

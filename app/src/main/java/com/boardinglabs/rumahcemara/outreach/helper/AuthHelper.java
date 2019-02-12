@@ -1,4 +1,4 @@
-package com.boardinglabs.rumahcemara.outreach.apihelper;
+package com.boardinglabs.rumahcemara.outreach.helper;
 
 import com.boardinglabs.rumahcemara.outreach.models.Register;
 import com.boardinglabs.rumahcemara.outreach.models.User;

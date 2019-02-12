@@ -1,22 +1,18 @@
 package com.boardinglabs.rumahcemara.outreach;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.boardinglabs.rumahcemara.outreach.apihelper.API;
+import com.boardinglabs.rumahcemara.outreach.helper.API;
 import com.boardinglabs.rumahcemara.outreach.config.SessionManagement;
 import com.boardinglabs.rumahcemara.outreach.dialog.LoadingDialog;
-import com.boardinglabs.rumahcemara.outreach.dialog.Utils;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.HashMap;
