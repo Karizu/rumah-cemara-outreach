@@ -18,16 +18,16 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_rumah_cemara"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_rumah_cemara"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".RecoverPasswordActivity"></activity>
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/logo_header" />
+            android:resource="@drawable/logo_klik_header" />
 
         <activity
             android:name=".MainActivity"

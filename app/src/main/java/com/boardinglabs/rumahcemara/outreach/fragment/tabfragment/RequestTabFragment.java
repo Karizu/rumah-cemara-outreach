@@ -104,7 +104,7 @@ public class RequestTabFragment extends Fragment {
                     @Override
                     public void onResponse(Call<ApiResponse<List<AppointmentDataResponse>>> call, Response<ApiResponse<List<AppointmentDataResponse>>> body) {
                         try {
-                            if (body != null && body.body().isStatus()) {
+                            if (body.body() != null) {
                                 List<AppointmentDataResponse> res = body.body().getData();
                                 articleModels.clear();
 
@@ -147,7 +147,7 @@ public class RequestTabFragment extends Fragment {
                     public void onResponse(Call<ApiResponse<List<AppointmentDataResponse>>> call, Response<ApiResponse<List<AppointmentDataResponse>>> body) {
                         System.out.println("RESPONSE:  "+body.toString() +"\n"+"BODY: "+body.body() +"\n"+"RAW: "+body.raw() +"\n"+"MESSAGE: "+body.message());
 
-                        if (body != null) {
+                        if (body.body() != null) {
                             List<AppointmentDataResponse> res = body.body().getData();
                             articleModels = new ArrayList<>();
 

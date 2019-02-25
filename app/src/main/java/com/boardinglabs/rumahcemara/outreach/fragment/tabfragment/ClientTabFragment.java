@@ -114,7 +114,7 @@ public class ClientTabFragment extends Fragment implements SearchView.OnQueryTex
                     @Override
                     public void onResponse(Call<ApiResponse<List<MemberDataResponse>>> call, Response<ApiResponse<List<MemberDataResponse>>> body) {
                         try {
-                            if (body != null && body.body().isStatus()) {
+                            if (body.body() != null) {
                                 List<MemberDataResponse> res = body.body().getData();
                                 articleModels.clear();
 
@@ -148,9 +148,9 @@ public class ClientTabFragment extends Fragment implements SearchView.OnQueryTex
                 API.baseApiService().getClient(search, limit, offset, sBearerToken).enqueue(new Callback<ApiResponse<List<MemberDataResponse>>>() {
                     @Override
                     public void onResponse(Call<ApiResponse<List<MemberDataResponse>>> call, Response<ApiResponse<List<MemberDataResponse>>> body) {
-                        System.out.println("RESPONSE:  "+body.toString() +"\n"+"BODY: "+body.body() +"\n"+"RAW: "+body.raw() +"\n"+"MESSAGE: "+body.message());
+//                        System.out.println("RESPONSE:  "+body.toString() +"\n"+"BODY: "+body.body() +"\n"+"RAW: "+body.raw() +"\n"+"MESSAGE: "+body.message());
 
-                            if (body != null && body.body().isStatus()) {
+                            if (body.body() != null) {
                                 List<MemberDataResponse> res = body.body().getData();
                                 articleModels = new ArrayList<>();
 

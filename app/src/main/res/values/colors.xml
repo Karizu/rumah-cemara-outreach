@@ -164,7 +164,7 @@
     <color name="Navy">#000080</color>
     <color name="Black">#000000</color>
     <color name="FocusInput">#F3F3F3</color>
-    <color name="NormalInput">#FBFBFB</color>
+    <color name="NormalInput">#FFFFFF</color>
     <color name="FocusColorText">#FCA000</color>
     <color name="NormalColorText">#363636</color>
     <color name="border_color">#E4E4E4</color>

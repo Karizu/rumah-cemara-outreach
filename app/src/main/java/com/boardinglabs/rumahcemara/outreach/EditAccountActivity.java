@@ -219,27 +219,32 @@ public class EditAccountActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ApiResponse<GeneralDataProfile>> call, Response<ApiResponse<GeneralDataProfile>> response) {
 
-                loadingDialog.dismiss();
-                final ApiResponse<GeneralDataProfile> user = response.body();
-                System.out.println("JSON: " + user);
-                sFullname = user.getData().getProfile().getFullname();
-                sPhonenumber = user.getData().getProfile().getPhoneNumber();
-                sUser = user.getData().getUsername();
-                sImgURL = user.getData().getProfile().getPicture();
-                sEmail = user.getData().getProfile().getEmail();
+                if (response.body() != null){
+                    loadingDialog.dismiss();
+                    final ApiResponse<GeneralDataProfile> user = response.body();
+                    System.out.println("JSON: " + user);
+                    sFullname = user.getData().getProfile().getFullname();
+                    sPhonenumber = user.getData().getProfile().getPhoneNumber();
+                    sUser = user.getData().getUsername();
+                    sImgURL = user.getData().getProfile().getPicture();
+                    sEmail = user.getData().getProfile().getEmail();
 //
-                etUser.setText(sUser);
-                etFullname.setText(sFullname);
-                if (sPhonenumber == null || sPhonenumber.equals("null")) {
-                    etPhoneNumber.setText(" - ");
+                    etUser.setText(sUser);
+                    etFullname.setText(sFullname);
+                    if (sPhonenumber == null || sPhonenumber.equals("null")) {
+                        etPhoneNumber.setText(" - ");
+                    } else {
+                        etPhoneNumber.setText(sPhonenumber);
+                    }
+                    if (sImgURL != null)
+                        Glide.with(mContext)
+                                .load(sImgURL)
+                                .apply(RequestOptions.circleCropTransform())
+                                .into(etImgProfile);
                 } else {
-                    etPhoneNumber.setText(sPhonenumber);
+                    Toast.makeText(mContext, "Tidak dapat terhubung ke server", Toast.LENGTH_SHORT).show();
                 }
-                if (sImgURL != null)
-                    Glide.with(mContext)
-                            .load(sImgURL)
-                            .apply(RequestOptions.circleCropTransform())
-                            .into(etImgProfile);
+
             }
 
             @Override

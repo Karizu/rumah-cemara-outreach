@@ -118,7 +118,7 @@ public class LegalTabFragment extends Fragment implements SearchView.OnQueryText
                     @Override
                     public void onResponse(Call<ApiResponse<List<AppointmentDataResponse>>> call, Response<ApiResponse<List<AppointmentDataResponse>>> body) {
                         try {
-                            if (body != null && body.body().isStatus()) {
+                            if (body.body() != null) {
                                 List<AppointmentDataResponse> res = body.body().getData();
                                 articleModels.clear();
 
@@ -159,9 +159,9 @@ public class LegalTabFragment extends Fragment implements SearchView.OnQueryText
                 API.baseApiService().getAppointment(search, limit, offset, sId, status, service_type_id,sBearerToken).enqueue(new Callback<ApiResponse<List<AppointmentDataResponse>>>() {
                     @Override
                     public void onResponse(Call<ApiResponse<List<AppointmentDataResponse>>> call, Response<ApiResponse<List<AppointmentDataResponse>>> body) {
-                        System.out.println("RESPONSE:  "+body.toString() +"\n"+"BODY: "+body.body().getData() +"\n"+"RAW: "+body.raw() +"\n"+"MESSAGE: "+body.message());
+//                        System.out.println("RESPONSE:  "+body.toString() +"\n"+"BODY: "+body.body().getData() +"\n"+"RAW: "+body.raw() +"\n"+"MESSAGE: "+body.message());
 
-                        if (body != null) {
+                        if (body.body() != null) {
                             List<AppointmentDataResponse> res = body.body().getData();
                             articleModels = new ArrayList<>();
 

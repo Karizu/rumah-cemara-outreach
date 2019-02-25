@@ -78,7 +78,9 @@ public class ChatActivity extends AppCompatActivity {
             textMessage.setHint("Ketik pesan");
         }
 
-        centrifugoAddress = "ws://37.72.172.144:5050/connection/websocket";
+//        centrifugoAddress = "ws://37.72.172.144:5050/connection/websocket";
+        centrifugoAddress = "ws://68.183.226.23:5050/connection/websocket";
+
         userToken = "";
 
         generateToken();

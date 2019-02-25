@@ -23,7 +23,7 @@
             android:background="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:navigationIcon="@drawable/logo_header"
+            app:navigationIcon="@drawable/logo_klik_header"
             >
 
         </android.support.v7.widget.Toolbar>

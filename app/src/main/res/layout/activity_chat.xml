@@ -38,7 +38,10 @@
             android:layout_height="wrap_content"
             android:hint="Write a message...."
             android:inputType="text|textMultiLine"
-            android:padding="6dp"
+            android:paddingLeft="12dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:paddingRight="6dp"
             android:layout_margin="6dp"
             android:layout_toLeftOf="@+id/btn_send"
             android:background="@drawable/rounded_chat"/>

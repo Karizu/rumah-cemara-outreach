@@ -1,6 +1,7 @@
 package com.boardinglabs.rumahcemara.outreach.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -67,6 +68,7 @@ public class OptionsFragment extends Fragment {
     private String tokenId;
     private String sBearerToken;
     private boolean isShow = false;
+    private Context activity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,7 @@ public class OptionsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_options, container, false);
 
         ButterKnife.bind(this, view);
+        activity = getActivity();
 
         session = new SessionManagement(getActivity());
         HashMap<String, String> user = session.getUserDetails();
@@ -179,24 +182,28 @@ public class OptionsFragment extends Fragment {
             @Override
             public void onResponse(Call<ApiResponse<GeneralDataProfile>> call, Response<ApiResponse<GeneralDataProfile>> response) {
 
-                loadingDialog.dismiss();
-                final ApiResponse<GeneralDataProfile> user = response.body();
-                System.out.println("JSON: " + user);
-                fullName = user.getData().getProfile().getFullname();
-                phoneNumber = user.getData().getProfile().getPhoneNumber();
-                userName = user.getData().getUsername();
-                imgUrl = user.getData().getProfile().getPicture();
+                if (response.body() != null){
+                    loadingDialog.dismiss();
+                    final ApiResponse<GeneralDataProfile> user = response.body();
+                    System.out.println("JSON: " + user);
+                    fullName = user.getData().getProfile().getFullname();
+                    phoneNumber = user.getData().getProfile().getPhoneNumber();
+                    userName = user.getData().getUsername();
+                    imgUrl = user.getData().getProfile().getPicture();
 //
-                prUsername.setText(userName);
-                prFullname.setText(fullName);
-                if (phoneNumber == null || phoneNumber.equals("null")) {
-                    prNoHp.setText(" - ");
+                    prUsername.setText(userName);
+                    prFullname.setText(fullName);
+                    if (phoneNumber == null || phoneNumber.equals("null")) {
+                        prNoHp.setText(" - ");
+                    } else {
+                        prNoHp.setText(phoneNumber);
+                    }
+                    if (imgUrl != null)
+                        Glide.with(getActivity()).applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_person_signup)).load(imgUrl).into(imageProfile);
                 } else {
-                    prNoHp.setText(phoneNumber);
+                    Toast.makeText(activity, "Tidak dapat terhubung", Toast.LENGTH_SHORT).show();
+                    loadingDialog.dismiss();
                 }
-                if (imgUrl != null)
-                    Glide.with(getActivity()).applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_person_signup)).load(imgUrl).into(imageProfile);
-
             }
 
             @Override

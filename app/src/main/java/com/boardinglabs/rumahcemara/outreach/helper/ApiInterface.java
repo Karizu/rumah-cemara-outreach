@@ -22,7 +22,8 @@ import retrofit2.http.Query;
 
 public interface ApiInterface {
 
-    String BASE_URL = "http://37.72.172.144/rumah-cemara-api/public/api/";
+//    String BASE_URL = "http://37.72.172.144/rumah-cemara-api/public/api/";
+    String BASE_URL = "http://68.183.226.23/rumah-cemara-api/public/api/";
 
     @POST("login")
     Call<ApiResponse<User>> login(@Body User user);

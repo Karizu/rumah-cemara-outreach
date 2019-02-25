@@ -75,7 +75,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         } else {
             intent = new Intent(this, MainActivity.class);
-            intent.putExtra("fragment", type);
+//            intent.putExtra("fragment", type);
+            intent.putExtra("fragment", "MyListFragment");
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         }
 

@@ -95,50 +95,60 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void requestLogin(){
-        mApiService.loginRequest(etUsername.getText().toString(), etPassword.getText().toString())
-                .enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if (response.isSuccessful()){
-                            loading.dismiss();
-                            try {
-                                JSONObject jsonRESULTS = new JSONObject(response.body().string());
-                                if (jsonRESULTS.getString("status").equals("true")){
-                                    String nama = jsonRESULTS.getJSONObject("data").getString("username");
-                                    id = jsonRESULTS.getJSONObject("data").getString("id");
-                                    String group_id = jsonRESULTS.getJSONObject("data").getString("group_id");
-                                    String fullname = jsonRESULTS.getJSONObject("data").getJSONObject("profile").getString("fullname");
-                                    String phonenumber = jsonRESULTS.getJSONObject("data").getJSONObject("profile").getString("phone_number");
-                                    String picture = jsonRESULTS.getJSONObject("data").getJSONObject("profile").getString("picture");
-                                    String token = jsonRESULTS.getString("token");
-                                    String user_token = FirebaseInstanceId.getInstance().getToken();
-                                    session.createLoginSession(nama, fullname, id, phonenumber, picture, token, group_id);
-                                    Intent intent = new Intent(mContext, MainActivity.class);
-                                    intent.putExtra("result_nama", nama);
-                                    intent.putExtra("tokenId", user_token);
-                                    intent.putExtra("token", "token");
-                                    startActivity(intent);
-                                } else {
-                                    String error_message = jsonRESULTS.getString("error");
-                                    Toast.makeText(mContext, error_message, Toast.LENGTH_LONG).show();
+        if (etUsername.getText().toString().equals("") || etPassword.getText().toString().equals("")){
+            if (etUsername.getText().toString().equals("")){
+                etUsername.setError("This field is Required");
+                loading.dismiss();
+            } else {
+                etPassword.setError("This field is Required");
+                loading.dismiss();
+            }
+        } else {
+            mApiService.loginRequest(etUsername.getText().toString(), etPassword.getText().toString())
+                    .enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            if (response.isSuccessful()){
+                                loading.dismiss();
+                                try {
+                                    JSONObject jsonRESULTS = new JSONObject(response.body().string());
+                                    if (jsonRESULTS.getString("status").equals("true")){
+                                        String nama = jsonRESULTS.getJSONObject("data").getString("username");
+                                        id = jsonRESULTS.getJSONObject("data").getString("id");
+                                        String group_id = jsonRESULTS.getJSONObject("data").getString("group_id");
+                                        String fullname = jsonRESULTS.getJSONObject("data").getJSONObject("profile").getString("fullname");
+                                        String phonenumber = jsonRESULTS.getJSONObject("data").getJSONObject("profile").getString("phone_number");
+                                        String picture = jsonRESULTS.getJSONObject("data").getJSONObject("profile").getString("picture");
+                                        String token = jsonRESULTS.getString("token");
+                                        String user_token = FirebaseInstanceId.getInstance().getToken();
+                                        session.createLoginSession(nama, fullname, id, phonenumber, picture, token, group_id);
+                                        Intent intent = new Intent(mContext, MainActivity.class);
+                                        intent.putExtra("result_nama", nama);
+                                        intent.putExtra("tokenId", user_token);
+                                        intent.putExtra("token", "token");
+                                        startActivity(intent);
+                                    } else {
+                                        String error_message = jsonRESULTS.getString("error");
+                                        Toast.makeText(mContext, error_message, Toast.LENGTH_LONG).show();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
                                 }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            } catch (IOException e) {
-                                e.printStackTrace();
+                            } else {
+                                loading.dismiss();
+                                Toast.makeText(mContext, "We cant find an account with this credentials. Please make sure you entered the right information", Toast.LENGTH_LONG).show();
                             }
-                        } else {
-                            loading.dismiss();
-                            Toast.makeText(mContext, "We cant find an account with this credentials. Please make sure you entered the right information", Toast.LENGTH_LONG).show();
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Log.e("debug", "onFailure: ERROR > " + t.toString());
-                        loading.dismiss();
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            Log.e("debug", "onFailure: ERROR > " + t.toString());
+                            loading.dismiss();
+                        }
+                    });
+        }
     }
 
     @Override

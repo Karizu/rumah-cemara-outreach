@@ -136,7 +136,7 @@ public class DetailHistoryAppointmentActivity extends AppCompatActivity {
         API.baseApiService().getDetailAppointment(serviceId, sBearerToken).enqueue(new Callback<ApiResponse<Appointment>>() {
             @Override
             public void onResponse(Call<ApiResponse<Appointment>> call, Response<ApiResponse<Appointment>> response) {
-                System.out.println("RESPONSE:  "+response.toString() +"\n"+"BODY: "+response.body().getData() +"\n"+"RAW: "+response.raw() +"\n"+"MESSAGE: "+response.message());
+//                System.out.println("RESPONSE:  "+response.toString() +"\n"+"BODY: "+response.body().getData() +"\n"+"RAW: "+response.raw() +"\n"+"MESSAGE: "+response.message());
 
                 loadingDialog.dismiss();
                 final ApiResponse<Appointment> appointment = response.body();

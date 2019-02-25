@@ -269,7 +269,8 @@ public class RegisterActivity extends Activity implements AdapterView.OnItemSele
                     .addFormDataPart("type", "worker")
                     .build();
             Request request = new Request.Builder()
-                    .url("http://37.72.172.144/rumah-cemara-api/public/api/register")
+//                    .url("http://37.72.172.144/rumah-cemara-api/public/api/register")
+                    .url("http://68.183.226.23/rumah-cemara-api/public/api/register")
                     .post(body)
                     .build();
 
@@ -293,7 +294,8 @@ public class RegisterActivity extends Activity implements AdapterView.OnItemSele
                     .addFormDataPart("type", "worker")
                     .build();
             Request request = new Request.Builder()
-                    .url("http://37.72.172.144/rumah-cemara-api/public/api/register")
+//                    .url("http://37.72.172.144/rumah-cemara-api/public/api/register")
+                    .url("http://68.183.226.23/rumah-cemara-api/public/api/register")
                     .post(body)
                     .build();
 

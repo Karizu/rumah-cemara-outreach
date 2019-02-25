@@ -9,28 +9,46 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:background="@drawable/bg_login">
+            android:background="@drawable/header_bar"
+            android:theme="@style/loginInputTheme">
 
-            <EditText
-                android:id="@+id/etUsername"
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:layout_above="@+id/layUsername"
+                android:layout_marginBottom="32dp"
+                android:src="@drawable/logo_klik_login"
+                />
+
+            <LinearLayout
+                android:id="@+id/layUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
-                android:background="@drawable/field_login"
-                android:drawableLeft="@drawable/ic_person_black_24dp"
-                android:drawablePadding="16dp"
-                android:textColor="@color/colorAccent"
-                android:textColorHint="@color/text"
-                android:textSize="16dp"
-                android:hint="@string/username" />
+                android:layout_alignParentBottom="true"
+                android:elevation="4dp"
+                android:background="#ffffff"
+                tools:targetApi="lollipop">
+
+                <EditText
+                    android:id="@+id/etUsername"
+                    style="@style/loginInputStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/icon_username"
+                    android:drawableStart="@drawable/icon_username"
+                    android:hint="@string/username"
+                    android:color="?colorAccent"
+                    tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+            </LinearLayout>
 
         </RelativeLayout>
 
@@ -39,21 +57,39 @@
             android:layout_height="match_parent"
             android:background="#ffffff">
 
+            <View
+                android:id="@+id/viewGap"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_alignParentTop="true"
+                android:background="#22222222"/>
+
+            <LinearLayout
+                android:id="@+id/layPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:elevation="4dp"
+                android:layout_below="@id/viewGap"
+                android:background="#ffffff"
+                tools:targetApi="lollipop">
+
             <EditText
                 android:id="@+id/etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:background="@drawable/field_login"
-                android:drawableLeft="@drawable/ic_lock_black_24dp"
-                android:drawablePadding="16dp"
+                style="@style/loginInputStyle"
+                android:drawableLeft="@drawable/icon_password"
+                android:drawableStart="@drawable/icon_password"
                 android:hint="@string/password"
                 android:inputType="textPassword"
-                android:textColor="@color/colorAccent"
-                android:textColorHint="@color/text"
-                android:textSize="16dp" />
+                android:color="?colorAccent"
+                tools:ignore="RtlHardcoded" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layLogin"
@@ -61,7 +97,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="right"
-                android:layout_below="@id/etPassword">
+                android:layout_below="@id/layPassword"
+                tools:ignore="RtlHardcoded">
 
                 <TextView
                     android:id="@+id/tvForgotPassword"
