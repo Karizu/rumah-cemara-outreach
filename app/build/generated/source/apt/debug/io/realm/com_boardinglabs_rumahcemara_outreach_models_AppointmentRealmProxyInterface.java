@@ -1,0 +1,53 @@
+package io.realm;
+
+
+public interface com_boardinglabs_rumahcemara_outreach_models_AppointmentRealmProxyInterface {
+    public String realmGet$id();
+    public void realmSet$id(String value);
+    public String realmGet$group_id();
+    public void realmSet$group_id(String value);
+    public String realmGet$user_id();
+    public void realmSet$user_id(String value);
+    public String realmGet$provider_id();
+    public void realmSet$provider_id(String value);
+    public String realmGet$service_type_id();
+    public void realmSet$service_type_id(String value);
+    public String realmGet$worker_id();
+    public void realmSet$worker_id(String value);
+    public String realmGet$start_date();
+    public void realmSet$start_date(String value);
+    public String realmGet$end_date();
+    public void realmSet$end_date(String value);
+    public String realmGet$description();
+    public void realmSet$description(String value);
+    public String realmGet$attachment();
+    public void realmSet$attachment(String value);
+    public String realmGet$type_provider();
+    public void realmSet$type_provider(String value);
+    public int realmGet$status();
+    public void realmSet$status(int value);
+    public int realmGet$status_report();
+    public void realmSet$status_report(int value);
+    public com.boardinglabs.rumahcemara.outreach.models.Group realmGet$group();
+    public void realmSet$group(com.boardinglabs.rumahcemara.outreach.models.Group value);
+    public com.boardinglabs.rumahcemara.outreach.models.User realmGet$user();
+    public void realmSet$user(com.boardinglabs.rumahcemara.outreach.models.User value);
+    public com.boardinglabs.rumahcemara.outreach.models.ServiceType realmGet$serviceType();
+    public void realmSet$serviceType(com.boardinglabs.rumahcemara.outreach.models.ServiceType value);
+    public com.boardinglabs.rumahcemara.outreach.models.Worker realmGet$worker();
+    public void realmSet$worker(com.boardinglabs.rumahcemara.outreach.models.Worker value);
+    public com.boardinglabs.rumahcemara.outreach.models.ProviderWorker realmGet$providerWorker();
+    public void realmSet$providerWorker(com.boardinglabs.rumahcemara.outreach.models.ProviderWorker value);
+    public com.boardinglabs.rumahcemara.outreach.models.Rating realmGet$rating();
+    public void realmSet$rating(com.boardinglabs.rumahcemara.outreach.models.Rating value);
+    public String realmGet$created_at();
+    public void realmSet$created_at(String value);
+    public String realmGet$updated_at();
+    public void realmSet$updated_at(String value);
+    public String realmGet$deleted_at();
+    public void realmSet$deleted_at(String value);
+    public String realmGet$type();
+    public void realmSet$type(String value);
+    public String realmGet$location();
+    public void realmSet$location(String value);
+}

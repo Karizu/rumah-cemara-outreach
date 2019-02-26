@@ -4,8 +4,8 @@ package com.boardinglabs.rumahcemara.outreach;
 import android.support.annotation.CallSuper;
 import android.support.annotation.UiThread;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import butterknife.Unbinder;
 import butterknife.internal.DebouncingOnClickListener;
@@ -16,11 +16,11 @@ import java.lang.Override;
 public class RegisterActivity_ViewBinding implements Unbinder {
   private RegisterActivity target;
 
-  private View view2131296579;
+  private View view2131362143;
 
-  private View view2131296313;
+  private View view2131361850;
 
-  private View view2131296581;
+  private View view2131362145;
 
   @UiThread
   public RegisterActivity_ViewBinding(RegisterActivity target) {
@@ -37,10 +37,11 @@ public class RegisterActivity_ViewBinding implements Unbinder {
     target.email = Utils.findRequiredViewAsType(source, R.id.etEmail, "field 'email'", EditText.class);
     target.username = Utils.findRequiredViewAsType(source, R.id.etUsername, "field 'username'", EditText.class);
     target.password = Utils.findRequiredViewAsType(source, R.id.etPassword, "field 'password'", EditText.class);
-    target.gender = Utils.findRequiredViewAsType(source, R.id.etGender, "field 'gender'", AutoCompleteTextView.class);
+    target.sGender = Utils.findRequiredViewAsType(source, R.id.spinnerGender, "field 'sGender'", Spinner.class);
+    target.etImgProfile = Utils.findRequiredViewAsType(source, R.id.imgProfile, "field 'etImgProfile'", ImageView.class);
     target.institutionName = Utils.findRequiredViewAsType(source, R.id.spinnerInstitution, "field 'institutionName'", Spinner.class);
     view = Utils.findRequiredView(source, R.id.tvSelectPicture, "method 'onClickChangeProfilePhoto'");
-    view2131296579 = view;
+    view2131362143 = view;
     view.setOnClickListener(new DebouncingOnClickListener() {
       @Override
       public void doClick(View p0) {
@@ -48,7 +49,7 @@ public class RegisterActivity_ViewBinding implements Unbinder {
       }
     });
     view = Utils.findRequiredView(source, R.id.btnSignUp, "method 'onClickBtnRegister'");
-    view2131296313 = view;
+    view2131361850 = view;
     view.setOnClickListener(new DebouncingOnClickListener() {
       @Override
       public void doClick(View p0) {
@@ -56,7 +57,7 @@ public class RegisterActivity_ViewBinding implements Unbinder {
       }
     });
     view = Utils.findRequiredView(source, R.id.tvSignIn, "method 'haveAccount'");
-    view2131296581 = view;
+    view2131362145 = view;
     view.setOnClickListener(new DebouncingOnClickListener() {
       @Override
       public void doClick(View p0) {
@@ -77,14 +78,15 @@ public class RegisterActivity_ViewBinding implements Unbinder {
     target.email = null;
     target.username = null;
     target.password = null;
-    target.gender = null;
+    target.sGender = null;
+    target.etImgProfile = null;
     target.institutionName = null;
 
-    view2131296579.setOnClickListener(null);
-    view2131296579 = null;
-    view2131296313.setOnClickListener(null);
-    view2131296313 = null;
-    view2131296581.setOnClickListener(null);
-    view2131296581 = null;
+    view2131362143.setOnClickListener(null);
+    view2131362143 = null;
+    view2131361850.setOnClickListener(null);
+    view2131361850 = null;
+    view2131362145.setOnClickListener(null);
+    view2131362145 = null;
   }
 }

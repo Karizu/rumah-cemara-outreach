@@ -1,5 +1,5 @@
 // Generated code from Butter Knife. Do not modify!
-package com.boardinglabs.rumahcemara.outreach.fragment;
+package com.boardinglabs.rumahcemara.outreach;
 
 import android.support.annotation.CallSuper;
 import android.support.annotation.UiThread;
@@ -7,26 +7,30 @@ import android.view.View;
 import butterknife.Unbinder;
 import butterknife.internal.DebouncingOnClickListener;
 import butterknife.internal.Utils;
-import com.boardinglabs.rumahcemara.outreach.R;
 import java.lang.IllegalStateException;
 import java.lang.Override;
 
-public class MyListFragment_ViewBinding implements Unbinder {
-  private MyListFragment target;
+public class ForgotPasswordActivity_ViewBinding implements Unbinder {
+  private ForgotPasswordActivity target;
 
-  private View view2131361943;
+  private View view2131361849;
 
   @UiThread
-  public MyListFragment_ViewBinding(final MyListFragment target, View source) {
+  public ForgotPasswordActivity_ViewBinding(ForgotPasswordActivity target) {
+    this(target, target.getWindow().getDecorView());
+  }
+
+  @UiThread
+  public ForgotPasswordActivity_ViewBinding(final ForgotPasswordActivity target, View source) {
     this.target = target;
 
     View view;
-    view = Utils.findRequiredView(source, R.id.imgHistoryAppointment, "method 'onClickHistory'");
-    view2131361943 = view;
+    view = Utils.findRequiredView(source, R.id.btnSendRequest, "method 'populateData'");
+    view2131361849 = view;
     view.setOnClickListener(new DebouncingOnClickListener() {
       @Override
       public void doClick(View p0) {
-        target.onClickHistory();
+        target.populateData();
       }
     });
   }
@@ -38,7 +42,7 @@ public class MyListFragment_ViewBinding implements Unbinder {
     target = null;
 
 
-    view2131361943.setOnClickListener(null);
-    view2131361943 = null;
+    view2131361849.setOnClickListener(null);
+    view2131361849 = null;
   }
 }

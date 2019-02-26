@@ -13,7 +13,7 @@ import java.lang.Override;
 public class RequestDetailActivity_ViewBinding implements Unbinder {
   private RequestDetailActivity target;
 
-  private View view2131296309;
+  private View view2131361845;
 
   @UiThread
   public RequestDetailActivity_ViewBinding(RequestDetailActivity target) {
@@ -26,7 +26,7 @@ public class RequestDetailActivity_ViewBinding implements Unbinder {
 
     View view;
     view = Utils.findRequiredView(source, R.id.btnAccAppointment, "method 'onClickButton'");
-    view2131296309 = view;
+    view2131361845 = view;
     view.setOnClickListener(new DebouncingOnClickListener() {
       @Override
       public void doClick(View p0) {
@@ -42,7 +42,7 @@ public class RequestDetailActivity_ViewBinding implements Unbinder {
     target = null;
 
 
-    view2131296309.setOnClickListener(null);
-    view2131296309 = null;
+    view2131361845.setOnClickListener(null);
+    view2131361845 = null;
   }
 }
