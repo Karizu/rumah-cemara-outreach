@@ -179,61 +179,62 @@ public class DashboardTabFragment extends Fragment {
         API.baseApiService().getDashboardData(sGroupId, sId, sMonth, paramStartDate, paramEndDate, sBearerToken).enqueue(new Callback<ApiResponse<Dashboard>>() {
             @Override
             public void onResponse(Call<ApiResponse<Dashboard>> call, Response<ApiResponse<Dashboard>> response) {
-
                 loadingDialog.dismiss();
-                ApiResponse<Dashboard> user = response.body();
+
+                if (response.body() != null && response.isSuccessful()){
+                    ApiResponse<Dashboard> user = response.body();
 //                System.out.println("JSON: " + response.body().toString());
-                sTotalRange = user.getData().getTotalRange();
-                sTotalMonth = user.getData().getTotalMonth();
+                    sTotalRange = user.getData().getTotalRange();
+                    sTotalMonth = user.getData().getTotalMonth();
 
-                totalRange.setText(sTotalRange);
-                totalMonth.setText(sTotalMonth);
+                    totalRange.setText(sTotalRange);
+                    totalMonth.setText(sTotalMonth);
 
-                String[] total7Date = new String[7];
-                Integer[] total7Count = new Integer[7];
-                for (int i = 0; i < 7; i++) {
-                    total7Date[i] = user.getData().getTotal7day().get(i).getDate();
-                    total7Count[i] = Integer.valueOf(user.getData().getTotal7day().get(i).getTotal());
-                    sTotal7Day1 = total7Count[0];
-                    sTotal7Day2 = total7Count[1];
-                    sTotal7Day3 = total7Count[2];
-                    sTotal7Day4 = total7Count[3];
-                    sTotal7Day5 = total7Count[4];
-                    sTotal7Day6 = total7Count[5];
-                    sTotal7Day7 = total7Count[6];
-                }
+                    String[] total7Date = new String[7];
+                    Integer[] total7Count = new Integer[7];
+                    for (int i = 0; i < 7; i++) {
+                        total7Date[i] = user.getData().getTotal7day().get(i).getDate();
+                        total7Count[i] = Integer.valueOf(user.getData().getTotal7day().get(i).getTotal());
+                        sTotal7Day1 = total7Count[0];
+                        sTotal7Day2 = total7Count[1];
+                        sTotal7Day3 = total7Count[2];
+                        sTotal7Day4 = total7Count[3];
+                        sTotal7Day5 = total7Count[4];
+                        sTotal7Day6 = total7Count[5];
+                        sTotal7Day7 = total7Count[6];
+                    }
 
-                totalToday.setText(sTotal7Day1 + "x Appointment");
+                    totalToday.setText(sTotal7Day1 + "x Appointment");
 
-                series = new BarGraphSeries<>(new DataPoint[]{
-                        new DataPoint(d7, sTotal7Day7),
-                        new DataPoint(d6, sTotal7Day6),
-                        new DataPoint(d5, sTotal7Day5),
-                        new DataPoint(d4, sTotal7Day4),
-                        new DataPoint(d3, sTotal7Day3),
-                        new DataPoint(d2, sTotal7Day2),
-                        new DataPoint(d1, sTotal7Day1),
-                });
+                    series = new BarGraphSeries<>(new DataPoint[]{
+                            new DataPoint(d7, sTotal7Day7),
+                            new DataPoint(d6, sTotal7Day6),
+                            new DataPoint(d5, sTotal7Day5),
+                            new DataPoint(d4, sTotal7Day4),
+                            new DataPoint(d3, sTotal7Day3),
+                            new DataPoint(d2, sTotal7Day2),
+                            new DataPoint(d1, sTotal7Day1),
+                    });
 
-                graph.addSeries(series);
+                    graph.addSeries(series);
 
-                // set date label formatter
-                graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(
-                        getActivity(),new SimpleDateFormat("dd MMM")));
-                graph.getGridLabelRenderer().setNumHorizontalLabels(7); // only 4 because of the space
-                graph.getGridLabelRenderer().setTextSize(30);
+                    // set date label formatter
+                    graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(
+                            getActivity(),new SimpleDateFormat("dd MMM")));
+                    graph.getGridLabelRenderer().setNumHorizontalLabels(7); // only 4 because of the space
+                    graph.getGridLabelRenderer().setTextSize(30);
 
 // set manual x bounds to have nice steps
-                graph.getViewport().setMinX(d7.getTime());
-                graph.getViewport().setMaxX(d1.getTime());
-                graph.getViewport().setXAxisBoundsManual(true);
+                    graph.getViewport().setMinX(d7.getTime());
+                    graph.getViewport().setMaxX(d1.getTime());
+                    graph.getViewport().setXAxisBoundsManual(true);
 
 // as we use dates as labels, the human rounding to nice readable numbers
 // is not necessary
-                graph.getGridLabelRenderer().setHumanRounding(false, false);
-                // enable scaling and scrolling
-                graph.getViewport().setScalable(true);
-                graph.getViewport().setScalableY(true);
+                    graph.getGridLabelRenderer().setHumanRounding(false, false);
+                    // enable scaling and scrolling
+                    graph.getViewport().setScalable(true);
+                    graph.getViewport().setScalableY(true);
 
 // styling
 //                series.setValueDependentColor(new ValueDependentColor<DataPoint>() {
@@ -242,16 +243,16 @@ public class DashboardTabFragment extends Fragment {
 //                        return Color.rgb((int) data.getX()*255/4, (int) Math.abs(data.getY()*255/6), 100);
 //                    }
 //                });
-                series.setColor(getResources().getColor(R.color.colorAccent));
+                    series.setColor(getResources().getColor(R.color.colorAccent));
 
-                series.setSpacing(40);
+                    series.setSpacing(40);
 
 //                series.setDataWidth(10);
 // draw values on top
-                series.setDrawValuesOnTop(true);
-                series.setValuesOnTopColor(getResources().getColor(R.color.colorPrimary));
+                    series.setDrawValuesOnTop(true);
+                    series.setValuesOnTopColor(getResources().getColor(R.color.colorPrimary));
 //series.setValuesOnTopSize(50);
-
+                }
             }
 
             @Override

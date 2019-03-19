@@ -1,5 +1,6 @@
 package com.boardinglabs.rumahcemara.outreach;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -149,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
+    @SuppressLint("ObsoleteSdkInt")
     @Override
     public void onBackPressed() {
 

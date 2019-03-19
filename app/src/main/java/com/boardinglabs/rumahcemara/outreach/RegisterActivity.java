@@ -84,6 +84,7 @@ public class RegisterActivity extends Activity implements AdapterView.OnItemSele
     ArrayList<String> listValue;
     Context appContext;
     String selectedName, valueName;
+    int TAG_CODE_PERMISSION_LOCATION;
 
     private LoadingDialog loadingDialog;
 
@@ -99,6 +100,16 @@ public class RegisterActivity extends Activity implements AdapterView.OnItemSele
             calendar.set(Calendar.DAY_OF_MONTH, i2);
             updateLabel(calendar);
         };
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            Log.i("fuck", "need permissions....");
+            ActivityCompat.requestPermissions(this, new String[]{
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION,},
+                    TAG_CODE_PERMISSION_LOCATION);
+        }
 
         ActivityCompat.requestPermissions(RegisterActivity.this,
                 new String[]{Manifest.permission.CAMERA}, 1);
@@ -336,7 +347,7 @@ public class RegisterActivity extends Activity implements AdapterView.OnItemSele
         gender.add("female");
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, gender);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.spinner_text, gender);
 
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
