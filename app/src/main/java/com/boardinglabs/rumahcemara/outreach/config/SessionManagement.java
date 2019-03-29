@@ -3,6 +3,7 @@ package com.boardinglabs.rumahcemara.outreach.config;
 
 import java.util.HashMap;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,35 +15,35 @@ import com.boardinglabs.rumahcemara.outreach.MainActivity;
 public class SessionManagement {
 
     // Shared Preferences
-    SharedPreferences pref;
+    private SharedPreferences pref;
 
     // Editor for Shared preferences
-    Editor editor;
+    private Editor editor;
 
     // Context
-    Context _context;
-
-    // Shared pref mode
-    int PRIVATE_MODE = 0;
+    private Context _context;
 
     // Sharedpref file name
     private static final String PREF_NAME = "RumahCemaraPref";
     private static final String IS_LOGIN = "IsLoggedIn";
 
     public static final String KEY_NAME = "name";
-    public static final String KEY_FULL_NAME = "fullname";
+    private static final String KEY_FULL_NAME = "fullname";
     public static final String KEY_ID = "id";
-    public static final String KEY_PHONE = "phonenumber";
-    public static final String KEY_IMG_URL = "picture";
+    private static final String KEY_PHONE = "phonenumber";
+    private static final String KEY_IMG_URL = "picture";
     public static final String KEY_IMG_TOKEN = "token";
     public static final String KEY_GROUP_ID = "group_id";
-    public static final String KEY_LANGUAGE_ID = "language_id";
-    public static final String NOTIFICATION = "notification";
-    public static final String STATUS_ONLINE = "status_online";
+    private static final String KEY_LANGUAGE_ID = "language_id";
+    private static final String NOTIFICATION = "notification";
+    private static final String STATUS_ONLINE = "status_online";
 
     // Constructor
+    @SuppressLint("CommitPrefEdits")
     public SessionManagement(Context context) {
         this._context = context;
+        // Shared pref mode
+        int PRIVATE_MODE = 0;
         pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         editor = pref.edit();
 
@@ -102,7 +103,6 @@ public class SessionManagement {
             Intent i = new Intent(_context, MainActivity.class);
             // Closing all the Activities
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             // Staring Login Activity
             _context.startActivity(i);
         }
@@ -110,7 +110,7 @@ public class SessionManagement {
     }
 
     public HashMap<String, String> getUserDetails(){
-        HashMap<String, String> user = new HashMap<String, String>();
+        HashMap<String, String> user = new HashMap<>();
         // user name
         user.put(KEY_NAME, pref.getString(KEY_NAME, null));
         user.put(KEY_FULL_NAME, pref.getString(KEY_FULL_NAME, null));
@@ -124,6 +124,7 @@ public class SessionManagement {
     }
 
     public void logoutUser(){
+
         // Clearing all data from Shared Preferences
         editor.clear();
         editor.commit();
@@ -144,7 +145,7 @@ public class SessionManagement {
      * Quick check for login
      * **/
     // Get Login State
-    public boolean isLoggedIn(){
+    private boolean isLoggedIn(){
         return pref.getBoolean(IS_LOGIN, false);
     }
 }

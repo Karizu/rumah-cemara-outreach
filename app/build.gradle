@@ -8,7 +8,7 @@ android {
         minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.10"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -69,6 +69,10 @@ dependencies {
     implementation 'com.github.centrifugal:centrifuge-android:master'
     implementation project(':centrifuge')
     implementation 'org.ocpsoft.prettytime:prettytime:4.0.2.Final'
+    implementation 'com.google.android.gms:play-services-maps:16.0.0'
+    // Auto Complete Place & location
+    implementation 'com.google.android.gms:play-services-places:16.0.0'
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

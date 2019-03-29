@@ -3,6 +3,7 @@ package com.boardinglabs.rumahcemara.outreach;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,6 +36,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -101,7 +103,7 @@ public class ChatActivity extends AppCompatActivity {
             toId = workerId;
         }*/
 
-        getSupportActionBar().setTitle(intent.getStringExtra("fullName"));
+        Objects.requireNonNull(getSupportActionBar()).setTitle(intent.getStringExtra("fullName"));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         btnSend.setOnClickListener(view -> sendChat());
@@ -119,14 +121,15 @@ public class ChatActivity extends AppCompatActivity {
         mApiService.generateToken(userId, "Bearer " + tokenId)
                 .enqueue(new Callback<GenerateToken>() {
                     @Override
-                    public void onResponse(Call<GenerateToken> call, Response<GenerateToken> response) {
+                    public void onResponse(@NonNull Call<GenerateToken> call, @NonNull Response<GenerateToken> response) {
+                        assert response.body() != null;
                         token = response.body().getData().getToken();
                         tokenTimestamp = response.body().getData().getTimestamp().toString();
                         connectToCentrifugo(token, tokenTimestamp, userId);
                     }
 
                     @Override
-                    public void onFailure(Call<GenerateToken> call, Throwable t) {
+                    public void onFailure(@NonNull Call<GenerateToken> call, @NonNull Throwable t) {
                         Log.d("generate", "onfailure " + t.getLocalizedMessage());
                     }
                 });
@@ -162,9 +165,7 @@ public class ChatActivity extends AppCompatActivity {
                     }
                 });
 
-                centrifugo.setDataMessageListener(message -> {
-                    showMessage(message);
-                });
+                centrifugo.setDataMessageListener(message -> showMessage(message));
             }
         }.start();
 
@@ -187,12 +188,12 @@ public class ChatActivity extends AppCompatActivity {
                     textMessage.getText().toString(), toId, "Bearer " + tokenId)
                     .enqueue(new Callback<ResponseBody>() {
                         @Override
-                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                             Log.d("centrifugo", "onresponse " + response.message());
                         }
 
                         @Override
-                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                             Log.d("centrifugo", "onfailure " + t.getLocalizedMessage());
                         }
                     });
@@ -217,14 +218,15 @@ public class ChatActivity extends AppCompatActivity {
             progressDoalog.setMessage("Mohon tunggu sebentar....");
         }
 
-        progressDoalog.getWindow().setGravity(Gravity.CENTER_VERTICAL);
+        Objects.requireNonNull(progressDoalog.getWindow()).setGravity(Gravity.CENTER_VERTICAL);
         progressDoalog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDoalog.show();
 
         mApiService.chatHistory(serviceId, "Bearer " + tokenId)
                 .enqueue(new Callback<ChatHistory>() {
                     @Override
-                    public void onResponse(Call<ChatHistory> call, Response<ChatHistory> response) {
+                    public void onResponse(@NonNull Call<ChatHistory> call, @NonNull Response<ChatHistory> response) {
+                        assert response.body() != null;
                         if (response.body().getData().size() == 0) {
                             progressDoalog.dismiss();
                         }
@@ -238,7 +240,7 @@ public class ChatActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<ChatHistory> call, Throwable t) {
+                    public void onFailure(@NonNull Call<ChatHistory> call, @NonNull Throwable t) {
                         progressDoalog.dismiss();
                         Log.d("history", "onfailure " + t.getLocalizedMessage());
                     }
@@ -253,7 +255,7 @@ public class ChatActivity extends AppCompatActivity {
     private void showMessage(final DataMessage message) {
         Log.d("ChatActivity", message.getData());
         runOnUiThread(() -> {
-            JSONObject jsonObject = null;
+            JSONObject jsonObject;
             try {
                 jsonObject = new JSONObject(message.getData());
                 Chat chat = new Chat(jsonObject.get("message").toString(), jsonObject.get("from_id").toString(),

@@ -2,6 +2,7 @@ package com.boardinglabs.rumahcemara.outreach.fragment.tabfragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,19 +34,12 @@ public class RequestTabFragment extends Fragment {
 
     private RecyclerView recyclerView;
     SessionManagement session;
-    private String sId, sTokenId, sBearerToken;
-    View view;
-    private String typeProvider = "worker";
-    private String search = " ";
-    private int limit = 6;
-    private String offset = " ";
-    private int status = 0;
+    private String sId;
+    private String sBearerToken;
     private Context activity;
     private List<RequestModel> articleModels;
     private SwipeRefreshLayout swipeContainer;
     private RecyclerView.Adapter adapter;
-    private LinearLayoutManager layoutManager;
-    Double latitude, longitude;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,7 +49,7 @@ public class RequestTabFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_request_tab, container, false);
@@ -66,7 +60,7 @@ public class RequestTabFragment extends Fragment {
         swipeContainer.setRefreshing(true);
 
         activity = getActivity();
-        layoutManager = new LinearLayoutManager(activity,
+        LinearLayoutManager layoutManager = new LinearLayoutManager(activity,
                 LinearLayout.VERTICAL,
                 false);
 
@@ -75,7 +69,7 @@ public class RequestTabFragment extends Fragment {
 
         HashMap<String, String> user = session.getUserDetails();
         sId = user.get(SessionManagement.KEY_ID);
-        sTokenId = user.get(SessionManagement.KEY_IMG_TOKEN);
+        String sTokenId = user.get(SessionManagement.KEY_IMG_TOKEN);
         sBearerToken = "Bearer " + sTokenId;
 
         swipeContainer.setOnRefreshListener(() -> {
@@ -99,10 +93,14 @@ public class RequestTabFragment extends Fragment {
     // For testing purpose
     private void populateData(boolean onRefresh){
         try{
+            String offset = " ";
+            int status = 0;
+            int limit = 6;
+            String search = " ";
             if (onRefresh){
                 API.baseApiService().getRequestService(search, limit, offset, sId, status, sBearerToken).enqueue(new Callback<ApiResponse<List<AppointmentDataResponse>>>() {
                     @Override
-                    public void onResponse(Call<ApiResponse<List<AppointmentDataResponse>>> call, Response<ApiResponse<List<AppointmentDataResponse>>> body) {
+                    public void onResponse(@NonNull Call<ApiResponse<List<AppointmentDataResponse>>> call, @NonNull Response<ApiResponse<List<AppointmentDataResponse>>> body) {
                         try {
                             if (body.body() != null) {
                                 List<AppointmentDataResponse> res = body.body().getData();
@@ -130,22 +128,20 @@ public class RequestTabFragment extends Fragment {
 
                                 swipeContainer.setRefreshing(false);
                             }
-                        } catch (Exception e) {
+                        } catch (Exception ignored) {
 
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<ApiResponse<List<AppointmentDataResponse>>> call, Throwable t) {
-                        Log.i("response", "Response Failed");
+                    public void onFailure(@NonNull Call<ApiResponse<List<AppointmentDataResponse>>> call, @NonNull Throwable t) {
                         Log.i("response", t.toString());
                     }
                 });
             } else {
                 API.baseApiService().getRequestService(search, limit, offset, sId, status, sBearerToken).enqueue(new Callback<ApiResponse<List<AppointmentDataResponse>>>() {
                     @Override
-                    public void onResponse(Call<ApiResponse<List<AppointmentDataResponse>>> call, Response<ApiResponse<List<AppointmentDataResponse>>> body) {
-                        System.out.println("RESPONSE:  "+body.toString() +"\n"+"BODY: "+body.body() +"\n"+"RAW: "+body.raw() +"\n"+"MESSAGE: "+body.message());
+                    public void onResponse(@NonNull Call<ApiResponse<List<AppointmentDataResponse>>> call, @NonNull Response<ApiResponse<List<AppointmentDataResponse>>> body) {
 
                         if (body.body() != null) {
                             List<AppointmentDataResponse> res = body.body().getData();
@@ -178,7 +174,7 @@ public class RequestTabFragment extends Fragment {
                     }
 
                     @Override
-                    public void onFailure(Call<ApiResponse<List<AppointmentDataResponse>>> call, Throwable t) {
+                    public void onFailure(@NonNull Call<ApiResponse<List<AppointmentDataResponse>>> call, @NonNull Throwable t) {
                         Log.i("response", "Response Failed");
                         Log.i("response", t.toString());
                         Toast.makeText(activity, "Gagal terhubung ke server", Toast.LENGTH_SHORT).show();

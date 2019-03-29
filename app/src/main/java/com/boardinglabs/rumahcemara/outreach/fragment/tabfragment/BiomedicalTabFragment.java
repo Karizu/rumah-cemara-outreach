@@ -145,7 +145,7 @@ public class BiomedicalTabFragment extends Fragment implements SearchView.OnQuer
 
                                 swipeContainer.setRefreshing(false);
                             }
-                        } catch (Exception e) {
+                        } catch (Exception ignored) {
 
                         }
                     }

@@ -30,10 +30,13 @@ import com.boardinglabs.rumahcemara.outreach.config.SessionManagement;
 import com.boardinglabs.rumahcemara.outreach.dialog.LoadingDialog;
 import com.boardinglabs.rumahcemara.outreach.fragment.tabfragment.DashboardTabFragment;
 import com.boardinglabs.rumahcemara.outreach.fragment.tabfragment.RequestTabFragment;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -52,6 +55,7 @@ public class HomeFragment extends Fragment implements LocationListener {
     int status;
     TextView setLatitude, setLongitude;
     SessionManagement session;
+    private FusedLocationProviderClient fusedLocationClient;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,7 +75,7 @@ public class HomeFragment extends Fragment implements LocationListener {
         tokenBearer = user.get(SessionManagement.KEY_IMG_TOKEN);
         setLatitude = view.findViewById(R.id.tvLatitude);
         setLongitude = view.findViewById(R.id.tvLongitude);
-        loadingDialog = new LoadingDialog(getActivity());
+        loadingDialog = new LoadingDialog(Objects.requireNonNull(getActivity()));
 
         ViewPager viewPager = view.findViewById(R.id.container);
         setupViewPager(viewPager);
@@ -88,8 +92,21 @@ public class HomeFragment extends Fragment implements LocationListener {
                     TAG_CODE_PERMISSION_LOCATION);
         }
 
-        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(getActivity(), location -> {
+                    // Got last known location. In some rare situations this can be null.
+                    if (location != null) {
+                        // Logic to handle location object
+                        latitude = location.getLatitude();
+                        longitude = location.getLongitude();
+                        setLatitude.setText(String.valueOf(latitude));
+                        setLongitude.setText(String.valueOf(longitude));
+                    }
+                });
+
+//        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+//        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 
         getDetailLocation();
 
@@ -102,11 +119,12 @@ public class HomeFragment extends Fragment implements LocationListener {
         } else {
             aSwitchOn.setChecked(true);
         }
+
         aSwitchOn.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked){
                 session.setStatusOnline(1);
                 Log.d("Karizu", "getDetailLocation");
-                if (!setLatitude.getText().toString().equals("")){
+                if (latitude != null){
                     if (!sIdLocation.equals(" ")){
                         status = 1;
                         updateLocation();
@@ -189,6 +207,7 @@ public class HomeFragment extends Fragment implements LocationListener {
         API.baseApiService().updateStatusWorker(sId, requestBody, "Bearer "+tokenBearer).enqueue(new Callback<ApiResponse>() {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+//                Log.d("Log Response", "RESPONSE:  " + response.toString() + "\n" + "BODY: " + response.body() + "\n" + "RAW: " + response.raw() + "\n" + "MESSAGE: " + response.message());
                 loadingDialog.dismiss();
                 Toast.makeText(getActivity(), "Your Status is Changed!", Toast.LENGTH_SHORT).show();
             }
@@ -217,6 +236,7 @@ public class HomeFragment extends Fragment implements LocationListener {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
                 loadingDialog.dismiss();
+                Log.d("createLocation", "createLocation");
             }
 
             @Override
@@ -244,6 +264,7 @@ public class HomeFragment extends Fragment implements LocationListener {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
                 loadingDialog.dismiss();
+                Log.d("updateLocation", "updateLocation");
             }
 
             @Override
@@ -284,8 +305,6 @@ public class HomeFragment extends Fragment implements LocationListener {
     public void onLocationChanged(Location location) {
         latitude = location.getLatitude();
         longitude = location.getLongitude();
-        setLatitude.setText(String.valueOf(latitude));
-        setLongitude.setText(String.valueOf(longitude));
     }
 
     @Override

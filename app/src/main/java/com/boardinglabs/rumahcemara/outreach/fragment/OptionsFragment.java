@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
@@ -28,9 +29,12 @@ import com.bumptech.glide.request.RequestOptions;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -75,9 +79,9 @@ public class OptionsFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    @SuppressLint("NewApi")
+    @SuppressLint({"NewApi", "SetTextI18n"})
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_options, container, false);
 
@@ -90,12 +94,15 @@ public class OptionsFragment extends Fragment {
         tokenId = user.get(SessionManagement.KEY_IMG_TOKEN);
         sBearerToken = "Bearer " + tokenId;
 
-        loadingDialog = new LoadingDialog(getActivity());
+        loadingDialog = new LoadingDialog(Objects.requireNonNull(getActivity()));
 
         getProfileDetail();
 
         logout = view.findViewById(R.id.tvSignOut);
-        logout.setOnClickListener(v -> session.logoutUser());
+        logout.setOnClickListener(v -> {
+            updateStatus();
+            session.logoutUser();
+        });
 
         langeuage = view.findViewById(R.id.tvLanguage);
         bahasa = view.findViewById(R.id.cvIndo);
@@ -176,11 +183,10 @@ public class OptionsFragment extends Fragment {
     }
 
     private void getProfileDetail() {
-        loadingDialog.setCancelable(false);
         loadingDialog.show();
         API.baseApiService().getProfileDetail(userId, sBearerToken).enqueue(new Callback<ApiResponse<GeneralDataProfile>>() {
             @Override
-            public void onResponse(Call<ApiResponse<GeneralDataProfile>> call, Response<ApiResponse<GeneralDataProfile>> response) {
+            public void onResponse(@NonNull Call<ApiResponse<GeneralDataProfile>> call, @NonNull Response<ApiResponse<GeneralDataProfile>> response) {
 
                 if (response.body() != null){
                     loadingDialog.dismiss();
@@ -199,7 +205,7 @@ public class OptionsFragment extends Fragment {
                         prNoHp.setText(phoneNumber);
                     }
                     if (imgUrl != null)
-                        Glide.with(getActivity()).applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_person_signup)).load(imgUrl).into(imageProfile);
+                        Glide.with(Objects.requireNonNull(getActivity())).applyDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.ic_person_signup)).load(imgUrl).into(imageProfile);
                 } else {
                     Toast.makeText(activity, "Tidak dapat terhubung", Toast.LENGTH_SHORT).show();
                     loadingDialog.dismiss();
@@ -207,9 +213,35 @@ public class OptionsFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<ApiResponse<GeneralDataProfile>> call, Throwable t) {
+            public void onFailure(@NonNull Call<ApiResponse<GeneralDataProfile>> call, @NonNull Throwable t) {
                 loadingDialog.dismiss();
-                Toast.makeText(getActivity(), "Error loading!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "Error loading!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void updateStatus(){
+        loadingDialog.setCancelable(false);
+        loadingDialog.show();
+        RequestBody requestBody;
+        requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("_method", "PUT")
+                .addFormDataPart("status_online", "0")
+                .build();
+
+        API.baseApiService().updateStatusWorker(userId, requestBody, "Bearer "+tokenId).enqueue(new Callback<ApiResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<ApiResponse> call, @NonNull Response<ApiResponse> response) {
+//                Log.d("Log Response", "RESPONSE:  " + response.toString() + "\n" + "BODY: " + response.body() + "\n" + "RAW: " + response.raw() + "\n" + "MESSAGE: " + response.message());
+                loadingDialog.dismiss();
+//                Toast.makeText(getActivity(), "Your Status is Changed!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ApiResponse> call, @NonNull Throwable t) {
+                loadingDialog.dismiss();
+                Log.d("onFailed", t.getMessage());
             }
         });
     }

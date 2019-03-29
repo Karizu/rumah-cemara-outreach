@@ -24,6 +24,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
+import java.util.Objects;
 
 import io.reactivex.annotations.NonNull;
 import okhttp3.ResponseBody;
@@ -73,13 +74,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        Objects.requireNonNull(actionBar).hide();
 
-        mTextMessage = (TextView) findViewById(R.id.message);
+        mTextMessage = findViewById(R.id.message);
 
         Intent intent = getIntent();
         if (intent.hasExtra("message")) {
-            Toast.makeText(this, intent.getExtras().getString("message"), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, Objects.requireNonNull(intent.getExtras()).getString("message"), Toast.LENGTH_LONG).show();
         }
         HashMap<String, String> user = session.getUserDetails();
         String name = user.get(SessionManagement.KEY_NAME);
@@ -99,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         //session = new SessionManagement(getApplicationContext());
 //        session.checkLogin();
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         if (savedInstanceState == null) {
             navigation.setSelectedItemId(R.id.navigation_home); // change to whichever id should be default
@@ -131,12 +132,12 @@ public class MainActivity extends AppCompatActivity {
                 token, bearerToken)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    public void onResponse(@android.support.annotation.NonNull Call<ResponseBody> call, @android.support.annotation.NonNull Response<ResponseBody> response) {
                         Log.d("muhtar", response.message());
                     }
 
                     @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    public void onFailure(@android.support.annotation.NonNull Call<ResponseBody> call, @android.support.annotation.NonNull Throwable t) {
                         Log.d("muhtar", t.getLocalizedMessage());
                     }
                 });
@@ -156,7 +157,10 @@ public class MainActivity extends AppCompatActivity {
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             if(backtoast!=null&&backtoast.getView().getWindowToken()!=null) {
-                System.exit(1);
+                Intent a = new Intent(Intent.ACTION_MAIN);
+                a.addCategory(Intent.CATEGORY_HOME);
+                a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(a);
 
             } else {
                 backtoast = Toast.makeText(this, "Press back to exit", Toast.LENGTH_SHORT);

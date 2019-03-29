@@ -1,22 +1,20 @@
 package com.boardinglabs.rumahcemara.outreach.fragment.tabfragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.boardinglabs.rumahcemara.outreach.R;
+import com.boardinglabs.rumahcemara.outreach.config.SessionManagement;
 import com.boardinglabs.rumahcemara.outreach.helper.API;
 import com.boardinglabs.rumahcemara.outreach.helper.ApiResponse;
-import com.boardinglabs.rumahcemara.outreach.config.SessionManagement;
-import com.boardinglabs.rumahcemara.outreach.dialog.LoadingDialog;
 import com.boardinglabs.rumahcemara.outreach.models.Dashboard;
-import com.boardinglabs.rumahcemara.outreach.models.Total7DayModel;
-import com.github.mikephil.charting.charts.BarChart;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
@@ -27,7 +25,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,17 +32,13 @@ import retrofit2.Response;
 
 public class DashboardTabFragment extends Fragment {
 
-    private BarChart mBarChart;
-    String[] days;
     GraphView graph;
     private BarGraphSeries<DataPoint> series;
     private TextView dateNow, rangeDate, month, totalRange, totalMonth, totalToday;
     private Date d1, d2, d3, d4, d5, d6, d7, dDate;
     private final static String TAG = DashboardTabFragment.class.getSimpleName();
-    private LoadingDialog loadingDialog;
-    private List<Total7DayModel> articleModels;
-    String sId, sTokenId, sGroupId, sBearerToken, paramStartDate, paramEndDate,
-            sTotal1, sTotal2, sTotal3, sTotal4, sTotal5, sTotal6, sTotal7, sTotalRange,
+//    private List<Total7DayModel> articleModels;
+    String sId, sTokenId, sGroupId, sBearerToken, paramStartDate, paramEndDate, sTotalRange,
             sTotalMonth, sMonth;
     Integer sTotal7Day1, sTotal7Day2, sTotal7Day3, sTotal7Day4, sTotal7Day5, sTotal7Day6, sTotal7Day7;
     SessionManagement session;
@@ -58,7 +51,7 @@ public class DashboardTabFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dashboard_tab, container, false);
@@ -70,7 +63,7 @@ public class DashboardTabFragment extends Fragment {
         sTokenId = user.get(SessionManagement.KEY_IMG_TOKEN);
         sBearerToken = "Bearer " + sTokenId;
 
-        loadingDialog = new LoadingDialog(getActivity());
+//        LoadingDialog loadingDialog = new LoadingDialog(Objects.requireNonNull(getActivity()));
 
         dateNow = view.findViewById(R.id.tvDateNow);
         rangeDate = view.findViewById(R.id.tvRangeDate);
@@ -80,7 +73,7 @@ public class DashboardTabFragment extends Fragment {
         totalToday = view.findViewById(R.id.tvAppointmentTotal);
         graph = view.findViewById(R.id.graph);
 
-        DateFormat format = new SimpleDateFormat("dd MMM");
+//        @SuppressLint("SimpleDateFormat") DateFormat format = new SimpleDateFormat("dd MMM");
         Calendar calendar = Calendar.getInstance();
         Calendar paramDate = Calendar.getInstance();
         paramDate.add(Calendar.DATE, +1);
@@ -107,12 +100,13 @@ public class DashboardTabFragment extends Fragment {
         return view;
     }
 
+    @SuppressLint("SetTextI18n")
     public void generateDateNow() {
-        DateFormat formatDay = new SimpleDateFormat("EEEE, dd MMM");
-        DateFormat formatRangeDate = new SimpleDateFormat("dd MMM");
-        DateFormat formatMonth = new SimpleDateFormat("MMMM");
-        DateFormat formatParamDate = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar datenow = Calendar.getInstance();
+        @SuppressLint("SimpleDateFormat") DateFormat formatDay = new SimpleDateFormat("EEEE, dd MMM");
+        @SuppressLint("SimpleDateFormat") DateFormat formatRangeDate = new SimpleDateFormat("dd MMM");
+        @SuppressLint("SimpleDateFormat") DateFormat formatMonth = new SimpleDateFormat("MMMM");
+        @SuppressLint("SimpleDateFormat") DateFormat formatParamDate = new SimpleDateFormat("yyyy-MM-dd");
+//        Calendar datenow = Calendar.getInstance();
         paramStartDate = formatParamDate.format(d7);
         paramEndDate = formatParamDate.format(dDate);
         String today = formatDay.format(d1);
@@ -174,16 +168,13 @@ public class DashboardTabFragment extends Fragment {
     }
 
     private void getProfileDetail() {
-        loadingDialog.setCancelable(false);
-        loadingDialog.show();
         API.baseApiService().getDashboardData(sGroupId, sId, sMonth, paramStartDate, paramEndDate, sBearerToken).enqueue(new Callback<ApiResponse<Dashboard>>() {
+            @SuppressLint({"SimpleDateFormat", "SetTextI18n"})
             @Override
-            public void onResponse(Call<ApiResponse<Dashboard>> call, Response<ApiResponse<Dashboard>> response) {
-                loadingDialog.dismiss();
+            public void onResponse(@NonNull Call<ApiResponse<Dashboard>> call, @NonNull Response<ApiResponse<Dashboard>> response) {
 
                 if (response.body() != null && response.isSuccessful()){
                     ApiResponse<Dashboard> user = response.body();
-//                System.out.println("JSON: " + response.body().toString());
                     sTotalRange = user.getData().getTotalRange();
                     sTotalMonth = user.getData().getTotalMonth();
 
@@ -256,10 +247,9 @@ public class DashboardTabFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<ApiResponse<Dashboard>> call, Throwable t) {
-                loadingDialog.dismiss();
+            public void onFailure(@NonNull Call<ApiResponse<Dashboard>> call, @NonNull Throwable t) {
                 Log.e(TAG, t.toString());
-                Toast.makeText(getActivity(), "Error loading!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "Error loading!", Toast.LENGTH_SHORT).show();
             }
         });
     }
