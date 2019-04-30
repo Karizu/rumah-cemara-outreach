@@ -37,7 +37,7 @@ public class SessionManagement {
     private static final String KEY_LANGUAGE_ID = "language_id";
     private static final String NOTIFICATION = "notification";
     private static final String STATUS_ONLINE = "status_online";
-
+    public static final String KEY_ID_DEVICE = "id_device";
     // Constructor
     @SuppressLint("CommitPrefEdits")
     public SessionManagement(Context context) {
@@ -61,6 +61,17 @@ public class SessionManagement {
         editor.putString(KEY_GROUP_ID, group_id);
         // commit changes
         editor.commit();
+    }
+
+    public void setUserDevice(String id){
+        editor.putString(KEY_ID_DEVICE, id);
+        editor.commit();
+    }
+
+    public HashMap<String, String> getUserDevice(){
+        HashMap<String, String> user = new HashMap<>();
+        user.put(KEY_ID_DEVICE, pref.getString(KEY_ID_DEVICE, null));
+        return user;
     }
 
     public void setLanguage(int language) {

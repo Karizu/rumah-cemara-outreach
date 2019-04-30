@@ -24,6 +24,7 @@ import com.boardinglabs.rumahcemara.outreach.helper.ApiResponse;
 import com.boardinglabs.rumahcemara.outreach.config.SessionManagement;
 import com.boardinglabs.rumahcemara.outreach.dialog.LoadingDialog;
 import com.boardinglabs.rumahcemara.outreach.models.GeneralDataProfile;
+import com.boardinglabs.rumahcemara.outreach.models.UserDevice;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -35,6 +36,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -64,7 +66,7 @@ public class OptionsFragment extends Fragment {
     Toolbar mToolbar;
 
     private LoadingDialog loadingDialog;
-    private String userId;
+    private String userId, deviceId;
     private String imgUrl;
     private String fullName;
     private String userName;
@@ -90,6 +92,8 @@ public class OptionsFragment extends Fragment {
 
         session = new SessionManagement(getActivity());
         HashMap<String, String> user = session.getUserDetails();
+        HashMap<String, String> userDevice = session.getUserDevice();
+        deviceId = userDevice.get(SessionManagement.KEY_ID_DEVICE);
         userId = user.get(SessionManagement.KEY_ID);
         tokenId = user.get(SessionManagement.KEY_IMG_TOKEN);
         sBearerToken = "Bearer " + tokenId;
@@ -100,6 +104,7 @@ public class OptionsFragment extends Fragment {
 
         logout = view.findViewById(R.id.tvSignOut);
         logout.setOnClickListener(v -> {
+            removeUserDevice(deviceId);
             updateStatus();
             session.logoutUser();
         });
@@ -150,6 +155,7 @@ public class OptionsFragment extends Fragment {
         }
 
         Log.d("OptionsFragment", "Status notifikasi " + session.getNotification());
+
 
         if (session.getNotification() == 0) {
             switchNotif.setChecked(false);
@@ -242,6 +248,20 @@ public class OptionsFragment extends Fragment {
             public void onFailure(@NonNull Call<ApiResponse> call, @NonNull Throwable t) {
                 loadingDialog.dismiss();
                 Log.d("onFailed", t.getMessage());
+            }
+        });
+    }
+
+    private void removeUserDevice(String userDeviceId){
+        API.baseApiService().removeUserDevice(userDeviceId, sBearerToken).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                Log.d("removeUserDevice", response.toString());
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
+                Log.d("onFailure", t.toString());
             }
         });
     }

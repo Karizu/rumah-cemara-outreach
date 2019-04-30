@@ -180,7 +180,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @TargetApi(26)
     private static void prepareChannel(Context context, String id, int importance) {
         final String appName = context.getString(R.string.app_name);
-        String description = "Superfriends";
+        String description = " ";
         final NotificationManager nm = (NotificationManager) context.getSystemService(Activity.NOTIFICATION_SERVICE);
 
         if(nm != null) {

@@ -14,14 +14,20 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.boardinglabs.rumahcemara.outreach.helper.ApiResponse;
 import com.boardinglabs.rumahcemara.outreach.helper.BaseApiService;
 import com.boardinglabs.rumahcemara.outreach.helper.UtilsApi;
 import com.boardinglabs.rumahcemara.outreach.config.SessionManagement;
 import com.boardinglabs.rumahcemara.outreach.fragment.HomeFragment;
 import com.boardinglabs.rumahcemara.outreach.fragment.MyListFragment;
 import com.boardinglabs.rumahcemara.outreach.fragment.OptionsFragment;
+import com.boardinglabs.rumahcemara.outreach.models.UserDevice;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Objects;
@@ -128,12 +134,20 @@ public class MainActivity extends AppCompatActivity {
         Field[] fields = Build.VERSION_CODES.class.getFields();
         String os = fields[Build.VERSION.SDK_INT + 1].getName();
         String version = Build.VERSION.RELEASE;
-        mApiService.getUserDevice(userId, "Android", type, version, os,
+        mApiService.regUserDevice(userId, "Android", type, version, os,
                 token, bearerToken)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(@android.support.annotation.NonNull Call<ResponseBody> call, @android.support.annotation.NonNull Response<ResponseBody> response) {
                         Log.d("muhtar", response.message());
+                        try {
+                            JSONObject userDev = new JSONObject(Objects.requireNonNull(response.body()).string());
+                            session.setUserDevice(userDev.getJSONObject("data").getString("id"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override

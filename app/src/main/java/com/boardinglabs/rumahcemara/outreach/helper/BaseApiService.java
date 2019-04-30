@@ -7,6 +7,7 @@ import com.boardinglabs.rumahcemara.outreach.models.GeneralDataProfile;
 import com.boardinglabs.rumahcemara.outreach.models.GenerateToken;
 import com.boardinglabs.rumahcemara.outreach.models.Group;
 import com.boardinglabs.rumahcemara.outreach.models.Location;
+import com.boardinglabs.rumahcemara.outreach.models.UserDevice;
 import com.boardinglabs.rumahcemara.outreach.models.response.AppointmentDataResponse;
 import com.boardinglabs.rumahcemara.outreach.models.response.MemberDataResponse;
 
@@ -18,6 +19,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -67,13 +69,19 @@ public interface BaseApiService {
 
     @FormUrlEncoded
     @POST("userDevice")
-    Call<ResponseBody> getUserDevice(@Field("user_id") String userId,
+    Call<ResponseBody> regUserDevice(@Field("user_id") String userId,
                                      @Field("type") String type,
                                      @Field("vendor") String vendor,
                                      @Field("version") String version,
                                      @Field("os") String os,
                                      @Field("token") String token,
                                      @Header("Authorization") String authorization);
+
+    @DELETE("userDevice/{user_device_id}")
+    Call<ResponseBody> removeUserDevice(@Path("user_device_id") String user_device_id, @Header("Authorization") String token);
+
+    @GET("userDevice/{user_device_id}")
+    Call<ApiResponse<UserDevice>> getUserDevice(@Path("user_device_id") String user_device_id, @Header("Authorization") String token);
 
     @FormUrlEncoded
     @POST("message")
