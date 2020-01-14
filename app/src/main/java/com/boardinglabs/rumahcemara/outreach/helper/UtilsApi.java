@@ -1,5 +1,10 @@
 package com.boardinglabs.rumahcemara.outreach.helper;
 
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+
 public class UtilsApi {
 
     // 10.0.2.2 ini adalah localhost.
@@ -9,6 +14,17 @@ public class UtilsApi {
     // Mendeklarasikan Interface BaseApiService
     public static BaseApiService getAPIService(){
         return RetrofitClient.getClient(BASE_URL_API).create(BaseApiService.class);
+    }
+
+    public static OkHttpClient client(){
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        return new OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
+                .build();
     }
 
 }

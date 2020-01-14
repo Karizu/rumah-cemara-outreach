@@ -16,6 +16,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.boardinglabs.rumahcemara.outreach.adapter.AdapterChat;
 import com.boardinglabs.rumahcemara.outreach.config.SessionManagement;
@@ -122,10 +123,14 @@ public class ChatActivity extends AppCompatActivity {
                 .enqueue(new Callback<GenerateToken>() {
                     @Override
                     public void onResponse(@NonNull Call<GenerateToken> call, @NonNull Response<GenerateToken> response) {
-                        assert response.body() != null;
-                        token = response.body().getData().getToken();
-                        tokenTimestamp = response.body().getData().getTimestamp().toString();
-                        connectToCentrifugo(token, tokenTimestamp, userId);
+                        try {
+                            assert response.body() != null;
+                            token = response.body().getData().getToken();
+                            tokenTimestamp = response.body().getData().getTimestamp().toString();
+                            connectToCentrifugo(token, tokenTimestamp, userId);
+                        } catch (Exception e){
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override
@@ -189,12 +194,21 @@ public class ChatActivity extends AppCompatActivity {
                     .enqueue(new Callback<ResponseBody>() {
                         @Override
                         public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
-                            Log.d("centrifugo", "onresponse " + response.message());
+                            try {
+                                Log.d("centrifugo", "onresponse " + response.message());
+                            } catch (Exception e){
+                                e.printStackTrace();
+                            }
+
                         }
 
                         @Override
                         public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
-                            Log.d("centrifugo", "onfailure " + t.getLocalizedMessage());
+                            try {
+                                Log.d("centrifugo", "onfailure " + t.getLocalizedMessage());
+                            } catch (Exception e){
+                                e.printStackTrace();
+                            }
                         }
                     });
             textMessage.setText("");
@@ -226,16 +240,21 @@ public class ChatActivity extends AppCompatActivity {
                 .enqueue(new Callback<ChatHistory>() {
                     @Override
                     public void onResponse(@NonNull Call<ChatHistory> call, @NonNull Response<ChatHistory> response) {
-                        assert response.body() != null;
-                        if (response.body().getData().size() == 0) {
-                            progressDoalog.dismiss();
-                        }
-                        for (ChatHistory.Datum datum : response.body().getData()) {
-                            Chat chat = new Chat(datum.getMessage(), datum.getFromId(),
-                                    datum.getCreatedAt());
-                            chats.add(chat);
-                            progressDoalog.dismiss();
-                            linearLayoutManager.scrollToPosition(chats.size()-1);
+                        try {
+                            assert response.body() != null;
+                            if (response.body().getData().size() == 0) {
+                                progressDoalog.dismiss();
+                            }
+                            for (ChatHistory.Datum datum : response.body().getData()) {
+                                Chat chat = new Chat(datum.getMessage(), datum.getFromId(),
+                                        datum.getCreatedAt());
+                                chats.add(chat);
+                                progressDoalog.dismiss();
+                                linearLayoutManager.scrollToPosition(chats.size()-1);
+                            }
+                        } catch (Exception e){
+                            Toast.makeText(ChatActivity.this, "Terjadi masalah pada server", Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
                         }
                     }
 

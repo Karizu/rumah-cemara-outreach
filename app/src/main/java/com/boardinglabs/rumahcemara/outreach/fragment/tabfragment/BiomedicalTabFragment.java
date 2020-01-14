@@ -31,12 +31,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BiomedicalTabFragment extends Fragment implements SearchView.OnQueryTextListener{
+public class BiomedicalTabFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     private RecyclerView recyclerView;
-    SessionManagement session;
+    private SessionManagement session;
     private String sId, sTokenId, sBearerToken;
-    View view;
+    private View view;
     private String typeProvider = "worker";
     private String search = " ";
     private int limit = 6;

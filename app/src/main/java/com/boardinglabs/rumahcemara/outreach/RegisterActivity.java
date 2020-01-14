@@ -169,28 +169,32 @@ public class RegisterActivity extends Activity implements AdapterView.OnItemSele
         API.baseApiService().getGroup().enqueue(new retrofit2.Callback<ApiResponse<List<Group>>>() {
             @Override
             public void onResponse(retrofit2.Call<ApiResponse<List<Group>>> call, retrofit2.Response<ApiResponse<List<Group>>> response) {
-                if (response.isSuccessful()) {
-                    List<Group> dataInstitution = response.body().getData();
-                    Log.d("Masuk response Sukses", dataInstitution.toString());
-                    listValue = new ArrayList<String>();
-                    ArrayList<String> listLabel = new ArrayList<String>();
-                    for (int i = 0; i < dataInstitution.size(); i++) {
-                        listValue.add(dataInstitution.get(i).getId());
-                        listLabel.add(dataInstitution.get(i).getName());
-                    }
+                try {
+                    if (response.isSuccessful()) {
+                        List<Group> dataInstitution = response.body().getData();
+                        Log.d("Masuk response Sukses", dataInstitution.toString());
+                        listValue = new ArrayList<String>();
+                        ArrayList<String> listLabel = new ArrayList<String>();
+                        for (int i = 0; i < dataInstitution.size(); i++) {
+                            listValue.add(dataInstitution.get(i).getId());
+                            listLabel.add(dataInstitution.get(i).getName());
+                        }
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(appContext,
-                            android.R.layout.simple_spinner_item, listLabel);
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    institutionName.setAdapter(adapter);
-                } else {
-                    Toast.makeText(appContext, "Connecting Failed", Toast.LENGTH_SHORT).show();
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(appContext,
+                                android.R.layout.simple_spinner_item, listLabel);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        institutionName.setAdapter(adapter);
+                    } else {
+                        Toast.makeText(appContext, "Connecting Failed", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e){
+                    e.printStackTrace();
                 }
             }
 
             @Override
             public void onFailure(retrofit2.Call<ApiResponse<List<Group>>> call, Throwable t) {
-                Log.d("Masuk response gagal ", t.getMessage());
+                t.printStackTrace();
             }
         });
 
@@ -236,19 +240,23 @@ public class RegisterActivity extends Activity implements AdapterView.OnItemSele
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     loadingDialog.dismiss();
-                    if (response.isSuccessful()) {
-                        Log.d("Response", "Response successful");
-                        Log.d("Body", response.body().string());
-                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                        intent.putExtra("username", username.getText().toString());
-                        intent.putExtra("password", password.getText().toString());
-                        intent.putExtra("message", "Thanks for signing up! Please wait for verification by administrator.");
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        runOnUiThread(() -> Toast.makeText(appContext, "Username has already been taken.", Toast.LENGTH_SHORT).show());
-                        Log.d("Response Failed", response.message());
-                        Log.d("Body", response.body().string());
+                    try {
+                        if (response.isSuccessful()) {
+                            Log.d("Response", "Response successful");
+                            Log.d("Body", response.body().string());
+                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                            intent.putExtra("username", username.getText().toString());
+                            intent.putExtra("password", password.getText().toString());
+                            intent.putExtra("message", "Thanks for signing up! Please wait for verification by administrator.");
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            runOnUiThread(() -> Toast.makeText(appContext, "Username has already been taken.", Toast.LENGTH_SHORT).show());
+                            Log.d("Response Failed", response.message());
+                            Log.d("Body", response.body().string());
+                        }
+                    } catch (Exception e){
+                        e.printStackTrace();
                     }
                 }
             });
@@ -280,7 +288,7 @@ public class RegisterActivity extends Activity implements AdapterView.OnItemSele
                     .addFormDataPart("type", "worker")
                     .build();
             Request request = new Request.Builder()
-//                    .url("http://37.72.172.144/rumah-cemara-api/public/api/register")
+//                    .url("http://37.72.172.144/superfriends-api/public/api/register")
                     .url("http://68.183.226.23/rumah-cemara-api/public/api/register")
                     .post(body)
                     .build();
@@ -305,7 +313,7 @@ public class RegisterActivity extends Activity implements AdapterView.OnItemSele
                     .addFormDataPart("type", "worker")
                     .build();
             Request request = new Request.Builder()
-//                    .url("http://37.72.172.144/rumah-cemara-api/public/api/register")
+//                    .url("http://37.72.172.144/superfriends-api/public/api/register")
                     .url("http://68.183.226.23/rumah-cemara-api/public/api/register")
                     .post(body)
                     .build();
